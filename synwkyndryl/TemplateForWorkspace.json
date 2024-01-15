@@ -94,7 +94,7 @@
 			"dependsOn": []
 		},
 		{
-			"name": "[concat(parameters('workspaceName'), '/Lee Query SQL')]",
+			"name": "[concat(parameters('workspaceName'), '/Write to Landing')]",
 			"type": "Microsoft.Synapse/workspaces/notebooks",
 			"apiVersion": "2019-06-01-preview",
 			"properties": {
@@ -114,7 +114,7 @@
 						"spark.dynamicAllocation.enabled": "false",
 						"spark.dynamicAllocation.minExecutors": "2",
 						"spark.dynamicAllocation.maxExecutors": "2",
-						"spark.autotune.trackingId": "c69f0049-90f5-4dd0-aa81-462dbea38e5e"
+						"spark.autotune.trackingId": "dca82eb1-5a73-4b59-b293-2cc6b2ae072e"
 					}
 				},
 				"metadata": {
@@ -152,7 +152,7 @@
 							"%run Utils"
 						],
 						"outputs": [],
-						"execution_count": null
+						"execution_count": 6
 					},
 					{
 						"cell_type": "code",
@@ -171,7 +171,7 @@
 							"df = getReadSQL(\"kyndryldb\",\"select * from SalesLT.SalesOrderHeader where SalesOrderID = 71774\")"
 						],
 						"outputs": [],
-						"execution_count": null
+						"execution_count": 7
 					},
 					{
 						"cell_type": "code",
@@ -187,10 +187,10 @@
 							}
 						},
 						"source": [
-							"getWriteCSV(df, \"landing/SalesOrderHeader/\")"
+							"getWriteCSV(df, \"landing/SalesOrderHeader\")"
 						],
 						"outputs": [],
-						"execution_count": null
+						"execution_count": 8
 					}
 				]
 			},
@@ -217,7 +217,7 @@
 						"spark.dynamicAllocation.enabled": "false",
 						"spark.dynamicAllocation.minExecutors": "2",
 						"spark.dynamicAllocation.maxExecutors": "2",
-						"spark.autotune.trackingId": "5979d002-7188-42d8-8a7b-f6371737d64d"
+						"spark.autotune.trackingId": "83645df4-cd02-42d5-8151-b84f066b93c4"
 					}
 				},
 				"metadata": {
@@ -242,13 +242,15 @@
 						"sparkVersion": "3.3",
 						"nodeCount": 3,
 						"cores": 4,
-						"memory": 28
+						"memory": 28,
+						"automaticScaleJobs": false
 					},
 					"sessionKeepAliveTimeout": 30
 				},
 				"cells": [
 					{
 						"cell_type": "code",
+						"metadata": {},
 						"source": [
 							"def getReadSQL(db, query):\r\n",
 							"    server = mssparkutils.credentials.getSecret('kvkyndryl','azuresqlserver')\r\n",
@@ -286,6 +288,7 @@
 						"source": [
 							"def getWriteCSV(df, path):\r\n",
 							"    df.write.format(\"csv\") \\\r\n",
+							"    .mode(\"overwrite\") \\\r\n",
 							"    .option(\"header\", \"true\") \\\r\n",
 							"    .save(f\"abfss://metastore@stakyndryl.dfs.core.windows.net/{path}\")"
 						],
