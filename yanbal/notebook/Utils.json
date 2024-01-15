@@ -18,14 +18,11 @@
 				"spark.dynamicAllocation.enabled": "false",
 				"spark.dynamicAllocation.minExecutors": "2",
 				"spark.dynamicAllocation.maxExecutors": "2",
-				"spark.autotune.trackingId": "176f2ce4-5264-4c8d-b7ac-f6ce04f119ab"
+				"spark.autotune.trackingId": "c034a747-0f36-4a2a-bf73-8e7649b055f5"
 			}
 		},
 		"metadata": {
 			"saveOutput": true,
-			"synapse_widget": {
-				"version": "0.1"
-			},
 			"enableDebugMode": false,
 			"kernelspec": {
 				"name": "synapse_pyspark",
@@ -41,14 +38,13 @@
 				"endpoint": "https://synwkyndryl.dev.azuresynapse.net/livyApi/versions/2019-11-01-preview/sparkPools/kyndryl",
 				"auth": {
 					"type": "AAD",
-					"authResource": "https://dev.azuresynapse.net",
-					"authHeader": null
+					"authResource": "https://dev.azuresynapse.net"
 				},
 				"sparkVersion": "3.3",
 				"nodeCount": 3,
 				"cores": 4,
 				"memory": 28,
-				"extraHeader": null
+				"automaticScaleJobs": false
 			},
 			"sessionKeepAliveTimeout": 30
 		},
@@ -73,7 +69,7 @@
 					"        \r\n",
 					"    return df"
 				],
-				"execution_count": 5
+				"execution_count": 1
 			},
 			{
 				"cell_type": "code",
@@ -93,7 +89,8 @@
 					"    df.write.format(\"csv\") \\\r\n",
 					"    .option(\"header\", \"true\") \\\r\n",
 					"    .save(f\"abfss://metastore@stakyndryl.dfs.core.windows.net/{path}\")"
-				]
+				],
+				"execution_count": 2
 			}
 		]
 	}

@@ -18,178 +18,11 @@
 				"spark.dynamicAllocation.enabled": "false",
 				"spark.dynamicAllocation.minExecutors": "2",
 				"spark.dynamicAllocation.maxExecutors": "2",
-				"spark.autotune.trackingId": "89c252e0-fa50-405d-a191-94a211bda1d4"
+				"spark.autotune.trackingId": "d96753b5-69d0-4051-bb03-111e28828d2c"
 			}
 		},
 		"metadata": {
 			"saveOutput": true,
-			"synapse_widget": {
-				"version": "0.1",
-				"state": {
-					"e850e40a-a2c1-4725-bc93-1d20fa1047c1": {
-						"type": "Synapse.DataFrame",
-						"sync_state": {
-							"table": {
-								"rows": [
-									{
-										"0": "71774",
-										"1": "2",
-										"2": "2008-06-01 00:00:00",
-										"3": "2008-06-13 00:00:00",
-										"4": "2008-06-08 00:00:00",
-										"5": "5",
-										"6": "false",
-										"7": "SO71774",
-										"8": "PO348186287",
-										"9": "10-4020-000609",
-										"10": "29847",
-										"11": "1092",
-										"12": "1092",
-										"13": "CARGO TRANSPORT 5",
-										"15": "880.3484",
-										"16": "70.4279",
-										"17": "22.0087",
-										"18": "972.7850",
-										"20": "89E42CDC-8506-48A2-B89B-EB3E64E3554E",
-										"21": "2008-06-08 00:00:00"
-									}
-								],
-								"schema": [
-									{
-										"key": "0",
-										"name": "SalesOrderID",
-										"type": "int"
-									},
-									{
-										"key": "1",
-										"name": "RevisionNumber",
-										"type": "int"
-									},
-									{
-										"key": "2",
-										"name": "OrderDate",
-										"type": "timestamp"
-									},
-									{
-										"key": "3",
-										"name": "DueDate",
-										"type": "timestamp"
-									},
-									{
-										"key": "4",
-										"name": "ShipDate",
-										"type": "timestamp"
-									},
-									{
-										"key": "5",
-										"name": "Status",
-										"type": "int"
-									},
-									{
-										"key": "6",
-										"name": "OnlineOrderFlag",
-										"type": "boolean"
-									},
-									{
-										"key": "7",
-										"name": "SalesOrderNumber",
-										"type": "string"
-									},
-									{
-										"key": "8",
-										"name": "PurchaseOrderNumber",
-										"type": "string"
-									},
-									{
-										"key": "9",
-										"name": "AccountNumber",
-										"type": "string"
-									},
-									{
-										"key": "10",
-										"name": "CustomerID",
-										"type": "int"
-									},
-									{
-										"key": "11",
-										"name": "ShipToAddressID",
-										"type": "int"
-									},
-									{
-										"key": "12",
-										"name": "BillToAddressID",
-										"type": "int"
-									},
-									{
-										"key": "13",
-										"name": "ShipMethod",
-										"type": "string"
-									},
-									{
-										"key": "14",
-										"name": "CreditCardApprovalCode",
-										"type": "string"
-									},
-									{
-										"key": "15",
-										"name": "SubTotal",
-										"type": "decimal"
-									},
-									{
-										"key": "16",
-										"name": "TaxAmt",
-										"type": "decimal"
-									},
-									{
-										"key": "17",
-										"name": "Freight",
-										"type": "decimal"
-									},
-									{
-										"key": "18",
-										"name": "TotalDue",
-										"type": "decimal"
-									},
-									{
-										"key": "19",
-										"name": "Comment",
-										"type": "string"
-									},
-									{
-										"key": "20",
-										"name": "rowguid",
-										"type": "string"
-									},
-									{
-										"key": "21",
-										"name": "ModifiedDate",
-										"type": "timestamp"
-									}
-								],
-								"truncated": false
-							},
-							"isSummary": false,
-							"language": "scala"
-						},
-						"persist_state": {
-							"view": {
-								"type": "details",
-								"chartOptions": {
-									"chartType": "bar",
-									"aggregationType": "sum",
-									"categoryFieldKeys": [
-										"1"
-									],
-									"seriesFieldKeys": [
-										"0"
-									],
-									"isStacked": false
-								}
-							}
-						}
-					}
-				}
-			},
 			"enableDebugMode": false,
 			"kernelspec": {
 				"name": "synapse_pyspark",
@@ -205,14 +38,13 @@
 				"endpoint": "https://synwkyndryl.dev.azuresynapse.net/livyApi/versions/2019-11-01-preview/sparkPools/kyndryl",
 				"auth": {
 					"type": "AAD",
-					"authResource": "https://dev.azuresynapse.net",
-					"authHeader": null
+					"authResource": "https://dev.azuresynapse.net"
 				},
 				"sparkVersion": "3.3",
 				"nodeCount": 3,
 				"cores": 4,
 				"memory": 28,
-				"extraHeader": null
+				"automaticScaleJobs": false
 			},
 			"sessionKeepAliveTimeout": 30
 		},
@@ -231,7 +63,7 @@
 					}
 				},
 				"source": [
-					"#%run Utils"
+					"%run Utils"
 				],
 				"execution_count": 28
 			},
