@@ -1,6 +1,5 @@
 {
 	"name": "lnk_synapse",
-	"type": "Microsoft.DataFactory/factories/linkedservices",
 	"properties": {
 		"annotations": [],
 		"type": "AzureSynapseArtifacts",
@@ -9,5 +8,6 @@
 			"authentication": "MSI",
 			"workspaceResourceId": "/subscriptions/e4516ad2-d1ef-463b-817c-b2a88c0b12bd/resourceGroups/rg-kyndryl/providers/Microsoft.Synapse/workspaces/synwkyndryl"
 		}
-	}
+	},
+	"type": "Microsoft.DataFactory/factories/linkedservices"
 }
