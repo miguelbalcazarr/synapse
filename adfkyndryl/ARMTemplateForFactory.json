@@ -1,0 +1,92 @@
+{
+	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"type": "string",
+			"metadata": "Data Factory name",
+			"defaultValue": "adfkyndryl"
+		},
+		"lnk_synapse_properties_typeProperties_endpoint": {
+			"type": "string",
+			"defaultValue": "https://synwkyndryl.dev.azuresynapse.net"
+		}
+	},
+	"variables": {
+		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
+	},
+	"resources": [
+		{
+			"name": "[concat(parameters('factoryName'), '/pipeline1')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Notebook1",
+						"type": "SynapseNotebook",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"notebook": {
+								"referenceName": {
+									"value": "Write to Landing",
+									"type": "Expression"
+								},
+								"type": "NotebookReference"
+							},
+							"snapshot": true,
+							"sparkPool": {
+								"referenceName": {
+									"value": "kyndryl",
+									"type": "Expression"
+								},
+								"type": "BigDataPoolReference"
+							},
+							"conf": {
+								"spark.dynamicAllocation.enabled": null,
+								"spark.dynamicAllocation.minExecutors": null,
+								"spark.dynamicAllocation.maxExecutors": null
+							},
+							"numExecutors": null
+						},
+						"linkedServiceName": {
+							"referenceName": "lnk_synapse",
+							"type": "LinkedServiceReference"
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"annotations": [],
+				"lastPublishTime": "2024-01-15T20:53:10Z"
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/lnk_synapse')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/lnk_synapse')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureSynapseArtifacts",
+				"typeProperties": {
+					"endpoint": "[parameters('lnk_synapse_properties_typeProperties_endpoint')]",
+					"authentication": "MSI",
+					"workspaceResourceId": "/subscriptions/e4516ad2-d1ef-463b-817c-b2a88c0b12bd/resourceGroups/rg-kyndryl/providers/Microsoft.Synapse/workspaces/synwkyndryl"
+				}
+			},
+			"dependsOn": []
+		}
+	]
+}
