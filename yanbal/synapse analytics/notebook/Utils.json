@@ -17,7 +17,7 @@
 				"spark.dynamicAllocation.enabled": "false",
 				"spark.dynamicAllocation.minExecutors": "2",
 				"spark.dynamicAllocation.maxExecutors": "2",
-				"spark.autotune.trackingId": "5979d002-7188-42d8-8a7b-f6371737d64d"
+				"spark.autotune.trackingId": "a3076efd-9037-4b9f-ba90-7dda2bc13a69"
 			}
 		},
 		"metadata": {
@@ -86,6 +86,7 @@
 				"source": [
 					"def getWriteCSV(df, path):\r\n",
 					"    df.write.format(\"csv\") \\\r\n",
+					"    .mode(\"overwrite\") \\\r\n",
 					"    .option(\"header\", \"true\") \\\r\n",
 					"    .save(f\"abfss://metastore@stakyndryl.dfs.core.windows.net/{path}\")"
 				],
