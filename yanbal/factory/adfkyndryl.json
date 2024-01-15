@@ -1,0 +1,9 @@
+{
+	"name": "adfkyndryl",
+	"location": "eastus2",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "1de34d15-201d-4021-a323-6e3e041c0087",
+		"tenantId": "3522f54a-c105-4ace-8031-9f9d8d5f6152"
+	}
+}
