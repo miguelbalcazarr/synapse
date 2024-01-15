@@ -15,13 +15,6 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"notebook": {
-						"referenceName": {
-							"value": "\"Leer Tabla SQL\"",
-							"type": "Expression"
-						},
-						"type": "NotebookReference"
-					},
 					"snapshot": true,
 					"sparkPool": {
 						"referenceName": {
