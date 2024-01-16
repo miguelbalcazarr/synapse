@@ -1,5 +1,5 @@
 {
-	"name": "ppl_source_to_landing",
+	"name": "ppl_data",
 	"properties": {
 		"activities": [
 			{
@@ -76,7 +76,13 @@
 							"type": "Expression"
 						},
 						"type": "BigDataPoolReference"
-					}
+					},
+					"conf": {
+						"spark.dynamicAllocation.enabled": null,
+						"spark.dynamicAllocation.minExecutors": null,
+						"spark.dynamicAllocation.maxExecutors": null
+					},
+					"numExecutors": null
 				},
 				"linkedServiceName": {
 					"referenceName": "lnk_synapse",
@@ -117,7 +123,13 @@
 							"type": "Expression"
 						},
 						"type": "BigDataPoolReference"
-					}
+					},
+					"conf": {
+						"spark.dynamicAllocation.enabled": null,
+						"spark.dynamicAllocation.minExecutors": null,
+						"spark.dynamicAllocation.maxExecutors": null
+					},
+					"numExecutors": null
 				},
 				"linkedServiceName": {
 					"referenceName": "lnk_synapse",
