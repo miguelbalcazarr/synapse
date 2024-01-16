@@ -1,5 +1,5 @@
 {
-	"name": "Utils",
+	"name": "Write to Staging",
 	"properties": {
 		"nbformat": 4,
 		"nbformat_minor": 2,
@@ -17,7 +17,7 @@
 				"spark.dynamicAllocation.enabled": "false",
 				"spark.dynamicAllocation.minExecutors": "2",
 				"spark.dynamicAllocation.maxExecutors": "2",
-				"spark.autotune.trackingId": "cf2fae09-f2cd-497b-a409-7b63331b2f0a"
+				"spark.autotune.trackingId": "e4ae2648-b463-4cc8-b197-778d73a473e7"
 			}
 		},
 		"metadata": {
@@ -50,25 +50,21 @@
 		"cells": [
 			{
 				"cell_type": "code",
+				"metadata": {
+					"jupyter": {
+						"source_hidden": false,
+						"outputs_hidden": false
+					},
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					}
+				},
 				"source": [
-					"def getReadSQL(db, query):\r\n",
-					"    server = mssparkutils.credentials.getSecret('kvkyndryl','azuresqlserver')\r\n",
-					"    url = f\"{server}{db}\"\r\n",
-					"    user = mssparkutils.credentials.getSecret('kvkyndryl',\"azuresqluser\")\r\n",
-					"    #principal_client_id = mssparkutils.credentials.getSecret('kvkyndryl',\"principalclientid\")\r\n",
-					"    #principal_secret = mssparkutils.credentials.getSecret('kvkyndryl',\"principalsecret\")\r\n",
-					"    password = mssparkutils.credentials.getSecret('kvkyndryl',\"azuresqlpassword\")\r\n",
-					"\r\n",
-					"    df = spark.read \\\r\n",
-					"    .format(\"com.microsoft.sqlserver.jdbc.spark\") \\\r\n",
-					"    .option(\"url\", url) \\\r\n",
-					"    .option(\"query\", query) \\\r\n",
-					"    .option(\"user\", user) \\\r\n",
-					"    .option(\"password\", password).load()\r\n",
-					"\r\n",
-					"    return df"
+					"df = getReadCSV(\"landing/SalesOrderHeader\")"
 				],
-				"execution_count": 3
+				"execution_count": 16
 			},
 			{
 				"cell_type": "code",
@@ -84,35 +80,9 @@
 					}
 				},
 				"source": [
-					"def getWriteCSV(df, path):\r\n",
-					"    df.write.format(\"csv\") \\\r\n",
-					"    .mode(\"overwrite\") \\\r\n",
-					"    .option(\"header\", \"true\") \\\r\n",
-					"    .save(f\"abfss://metastore@stakyndryl.dfs.core.windows.net/{path}\")"
+					"df.write.mode(\"overwrite\").save(\"abfss://metastore@stakyndryl.dfs.core.windows.net/staging/SalesOrderHeader\")"
 				],
-				"execution_count": 4
-			},
-			{
-				"cell_type": "code",
-				"metadata": {
-					"jupyter": {
-						"source_hidden": false,
-						"outputs_hidden": false
-					},
-					"nteract": {
-						"transient": {
-							"deleting": false
-						}
-					}
-				},
-				"source": [
-					"def getReadCSV(path):\r\n",
-					"    df = spark.read \\\r\n",
-					"    .option(\"header\",True) \\\r\n",
-					"    .csv(f\"abfss://metastore@stakyndryl.dfs.core.windows.net/{path}\")\r\n",
-					"    return df"
-				],
-				"execution_count": null
+				"execution_count": 17
 			}
 		]
 	}
