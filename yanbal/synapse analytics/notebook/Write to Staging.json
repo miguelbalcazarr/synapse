@@ -17,7 +17,7 @@
 				"spark.dynamicAllocation.enabled": "false",
 				"spark.dynamicAllocation.minExecutors": "2",
 				"spark.dynamicAllocation.maxExecutors": "2",
-				"spark.autotune.trackingId": "3cb73d7b-aeb5-4880-90d1-ff870e3555ce"
+				"spark.autotune.trackingId": "d3a8d0d8-963e-40c4-989f-4beb599293b7"
 			}
 		},
 		"metadata": {
@@ -64,7 +64,7 @@
 				"source": [
 					"%run Utils"
 				],
-				"execution_count": null
+				"execution_count": 16
 			},
 			{
 				"cell_type": "code",
@@ -80,9 +80,28 @@
 					}
 				},
 				"source": [
-					"%run Aprovisionamiento"
+					"%run Write to Landing"
 				],
 				"execution_count": null
+			},
+			{
+				"cell_type": "code",
+				"metadata": {
+					"jupyter": {
+						"source_hidden": false,
+						"outputs_hidden": false
+					},
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					},
+					"collapsed": false
+				},
+				"source": [
+					"%run Aprovisionamiento"
+				],
+				"execution_count": 17
 			},
 			{
 				"cell_type": "code",
@@ -100,7 +119,7 @@
 				"source": [
 					"df = getReadCSV(\"landing/SalesOrderHeader\")"
 				],
-				"execution_count": 6
+				"execution_count": 18
 			},
 			{
 				"cell_type": "code",
@@ -118,7 +137,7 @@
 				"source": [
 					"df.write.format(\"delta\").mode(\"overwrite\").save(\"abfss://metastore@stakyndryl.dfs.core.windows.net/staging/SalesOrderHeader\")"
 				],
-				"execution_count": null
+				"execution_count": 19
 			}
 		]
 	}

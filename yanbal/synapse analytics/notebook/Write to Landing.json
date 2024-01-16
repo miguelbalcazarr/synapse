@@ -17,7 +17,7 @@
 				"spark.dynamicAllocation.enabled": "false",
 				"spark.dynamicAllocation.minExecutors": "2",
 				"spark.dynamicAllocation.maxExecutors": "2",
-				"spark.autotune.trackingId": "0395a0c0-9523-4a19-84ee-8d4ee5ad0088"
+				"spark.autotune.trackingId": "87ba3cf5-41b2-4af4-a1b9-e22cb8d9d1f8"
 			}
 		},
 		"metadata": {
@@ -69,7 +69,7 @@
 					}
 				},
 				"source": [
-					"df = getReadSQL(\"kyndryldb\",\"select * from SalesLT.SalesOrderHeader where SalesOrderID = 71774\")"
+					"df = getReadSQL(\"kyndryldb\",\"select * from SalesLT.SalesOrderHeader where SalesOrderID\")"
 				],
 				"execution_count": 7
 			},
