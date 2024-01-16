@@ -17,7 +17,7 @@
 				"spark.dynamicAllocation.enabled": "false",
 				"spark.dynamicAllocation.minExecutors": "2",
 				"spark.dynamicAllocation.maxExecutors": "2",
-				"spark.autotune.trackingId": "3504b3b5-0877-43c6-aa70-8b7a4b65e449"
+				"spark.autotune.trackingId": "d2cc8000-e616-44ed-b33e-879db31ecf96"
 			}
 		},
 		"metadata": {
@@ -61,7 +61,54 @@
 					"\r\n",
 					"create database if not exists staging LOCATION \"abfss://metastore@stakyndryl.dfs.core.windows.net/staging/database/staging/\""
 				],
-				"execution_count": 5
+				"execution_count": 7
+			},
+			{
+				"cell_type": "code",
+				"metadata": {
+					"jupyter": {
+						"source_hidden": false,
+						"outputs_hidden": false
+					},
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					},
+					"microsoft": {
+						"language": "sparksql"
+					},
+					"collapsed": false
+				},
+				"source": [
+					"%%sql\r\n",
+					"\r\n",
+					"create table if not exists staging.SalesOrderHeader (\r\n",
+					"    SalesOrderID string,\r\n",
+					"\tRevisionNumber string,\r\n",
+					"\tOrderDate string,\r\n",
+					"\tDueDate string,\r\n",
+					"\tShipDate string,\r\n",
+					"\tStatus string,\r\n",
+					"\tOnlineOrderFlag string,\r\n",
+					"\tSalesOrderNumber string,\r\n",
+					"\tPurchaseOrderNumber string,\r\n",
+					"\tAccountNumber string,    \r\n",
+					"\tCustomerID string,\r\n",
+					"\tShipToAddressID string,\r\n",
+					"\tBillToAddressID string,\r\n",
+					"\tShipMethod string,     \r\n",
+					"\tCreditCardApprovalCode string,\r\n",
+					"\tSubTotal string,\r\n",
+					"\tTaxAmt string,\r\n",
+					"\tFreight string,\r\n",
+					"\tTotalDue string,\r\n",
+					"\tComment string, \r\n",
+					"\trowguid string,\r\n",
+					"\tModifiedDate string \r\n",
+					")"
+				],
+				"execution_count": 8
 			}
 		]
 	}
