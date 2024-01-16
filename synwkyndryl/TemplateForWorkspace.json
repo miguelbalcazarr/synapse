@@ -359,7 +359,7 @@
 						"spark.dynamicAllocation.enabled": "false",
 						"spark.dynamicAllocation.minExecutors": "2",
 						"spark.dynamicAllocation.maxExecutors": "2",
-						"spark.autotune.trackingId": "87ba3cf5-41b2-4af4-a1b9-e22cb8d9d1f8"
+						"spark.autotune.trackingId": "5e17ed97-bb59-4987-8082-c5de4ff887a3"
 					}
 				},
 				"metadata": {
@@ -411,7 +411,7 @@
 							}
 						},
 						"source": [
-							"df = getReadSQL(\"kyndryldb\",\"select * from SalesLT.SalesOrderHeader where SalesOrderID\")"
+							"df = getReadSQL(\"kyndryldb\",\"select * from SalesLT.SalesOrderHeader\")"
 						],
 						"outputs": [],
 						"execution_count": 7
@@ -460,7 +460,7 @@
 						"spark.dynamicAllocation.enabled": "false",
 						"spark.dynamicAllocation.minExecutors": "2",
 						"spark.dynamicAllocation.maxExecutors": "2",
-						"spark.autotune.trackingId": "a29957a8-4ec3-4155-804e-b3a48fecd281"
+						"spark.autotune.trackingId": "71c96b65-9ed3-4c01-9f04-25e4e2cd9625"
 					}
 				},
 				"metadata": {
@@ -508,7 +508,7 @@
 							"%run Utils"
 						],
 						"outputs": [],
-						"execution_count": 16
+						"execution_count": 20
 					},
 					{
 						"cell_type": "code",
@@ -527,7 +527,7 @@
 							"%run Write to Landing"
 						],
 						"outputs": [],
-						"execution_count": null
+						"execution_count": 21
 					},
 					{
 						"cell_type": "code",
@@ -547,7 +547,7 @@
 							"%run Aprovisionamiento"
 						],
 						"outputs": [],
-						"execution_count": 17
+						"execution_count": null
 					},
 					{
 						"cell_type": "code",
@@ -566,7 +566,7 @@
 							"df = getReadCSV(\"landing/SalesOrderHeader\")"
 						],
 						"outputs": [],
-						"execution_count": 18
+						"execution_count": null
 					},
 					{
 						"cell_type": "code",
@@ -585,7 +585,7 @@
 							"df.write.format(\"delta\").mode(\"overwrite\").save(\"abfss://metastore@stakyndryl.dfs.core.windows.net/staging/SalesOrderHeader\")"
 						],
 						"outputs": [],
-						"execution_count": 19
+						"execution_count": null
 					}
 				]
 			},
