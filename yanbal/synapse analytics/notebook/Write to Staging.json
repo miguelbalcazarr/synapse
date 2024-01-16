@@ -17,7 +17,7 @@
 				"spark.dynamicAllocation.enabled": "false",
 				"spark.dynamicAllocation.minExecutors": "2",
 				"spark.dynamicAllocation.maxExecutors": "2",
-				"spark.autotune.trackingId": "9803e13f-44bb-4a23-94f6-9b08dc205a94"
+				"spark.autotune.trackingId": "e89d6702-1836-43fb-85d5-d0fdb5f85f6c"
 			}
 		},
 		"metadata": {
@@ -62,9 +62,10 @@
 					}
 				},
 				"source": [
+					"#ejecutamos notebook\r\n",
 					"%run Utils"
 				],
-				"execution_count": 22
+				"execution_count": 41
 			},
 			{
 				"cell_type": "code",
@@ -80,9 +81,10 @@
 					}
 				},
 				"source": [
+					"#ejecutamos notebook\r\n",
 					"%run Write to Landing"
 				],
-				"execution_count": 23
+				"execution_count": 42
 			},
 			{
 				"cell_type": "code",
@@ -99,9 +101,10 @@
 					"collapsed": false
 				},
 				"source": [
+					"#ejecutamos notebook\r\n",
 					"%run Aprovisionamiento"
 				],
-				"execution_count": 24
+				"execution_count": 43
 			},
 			{
 				"cell_type": "code",
@@ -117,9 +120,10 @@
 					}
 				},
 				"source": [
-					"df = getReadCSV(\"landing/SalesOrderHeader\")"
+					"#leemos un path de landing\r\n",
+					"df = getReadCSV(\"SalesOrderHeader\")"
 				],
-				"execution_count": 25
+				"execution_count": 44
 			},
 			{
 				"cell_type": "code",
@@ -135,9 +139,10 @@
 					}
 				},
 				"source": [
-					"getWriteStaging(df, \"overwrite\", \"staging/SalesOrderHeader\")"
+					"#escribimos un dataframe en modo overwrite a staging\r\n",
+					"getWriteStaging(df, \"overwrite\", \"SalesOrderHeader\")"
 				],
-				"execution_count": null
+				"execution_count": 45
 			}
 		]
 	}

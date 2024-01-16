@@ -17,7 +17,7 @@
 				"spark.dynamicAllocation.enabled": "false",
 				"spark.dynamicAllocation.minExecutors": "2",
 				"spark.dynamicAllocation.maxExecutors": "2",
-				"spark.autotune.trackingId": "5e17ed97-bb59-4987-8082-c5de4ff887a3"
+				"spark.autotune.trackingId": "86dcc630-8e6f-4a64-8bcb-48dff349d096"
 			}
 		},
 		"metadata": {
@@ -51,6 +51,7 @@
 			{
 				"cell_type": "code",
 				"source": [
+					"#ejecutamos notebook\r\n",
 					"%run Utils"
 				],
 				"execution_count": 6
@@ -69,6 +70,7 @@
 					}
 				},
 				"source": [
+					"#leemos una query en azure sql\r\n",
 					"df = getReadSQL(\"kyndryldb\",\"select * from SalesLT.SalesOrderHeader\")"
 				],
 				"execution_count": 7
@@ -87,7 +89,8 @@
 					}
 				},
 				"source": [
-					"getWriteCSV(df, \"landing/SalesOrderHeader\")"
+					"#escribimos en formato csv a landing\r\n",
+					"getWriteCSV(df, \"SalesOrderHeader\")"
 				],
 				"execution_count": 8
 			}

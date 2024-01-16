@@ -17,7 +17,7 @@
 				"spark.dynamicAllocation.enabled": "false",
 				"spark.dynamicAllocation.minExecutors": "2",
 				"spark.dynamicAllocation.maxExecutors": "2",
-				"spark.autotune.trackingId": "3c85f2de-a3e4-40a9-94d7-1f02fa2cdded"
+				"spark.autotune.trackingId": "a1a9ec25-17cf-4d35-8748-9ec55ebd8522"
 			}
 		},
 		"metadata": {
@@ -88,7 +88,7 @@
 					"    df.write.format(\"csv\") \\\r\n",
 					"    .mode(\"overwrite\") \\\r\n",
 					"    .option(\"header\", \"true\") \\\r\n",
-					"    .save(f\"abfss://metastore@stakyndryl.dfs.core.windows.net/{path}\")"
+					"    .save(f\"abfss://landing@stakyndryl.dfs.core.windows.net/{path}\")"
 				],
 				"execution_count": 4
 			},
@@ -109,7 +109,7 @@
 					"def getReadCSV(path):\r\n",
 					"    df = spark.read \\\r\n",
 					"    .option(\"header\",True) \\\r\n",
-					"    .csv(f\"abfss://metastore@stakyndryl.dfs.core.windows.net/{path}\")\r\n",
+					"    .csv(f\"abfss://landing@stakyndryl.dfs.core.windows.net/{path}\")\r\n",
 					"    return df"
 				],
 				"execution_count": null
@@ -132,7 +132,7 @@
 					"\r\n",
 					"    df.write.format(\"delta\") \\\r\n",
 					"    .mode(mode) \\\r\n",
-					"    .save(f\"abfss://metastore@stakyndryl.dfs.core.windows.net/{path}\")"
+					"    .save(f\"abfss://staging@stakyndryl.dfs.core.windows.net/{path}\")"
 				],
 				"execution_count": null
 			}

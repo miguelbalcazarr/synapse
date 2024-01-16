@@ -17,7 +17,7 @@
 				"spark.dynamicAllocation.enabled": "false",
 				"spark.dynamicAllocation.minExecutors": "2",
 				"spark.dynamicAllocation.maxExecutors": "2",
-				"spark.autotune.trackingId": "26b11c71-9e6e-4d83-b716-2ff4cf59aded"
+				"spark.autotune.trackingId": "b2c3c66f-8d96-4a91-894d-b6e786df1edc"
 			}
 		},
 		"metadata": {
@@ -59,7 +59,7 @@
 				"source": [
 					"%%sql\r\n",
 					"\r\n",
-					"create database if not exists staging LOCATION \"abfss://metastore@stakyndryl.dfs.core.windows.net/staging/database/staging/\""
+					"create database if not exists staging LOCATION \"abfss://staging@stakyndryl.dfs.core.windows.net/database/staging/\""
 				],
 				"execution_count": 2
 			},
@@ -108,7 +108,7 @@
 					"\tModifiedDate string \r\n",
 					")\r\n",
 					"using delta\r\n",
-					"location \"abfss://metastore@stakyndryl.dfs.core.windows.net/staging/SalesOrderHeader\""
+					"location \"abfss://staging@stakyndryl.dfs.core.windows.net/SalesOrderHeader\""
 				],
 				"execution_count": 3
 			}
