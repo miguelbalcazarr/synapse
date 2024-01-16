@@ -17,7 +17,7 @@
 				"spark.dynamicAllocation.enabled": "false",
 				"spark.dynamicAllocation.minExecutors": "2",
 				"spark.dynamicAllocation.maxExecutors": "2",
-				"spark.autotune.trackingId": "18a49a25-9e99-457d-9018-bd1f36e2414b"
+				"spark.autotune.trackingId": "bbc0ac14-d90a-40e4-8c8c-4aedc1643e74"
 			}
 		},
 		"metadata": {
@@ -61,7 +61,7 @@
 					"\r\n",
 					"create database if not exists staging LOCATION \"abfss://metastore@stakyndryl.dfs.core.windows.net/staging/database/staging/\""
 				],
-				"execution_count": 7
+				"execution_count": 2
 			},
 			{
 				"cell_type": "code",
@@ -107,33 +107,9 @@
 					"\trowguid string,\r\n",
 					"\tModifiedDate string \r\n",
 					")\r\n",
-					"location \"abfss://metastore@stakyndryl.dfs.core.windows.net/staging/\""
+					"location \"abfss://metastore@stakyndryl.dfs.core.windows.net/staging/SalesOrderHeader\""
 				],
-				"execution_count": 8
-			},
-			{
-				"cell_type": "code",
-				"metadata": {
-					"jupyter": {
-						"source_hidden": false,
-						"outputs_hidden": false
-					},
-					"nteract": {
-						"transient": {
-							"deleting": false
-						}
-					},
-					"microsoft": {
-						"language": "sparksql"
-					},
-					"collapsed": false
-				},
-				"source": [
-					"%%sql\r\n",
-					"\r\n",
-					"drop table staging.SalesOrderHeader"
-				],
-				"execution_count": 9
+				"execution_count": 3
 			}
 		]
 	}
