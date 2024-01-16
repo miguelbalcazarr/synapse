@@ -382,7 +382,7 @@
 						"spark.dynamicAllocation.enabled": "false",
 						"spark.dynamicAllocation.minExecutors": "2",
 						"spark.dynamicAllocation.maxExecutors": "2",
-						"spark.autotune.trackingId": "86dcc630-8e6f-4a64-8bcb-48dff349d096"
+						"spark.autotune.trackingId": "08edba0c-4d63-431c-adc4-69478dfb9614"
 					}
 				},
 				"metadata": {
@@ -415,7 +415,6 @@
 					{
 						"cell_type": "code",
 						"source": [
-							"#ejecutamos notebook\r\n",
 							"%run Utils"
 						],
 						"outputs": [],
@@ -486,7 +485,7 @@
 						"spark.dynamicAllocation.enabled": "false",
 						"spark.dynamicAllocation.minExecutors": "2",
 						"spark.dynamicAllocation.maxExecutors": "2",
-						"spark.autotune.trackingId": "a778d18a-5e8a-418f-a978-8df63be0072f"
+						"spark.autotune.trackingId": "d8858ef7-b1fe-4683-8c3a-1668e50017d4"
 					}
 				},
 				"metadata": {
@@ -531,11 +530,10 @@
 							}
 						},
 						"source": [
-							"#ejecutamos notebook\r\n",
 							"%run Utils"
 						],
 						"outputs": [],
-						"execution_count": 41
+						"execution_count": 52
 					},
 					{
 						"cell_type": "code",
@@ -551,11 +549,10 @@
 							}
 						},
 						"source": [
-							"#ejecutamos notebook\r\n",
 							"%run Write to Landing"
 						],
 						"outputs": [],
-						"execution_count": 42
+						"execution_count": null
 					},
 					{
 						"cell_type": "code",
@@ -572,11 +569,10 @@
 							"collapsed": false
 						},
 						"source": [
-							"#ejecutamos notebook\r\n",
 							"%run Aprovisionamiento"
 						],
 						"outputs": [],
-						"execution_count": 43
+						"execution_count": null
 					},
 					{
 						"cell_type": "code",
@@ -592,11 +588,11 @@
 							}
 						},
 						"source": [
-							"#leemos un path de landing\r\n",
+							"#leemos un csv de landing\r\n",
 							"df = getReadCSV(\"SalesOrderHeader\")"
 						],
 						"outputs": [],
-						"execution_count": 44
+						"execution_count": null
 					},
 					{
 						"cell_type": "code",
@@ -616,7 +612,7 @@
 							"getWriteStaging(df, \"overwrite\", \"SalesOrderHeader\")"
 						],
 						"outputs": [],
-						"execution_count": 45
+						"execution_count": null
 					}
 				]
 			},
