@@ -1,9 +1,9 @@
 {
-	"name": "pipeline1",
+	"name": "ppl_source_to_landing",
 	"properties": {
 		"activities": [
 			{
-				"name": "Notebook1",
+				"name": "Source to Landing",
 				"type": "SynapseNotebook",
 				"dependsOn": [],
 				"policy": {
@@ -29,7 +29,13 @@
 							"type": "Expression"
 						},
 						"type": "BigDataPoolReference"
-					}
+					},
+					"conf": {
+						"spark.dynamicAllocation.enabled": null,
+						"spark.dynamicAllocation.minExecutors": null,
+						"spark.dynamicAllocation.maxExecutors": null
+					},
+					"numExecutors": null
 				},
 				"linkedServiceName": {
 					"referenceName": "lnk_synapse",
