@@ -359,7 +359,7 @@
 						"spark.dynamicAllocation.enabled": "false",
 						"spark.dynamicAllocation.minExecutors": "2",
 						"spark.dynamicAllocation.maxExecutors": "2",
-						"spark.autotune.trackingId": "0395a0c0-9523-4a19-84ee-8d4ee5ad0088"
+						"spark.autotune.trackingId": "87ba3cf5-41b2-4af4-a1b9-e22cb8d9d1f8"
 					}
 				},
 				"metadata": {
@@ -411,7 +411,7 @@
 							}
 						},
 						"source": [
-							"df = getReadSQL(\"kyndryldb\",\"select * from SalesLT.SalesOrderHeader where SalesOrderID = 71774\")"
+							"df = getReadSQL(\"kyndryldb\",\"select * from SalesLT.SalesOrderHeader where SalesOrderID\")"
 						],
 						"outputs": [],
 						"execution_count": 7
@@ -460,7 +460,7 @@
 						"spark.dynamicAllocation.enabled": "false",
 						"spark.dynamicAllocation.minExecutors": "2",
 						"spark.dynamicAllocation.maxExecutors": "2",
-						"spark.autotune.trackingId": "59449462-2aa1-4465-bb2c-6f2007acbbc8"
+						"spark.autotune.trackingId": "a29957a8-4ec3-4155-804e-b3a48fecd281"
 					}
 				},
 				"metadata": {
@@ -508,7 +508,7 @@
 							"%run Utils"
 						],
 						"outputs": [],
-						"execution_count": null
+						"execution_count": 16
 					},
 					{
 						"cell_type": "code",
@@ -524,10 +524,30 @@
 							}
 						},
 						"source": [
-							"%run Aprovisionamiento"
+							"%run Write to Landing"
 						],
 						"outputs": [],
 						"execution_count": null
+					},
+					{
+						"cell_type": "code",
+						"metadata": {
+							"jupyter": {
+								"source_hidden": false,
+								"outputs_hidden": false
+							},
+							"nteract": {
+								"transient": {
+									"deleting": false
+								}
+							},
+							"collapsed": false
+						},
+						"source": [
+							"%run Aprovisionamiento"
+						],
+						"outputs": [],
+						"execution_count": 17
 					},
 					{
 						"cell_type": "code",
@@ -546,7 +566,7 @@
 							"df = getReadCSV(\"landing/SalesOrderHeader\")"
 						],
 						"outputs": [],
-						"execution_count": 6
+						"execution_count": 18
 					},
 					{
 						"cell_type": "code",
@@ -565,7 +585,7 @@
 							"df.write.format(\"delta\").mode(\"overwrite\").save(\"abfss://metastore@stakyndryl.dfs.core.windows.net/staging/SalesOrderHeader\")"
 						],
 						"outputs": [],
-						"execution_count": null
+						"execution_count": 19
 					}
 				]
 			},
