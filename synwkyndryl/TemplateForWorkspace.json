@@ -94,7 +94,7 @@
 			"dependsOn": []
 		},
 		{
-			"name": "[concat(parameters('workspaceName'), '/Write to Landing')]",
+			"name": "[concat(parameters('workspaceName'), '/Aprovisionamiento')]",
 			"type": "Microsoft.Synapse/workspaces/notebooks",
 			"apiVersion": "2019-06-01-preview",
 			"properties": {
@@ -114,7 +114,7 @@
 						"spark.dynamicAllocation.enabled": "false",
 						"spark.dynamicAllocation.minExecutors": "2",
 						"spark.dynamicAllocation.maxExecutors": "2",
-						"spark.autotune.trackingId": "dca82eb1-5a73-4b59-b293-2cc6b2ae072e"
+						"spark.autotune.trackingId": "7bd9fa88-0268-443b-bdee-c15909901109"
 					}
 				},
 				"metadata": {
@@ -147,50 +147,19 @@
 				"cells": [
 					{
 						"cell_type": "code",
-						"metadata": {},
-						"source": [
-							"%run Utils"
-						],
-						"outputs": [],
-						"execution_count": 6
-					},
-					{
-						"cell_type": "code",
 						"metadata": {
-							"jupyter": {
-								"source_hidden": false,
-								"outputs_hidden": false
+							"microsoft": {
+								"language": "sparksql"
 							},
-							"nteract": {
-								"transient": {
-									"deleting": false
-								}
-							}
+							"collapsed": false
 						},
 						"source": [
-							"df = getReadSQL(\"kyndryldb\",\"select * from SalesLT.SalesOrderHeader where SalesOrderID = 71774\")"
+							"%%sql\r\n",
+							"\r\n",
+							"create database if not exists staging LOCATION \"abfss://metastore@stakyndryl.dfs.core.windows.net/staging/database/staging/\""
 						],
 						"outputs": [],
-						"execution_count": 7
-					},
-					{
-						"cell_type": "code",
-						"metadata": {
-							"jupyter": {
-								"source_hidden": false,
-								"outputs_hidden": false
-							},
-							"nteract": {
-								"transient": {
-									"deleting": false
-								}
-							}
-						},
-						"source": [
-							"getWriteCSV(df, \"landing/SalesOrderHeader\")"
-						],
-						"outputs": [],
-						"execution_count": 8
+						"execution_count": 5
 					}
 				]
 			},
@@ -217,7 +186,7 @@
 						"spark.dynamicAllocation.enabled": "false",
 						"spark.dynamicAllocation.minExecutors": "2",
 						"spark.dynamicAllocation.maxExecutors": "2",
-						"spark.autotune.trackingId": "83645df4-cd02-42d5-8151-b84f066b93c4"
+						"spark.autotune.trackingId": "a3076efd-9037-4b9f-ba90-7dda2bc13a69"
 					}
 				},
 				"metadata": {
@@ -242,15 +211,13 @@
 						"sparkVersion": "3.3",
 						"nodeCount": 3,
 						"cores": 4,
-						"memory": 28,
-						"automaticScaleJobs": false
+						"memory": 28
 					},
 					"sessionKeepAliveTimeout": 30
 				},
 				"cells": [
 					{
 						"cell_type": "code",
-						"metadata": {},
 						"source": [
 							"def getReadSQL(db, query):\r\n",
 							"    server = mssparkutils.credentials.getSecret('kvkyndryl','azuresqlserver')\r\n",
@@ -294,6 +261,107 @@
 						],
 						"outputs": [],
 						"execution_count": 4
+					}
+				]
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/Write to Landing')]",
+			"type": "Microsoft.Synapse/workspaces/notebooks",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"nbformat": 4,
+				"nbformat_minor": 2,
+				"bigDataPool": {
+					"referenceName": "kyndryl",
+					"type": "BigDataPoolReference"
+				},
+				"sessionProperties": {
+					"driverMemory": "28g",
+					"driverCores": 4,
+					"executorMemory": "28g",
+					"executorCores": 4,
+					"numExecutors": 2,
+					"conf": {
+						"spark.dynamicAllocation.enabled": "false",
+						"spark.dynamicAllocation.minExecutors": "2",
+						"spark.dynamicAllocation.maxExecutors": "2",
+						"spark.autotune.trackingId": "0395a0c0-9523-4a19-84ee-8d4ee5ad0088"
+					}
+				},
+				"metadata": {
+					"saveOutput": true,
+					"enableDebugMode": false,
+					"kernelspec": {
+						"name": "synapse_pyspark",
+						"display_name": "Synapse PySpark"
+					},
+					"language_info": {
+						"name": "python"
+					},
+					"a365ComputeOptions": {
+						"id": "/subscriptions/e4516ad2-d1ef-463b-817c-b2a88c0b12bd/resourceGroups/rg-kyndryl/providers/Microsoft.Synapse/workspaces/synwkyndryl/bigDataPools/kyndryl",
+						"name": "kyndryl",
+						"type": "Spark",
+						"endpoint": "https://synwkyndryl.dev.azuresynapse.net/livyApi/versions/2019-11-01-preview/sparkPools/kyndryl",
+						"auth": {
+							"type": "AAD",
+							"authResource": "https://dev.azuresynapse.net"
+						},
+						"sparkVersion": "3.3",
+						"nodeCount": 3,
+						"cores": 4,
+						"memory": 28
+					},
+					"sessionKeepAliveTimeout": 30
+				},
+				"cells": [
+					{
+						"cell_type": "code",
+						"source": [
+							"%run Utils"
+						],
+						"outputs": [],
+						"execution_count": 6
+					},
+					{
+						"cell_type": "code",
+						"metadata": {
+							"jupyter": {
+								"source_hidden": false,
+								"outputs_hidden": false
+							},
+							"nteract": {
+								"transient": {
+									"deleting": false
+								}
+							}
+						},
+						"source": [
+							"df = getReadSQL(\"kyndryldb\",\"select * from SalesLT.SalesOrderHeader where SalesOrderID = 71774\")"
+						],
+						"outputs": [],
+						"execution_count": 7
+					},
+					{
+						"cell_type": "code",
+						"metadata": {
+							"jupyter": {
+								"source_hidden": false,
+								"outputs_hidden": false
+							},
+							"nteract": {
+								"transient": {
+									"deleting": false
+								}
+							}
+						},
+						"source": [
+							"getWriteCSV(df, \"landing/SalesOrderHeader\")"
+						],
+						"outputs": [],
+						"execution_count": 8
 					}
 				]
 			},
