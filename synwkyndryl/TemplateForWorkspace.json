@@ -114,7 +114,7 @@
 						"spark.dynamicAllocation.enabled": "false",
 						"spark.dynamicAllocation.minExecutors": "2",
 						"spark.dynamicAllocation.maxExecutors": "2",
-						"spark.autotune.trackingId": "bbc0ac14-d90a-40e4-8c8c-4aedc1643e74"
+						"spark.autotune.trackingId": "ba63b0d8-69ff-4db9-9263-9449b2da67c5"
 					}
 				},
 				"metadata": {
@@ -459,7 +459,7 @@
 						"spark.dynamicAllocation.enabled": "false",
 						"spark.dynamicAllocation.minExecutors": "2",
 						"spark.dynamicAllocation.maxExecutors": "2",
-						"spark.autotune.trackingId": "4eab3780-cc5e-42e7-8d9e-1627f6c47325"
+						"spark.autotune.trackingId": "99d30c6d-d53b-4d1f-bed0-077595ee2684"
 					}
 				},
 				"metadata": {
@@ -504,10 +504,10 @@
 							}
 						},
 						"source": [
-							"df = getReadCSV(\"landing/SalesOrderHeader\")"
+							"%%run Utils"
 						],
 						"outputs": [],
-						"execution_count": 16
+						"execution_count": null
 					},
 					{
 						"cell_type": "code",
@@ -523,10 +523,48 @@
 							}
 						},
 						"source": [
-							"df.write.mode(\"overwrite\").save(\"abfss://metastore@stakyndryl.dfs.core.windows.net/staging/SalesOrderHeader\")"
+							"%%run Aprovisionamiento"
 						],
 						"outputs": [],
-						"execution_count": 17
+						"execution_count": null
+					},
+					{
+						"cell_type": "code",
+						"metadata": {
+							"jupyter": {
+								"source_hidden": false,
+								"outputs_hidden": false
+							},
+							"nteract": {
+								"transient": {
+									"deleting": false
+								}
+							}
+						},
+						"source": [
+							"df = getReadCSV(\"landing/SalesOrderHeader\")"
+						],
+						"outputs": [],
+						"execution_count": 6
+					},
+					{
+						"cell_type": "code",
+						"metadata": {
+							"jupyter": {
+								"source_hidden": false,
+								"outputs_hidden": false
+							},
+							"nteract": {
+								"transient": {
+									"deleting": false
+								}
+							}
+						},
+						"source": [
+							"df.write.format(\"delta\").mode(\"overwrite\").save(\"abfss://metastore@stakyndryl.dfs.core.windows.net/staging/SalesOrderHeader\")"
+						],
+						"outputs": [],
+						"execution_count": null
 					}
 				]
 			},
