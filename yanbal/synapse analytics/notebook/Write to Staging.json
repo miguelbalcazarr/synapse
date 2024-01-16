@@ -17,7 +17,7 @@
 				"spark.dynamicAllocation.enabled": "false",
 				"spark.dynamicAllocation.minExecutors": "2",
 				"spark.dynamicAllocation.maxExecutors": "2",
-				"spark.autotune.trackingId": "d3a8d0d8-963e-40c4-989f-4beb599293b7"
+				"spark.autotune.trackingId": "f8792f18-e190-48c9-81f3-4e142fec777f"
 			}
 		},
 		"metadata": {
@@ -64,7 +64,7 @@
 				"source": [
 					"%run Utils"
 				],
-				"execution_count": 16
+				"execution_count": 20
 			},
 			{
 				"cell_type": "code",
@@ -82,7 +82,7 @@
 				"source": [
 					"%run Write to Landing"
 				],
-				"execution_count": null
+				"execution_count": 21
 			},
 			{
 				"cell_type": "code",
@@ -101,7 +101,7 @@
 				"source": [
 					"%run Aprovisionamiento"
 				],
-				"execution_count": 17
+				"execution_count": null
 			},
 			{
 				"cell_type": "code",
@@ -119,7 +119,7 @@
 				"source": [
 					"df = getReadCSV(\"landing/SalesOrderHeader\")"
 				],
-				"execution_count": 18
+				"execution_count": null
 			},
 			{
 				"cell_type": "code",
@@ -137,7 +137,7 @@
 				"source": [
 					"df.write.format(\"delta\").mode(\"overwrite\").save(\"abfss://metastore@stakyndryl.dfs.core.windows.net/staging/SalesOrderHeader\")"
 				],
-				"execution_count": 19
+				"execution_count": null
 			}
 		]
 	}
