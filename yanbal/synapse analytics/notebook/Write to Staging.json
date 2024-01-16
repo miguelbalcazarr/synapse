@@ -17,7 +17,7 @@
 				"spark.dynamicAllocation.enabled": "false",
 				"spark.dynamicAllocation.minExecutors": "2",
 				"spark.dynamicAllocation.maxExecutors": "2",
-				"spark.autotune.trackingId": "e4ae2648-b463-4cc8-b197-778d73a473e7"
+				"spark.autotune.trackingId": "eab3d8a9-ba30-470b-9cbd-d4a9609c3a58"
 			}
 		},
 		"metadata": {
@@ -62,9 +62,9 @@
 					}
 				},
 				"source": [
-					"df = getReadCSV(\"landing/SalesOrderHeader\")"
+					"%%run Utils"
 				],
-				"execution_count": 16
+				"execution_count": null
 			},
 			{
 				"cell_type": "code",
@@ -80,9 +80,45 @@
 					}
 				},
 				"source": [
-					"df.write.mode(\"overwrite\").save(\"abfss://metastore@stakyndryl.dfs.core.windows.net/staging/SalesOrderHeader\")"
+					"%%run Aprovisionamiento"
 				],
-				"execution_count": 17
+				"execution_count": null
+			},
+			{
+				"cell_type": "code",
+				"metadata": {
+					"jupyter": {
+						"source_hidden": false,
+						"outputs_hidden": false
+					},
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					}
+				},
+				"source": [
+					"df = getReadCSV(\"landing/SalesOrderHeader\")"
+				],
+				"execution_count": 6
+			},
+			{
+				"cell_type": "code",
+				"metadata": {
+					"jupyter": {
+						"source_hidden": false,
+						"outputs_hidden": false
+					},
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					}
+				},
+				"source": [
+					"df.write.format(\"delta\").mode(\"overwrite\").save(\"abfss://metastore@stakyndryl.dfs.core.windows.net/staging/SalesOrderHeader\")"
+				],
+				"execution_count": null
 			}
 		]
 	}
