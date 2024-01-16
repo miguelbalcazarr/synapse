@@ -114,7 +114,7 @@
 						"spark.dynamicAllocation.enabled": "false",
 						"spark.dynamicAllocation.minExecutors": "2",
 						"spark.dynamicAllocation.maxExecutors": "2",
-						"spark.autotune.trackingId": "917cf950-24ea-4f67-a931-8ada9c455184"
+						"spark.autotune.trackingId": "bbc0ac14-d90a-40e4-8c8c-4aedc1643e74"
 					}
 				},
 				"metadata": {
@@ -139,8 +139,7 @@
 						"sparkVersion": "3.3",
 						"nodeCount": 3,
 						"cores": 4,
-						"memory": 28,
-						"automaticScaleJobs": false
+						"memory": 28
 					},
 					"sessionKeepAliveTimeout": 30
 				},
@@ -159,7 +158,7 @@
 							"create database if not exists staging LOCATION \"abfss://metastore@stakyndryl.dfs.core.windows.net/staging/database/staging/\""
 						],
 						"outputs": [],
-						"execution_count": 7
+						"execution_count": 2
 					},
 					{
 						"cell_type": "code",
@@ -204,29 +203,11 @@
 							"\tComment string, \r\n",
 							"\trowguid string,\r\n",
 							"\tModifiedDate string \r\n",
-							")"
+							")\r\n",
+							"location \"abfss://metastore@stakyndryl.dfs.core.windows.net/staging/SalesOrderHeader\""
 						],
 						"outputs": [],
-						"execution_count": 8
-					},
-					{
-						"cell_type": "code",
-						"metadata": {
-							"jupyter": {
-								"source_hidden": false,
-								"outputs_hidden": false
-							},
-							"nteract": {
-								"transient": {
-									"deleting": false
-								}
-							}
-						},
-						"source": [
-							""
-						],
-						"outputs": [],
-						"execution_count": null
+						"execution_count": 3
 					}
 				]
 			},
@@ -253,7 +234,7 @@
 						"spark.dynamicAllocation.enabled": "false",
 						"spark.dynamicAllocation.minExecutors": "2",
 						"spark.dynamicAllocation.maxExecutors": "2",
-						"spark.autotune.trackingId": "a3076efd-9037-4b9f-ba90-7dda2bc13a69"
+						"spark.autotune.trackingId": "cf2fae09-f2cd-497b-a409-7b63331b2f0a"
 					}
 				},
 				"metadata": {
@@ -328,6 +309,29 @@
 						],
 						"outputs": [],
 						"execution_count": 4
+					},
+					{
+						"cell_type": "code",
+						"metadata": {
+							"jupyter": {
+								"source_hidden": false,
+								"outputs_hidden": false
+							},
+							"nteract": {
+								"transient": {
+									"deleting": false
+								}
+							}
+						},
+						"source": [
+							"def getReadCSV(path):\r\n",
+							"    df = spark.read \\\r\n",
+							"    .option(\"header\",True) \\\r\n",
+							"    .csv(f\"abfss://metastore@stakyndryl.dfs.core.windows.net/{path}\")\r\n",
+							"    return df"
+						],
+						"outputs": [],
+						"execution_count": null
 					}
 				]
 			},
@@ -429,6 +433,100 @@
 						],
 						"outputs": [],
 						"execution_count": 8
+					}
+				]
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/Write to Staging')]",
+			"type": "Microsoft.Synapse/workspaces/notebooks",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"nbformat": 4,
+				"nbformat_minor": 2,
+				"bigDataPool": {
+					"referenceName": "kyndryl",
+					"type": "BigDataPoolReference"
+				},
+				"sessionProperties": {
+					"driverMemory": "28g",
+					"driverCores": 4,
+					"executorMemory": "28g",
+					"executorCores": 4,
+					"numExecutors": 2,
+					"conf": {
+						"spark.dynamicAllocation.enabled": "false",
+						"spark.dynamicAllocation.minExecutors": "2",
+						"spark.dynamicAllocation.maxExecutors": "2",
+						"spark.autotune.trackingId": "4eab3780-cc5e-42e7-8d9e-1627f6c47325"
+					}
+				},
+				"metadata": {
+					"saveOutput": true,
+					"enableDebugMode": false,
+					"kernelspec": {
+						"name": "synapse_pyspark",
+						"display_name": "Synapse PySpark"
+					},
+					"language_info": {
+						"name": "python"
+					},
+					"a365ComputeOptions": {
+						"id": "/subscriptions/e4516ad2-d1ef-463b-817c-b2a88c0b12bd/resourceGroups/rg-kyndryl/providers/Microsoft.Synapse/workspaces/synwkyndryl/bigDataPools/kyndryl",
+						"name": "kyndryl",
+						"type": "Spark",
+						"endpoint": "https://synwkyndryl.dev.azuresynapse.net/livyApi/versions/2019-11-01-preview/sparkPools/kyndryl",
+						"auth": {
+							"type": "AAD",
+							"authResource": "https://dev.azuresynapse.net"
+						},
+						"sparkVersion": "3.3",
+						"nodeCount": 3,
+						"cores": 4,
+						"memory": 28,
+						"automaticScaleJobs": false
+					},
+					"sessionKeepAliveTimeout": 30
+				},
+				"cells": [
+					{
+						"cell_type": "code",
+						"metadata": {
+							"jupyter": {
+								"source_hidden": false,
+								"outputs_hidden": false
+							},
+							"nteract": {
+								"transient": {
+									"deleting": false
+								}
+							}
+						},
+						"source": [
+							"df = getReadCSV(\"landing/SalesOrderHeader\")"
+						],
+						"outputs": [],
+						"execution_count": 16
+					},
+					{
+						"cell_type": "code",
+						"metadata": {
+							"jupyter": {
+								"source_hidden": false,
+								"outputs_hidden": false
+							},
+							"nteract": {
+								"transient": {
+									"deleting": false
+								}
+							}
+						},
+						"source": [
+							"df.write.mode(\"overwrite\").save(\"abfss://metastore@stakyndryl.dfs.core.windows.net/staging/SalesOrderHeader\")"
+						],
+						"outputs": [],
+						"execution_count": 17
 					}
 				]
 			},
