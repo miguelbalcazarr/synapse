@@ -114,7 +114,7 @@
 						"spark.dynamicAllocation.enabled": "false",
 						"spark.dynamicAllocation.minExecutors": "2",
 						"spark.dynamicAllocation.maxExecutors": "2",
-						"spark.autotune.trackingId": "26b11c71-9e6e-4d83-b716-2ff4cf59aded"
+						"spark.autotune.trackingId": "b2c3c66f-8d96-4a91-894d-b6e786df1edc"
 					}
 				},
 				"metadata": {
@@ -155,7 +155,7 @@
 						"source": [
 							"%%sql\r\n",
 							"\r\n",
-							"create database if not exists staging LOCATION \"abfss://metastore@stakyndryl.dfs.core.windows.net/staging/database/staging/\""
+							"create database if not exists staging LOCATION \"abfss://staging@stakyndryl.dfs.core.windows.net/database/staging/\""
 						],
 						"outputs": [],
 						"execution_count": 2
@@ -205,7 +205,7 @@
 							"\tModifiedDate string \r\n",
 							")\r\n",
 							"using delta\r\n",
-							"location \"abfss://metastore@stakyndryl.dfs.core.windows.net/staging/SalesOrderHeader\""
+							"location \"abfss://staging@stakyndryl.dfs.core.windows.net/SalesOrderHeader\""
 						],
 						"outputs": [],
 						"execution_count": 3
@@ -235,7 +235,7 @@
 						"spark.dynamicAllocation.enabled": "false",
 						"spark.dynamicAllocation.minExecutors": "2",
 						"spark.dynamicAllocation.maxExecutors": "2",
-						"spark.autotune.trackingId": "3c85f2de-a3e4-40a9-94d7-1f02fa2cdded"
+						"spark.autotune.trackingId": "a1a9ec25-17cf-4d35-8748-9ec55ebd8522"
 					}
 				},
 				"metadata": {
@@ -306,7 +306,7 @@
 							"    df.write.format(\"csv\") \\\r\n",
 							"    .mode(\"overwrite\") \\\r\n",
 							"    .option(\"header\", \"true\") \\\r\n",
-							"    .save(f\"abfss://metastore@stakyndryl.dfs.core.windows.net/{path}\")"
+							"    .save(f\"abfss://landing@stakyndryl.dfs.core.windows.net/{path}\")"
 						],
 						"outputs": [],
 						"execution_count": 4
@@ -328,7 +328,7 @@
 							"def getReadCSV(path):\r\n",
 							"    df = spark.read \\\r\n",
 							"    .option(\"header\",True) \\\r\n",
-							"    .csv(f\"abfss://metastore@stakyndryl.dfs.core.windows.net/{path}\")\r\n",
+							"    .csv(f\"abfss://landing@stakyndryl.dfs.core.windows.net/{path}\")\r\n",
 							"    return df"
 						],
 						"outputs": [],
@@ -352,7 +352,7 @@
 							"\r\n",
 							"    df.write.format(\"delta\") \\\r\n",
 							"    .mode(mode) \\\r\n",
-							"    .save(f\"abfss://metastore@stakyndryl.dfs.core.windows.net/{path}\")"
+							"    .save(f\"abfss://staging@stakyndryl.dfs.core.windows.net/{path}\")"
 						],
 						"outputs": [],
 						"execution_count": null
@@ -382,7 +382,7 @@
 						"spark.dynamicAllocation.enabled": "false",
 						"spark.dynamicAllocation.minExecutors": "2",
 						"spark.dynamicAllocation.maxExecutors": "2",
-						"spark.autotune.trackingId": "5e17ed97-bb59-4987-8082-c5de4ff887a3"
+						"spark.autotune.trackingId": "86dcc630-8e6f-4a64-8bcb-48dff349d096"
 					}
 				},
 				"metadata": {
@@ -415,6 +415,7 @@
 					{
 						"cell_type": "code",
 						"source": [
+							"#ejecutamos notebook\r\n",
 							"%run Utils"
 						],
 						"outputs": [],
@@ -434,6 +435,7 @@
 							}
 						},
 						"source": [
+							"#leemos una query en azure sql\r\n",
 							"df = getReadSQL(\"kyndryldb\",\"select * from SalesLT.SalesOrderHeader\")"
 						],
 						"outputs": [],
@@ -453,7 +455,8 @@
 							}
 						},
 						"source": [
-							"getWriteCSV(df, \"landing/SalesOrderHeader\")"
+							"#escribimos en formato csv a landing\r\n",
+							"getWriteCSV(df, \"SalesOrderHeader\")"
 						],
 						"outputs": [],
 						"execution_count": 8
@@ -483,7 +486,7 @@
 						"spark.dynamicAllocation.enabled": "false",
 						"spark.dynamicAllocation.minExecutors": "2",
 						"spark.dynamicAllocation.maxExecutors": "2",
-						"spark.autotune.trackingId": "844812d6-fcde-4a55-8aa3-256c2b5c6a70"
+						"spark.autotune.trackingId": "a778d18a-5e8a-418f-a978-8df63be0072f"
 					}
 				},
 				"metadata": {
@@ -528,10 +531,11 @@
 							}
 						},
 						"source": [
+							"#ejecutamos notebook\r\n",
 							"%run Utils"
 						],
 						"outputs": [],
-						"execution_count": 22
+						"execution_count": 41
 					},
 					{
 						"cell_type": "code",
@@ -547,10 +551,11 @@
 							}
 						},
 						"source": [
+							"#ejecutamos notebook\r\n",
 							"%run Write to Landing"
 						],
 						"outputs": [],
-						"execution_count": 23
+						"execution_count": 42
 					},
 					{
 						"cell_type": "code",
@@ -567,10 +572,11 @@
 							"collapsed": false
 						},
 						"source": [
+							"#ejecutamos notebook\r\n",
 							"%run Aprovisionamiento"
 						],
 						"outputs": [],
-						"execution_count": 24
+						"execution_count": 43
 					},
 					{
 						"cell_type": "code",
@@ -586,10 +592,11 @@
 							}
 						},
 						"source": [
-							"df = getReadCSV(\"landing/SalesOrderHeader\")"
+							"#leemos un path de landing\r\n",
+							"df = getReadCSV(\"SalesOrderHeader\")"
 						],
 						"outputs": [],
-						"execution_count": 25
+						"execution_count": 44
 					},
 					{
 						"cell_type": "code",
@@ -605,10 +612,11 @@
 							}
 						},
 						"source": [
-							"getWriteStaging(df, \"overwrite\", \"staging/SalesOrderHeader\")"
+							"#escribimos un dataframe en modo overwrite a staging\r\n",
+							"getWriteStaging(df, \"overwrite\", \"SalesOrderHeader\")"
 						],
 						"outputs": [],
-						"execution_count": null
+						"execution_count": 45
 					}
 				]
 			},
