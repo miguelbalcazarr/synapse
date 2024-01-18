@@ -134,7 +134,7 @@
 						"spark.dynamicAllocation.enabled": "false",
 						"spark.dynamicAllocation.minExecutors": "2",
 						"spark.dynamicAllocation.maxExecutors": "2",
-						"spark.autotune.trackingId": "ce8bce7c-69d5-4ca5-831e-d8c86a9191e1"
+						"spark.autotune.trackingId": "9a4486fb-9c8a-46e9-867f-12619fc0a452"
 					}
 				},
 				"metadata": {
@@ -214,7 +214,7 @@
 							"\tCustomerID int,\r\n",
 							"\tShipToAddressID int,\r\n",
 							"\tBillToAddressID int,\r\n",
-							"\tShipMethod int,     \r\n",
+							"\tShipMethod string,     \r\n",
 							"\tCreditCardApprovalCode string,\r\n",
 							"\tSubTotal decimal(18,4),\r\n",
 							"\tTaxAmt decimal(18,4),\r\n",
@@ -670,7 +670,7 @@
 						"spark.dynamicAllocation.enabled": "false",
 						"spark.dynamicAllocation.minExecutors": "2",
 						"spark.dynamicAllocation.maxExecutors": "2",
-						"spark.autotune.trackingId": "dea6dcc4-8be9-464f-a2b9-1df2255483c3"
+						"spark.autotune.trackingId": "ce1bbadc-8f4f-4698-a051-3e6fec932b52"
 					}
 				},
 				"metadata": {
@@ -718,7 +718,7 @@
 							"%run Utils"
 						],
 						"outputs": [],
-						"execution_count": 247
+						"execution_count": 262
 					},
 					{
 						"cell_type": "code",
@@ -738,7 +738,7 @@
 							"%run Aprovisionamiento ODS"
 						],
 						"outputs": [],
-						"execution_count": 248
+						"execution_count": 263
 					},
 					{
 						"cell_type": "code",
@@ -759,7 +759,7 @@
 							"df = getReadDelta(\"staging\",\"SalesOrderHeader\")"
 						],
 						"outputs": [],
-						"execution_count": null
+						"execution_count": 264
 					},
 					{
 						"cell_type": "code",
@@ -782,14 +782,14 @@
 							"    \"DueDate\": TimestampType(),  \r\n",
 							"    \"ShipDate\": TimestampType(), \r\n",
 							"    \"Status\": ByteType(),\r\n",
-							"    \"OnlineOrderFlag\": StringType(), \r\n",
+							"    \"OnlineOrderFlag\": BooleanType(), \r\n",
 							"    \"SalesOrderNumber\": StringType(), \r\n",
 							"    \"PurchaseOrderNumber\": StringType(), \r\n",
 							"    \"AccountNumber\": StringType(), \r\n",
 							"    \"CustomerID\": IntegerType(), \r\n",
 							"    \"ShipToAddressID\": IntegerType(), \r\n",
 							"    \"BillToAddressID\": IntegerType(), \r\n",
-							"    \"ShipMethod\": IntegerType(), \r\n",
+							"    \"ShipMethod\": StringType(), \r\n",
 							"    \"CreditCardApprovalCode\": StringType(), \r\n",
 							"    \"SubTotal\": DecimalType(18,4), \r\n",
 							"    \"TaxAmt\": DecimalType(18,4), \r\n",
@@ -801,7 +801,7 @@
 							"} "
 						],
 						"outputs": [],
-						"execution_count": null
+						"execution_count": 265
 					},
 					{
 						"cell_type": "code",
@@ -824,7 +824,7 @@
 							"df.printSchema()"
 						],
 						"outputs": [],
-						"execution_count": null
+						"execution_count": 266
 					},
 					{
 						"cell_type": "code",
@@ -842,14 +842,14 @@
 						},
 						"source": [
 							"dfRefined = df \\\r\n",
-							"            .withColumn(\"OnlineOrderFlag\", when(col(\"OnlineOrderFlag\") == \"false\", \"\") \\\r\n",
-							"                                        .otherwise(\"\")) \\\r\n",
+							"            .withColumn(\"OnlineOrderFlag\", when(col(\"OnlineOrderFlag\") == \"false\", False) \\\r\n",
+							"                                        .otherwise(True)) \\\r\n",
 							"            .withColumn(\"Comment\", when(col(\"Comment\").isNull(), \"\") \\\r\n",
 							"                                        .otherwise(col(\"Comment\")))\r\n",
 							"#display(dfRefined)"
 						],
 						"outputs": [],
-						"execution_count": null
+						"execution_count": 267
 					},
 					{
 						"cell_type": "code",
@@ -869,7 +869,7 @@
 							"getWriteDelta(dfRefined, \"overwrite\", \"ods\", \"SalesOrderHeader\")"
 						],
 						"outputs": [],
-						"execution_count": null
+						"execution_count": 268
 					}
 				]
 			},
