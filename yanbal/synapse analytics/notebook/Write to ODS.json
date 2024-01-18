@@ -17,7 +17,7 @@
 				"spark.dynamicAllocation.enabled": "false",
 				"spark.dynamicAllocation.minExecutors": "2",
 				"spark.dynamicAllocation.maxExecutors": "2",
-				"spark.autotune.trackingId": "0d78e223-04c4-417a-836b-918bedec5a49"
+				"spark.autotune.trackingId": "6b16f38d-981a-4f08-8900-368a794d55aa"
 			}
 		},
 		"metadata": {
@@ -64,7 +64,7 @@
 				"source": [
 					"%run Utils"
 				],
-				"execution_count": 56
+				"execution_count": 57
 			},
 			{
 				"cell_type": "code",
@@ -83,7 +83,7 @@
 				"source": [
 					"%run Aprovisionamiento ODS"
 				],
-				"execution_count": null
+				"execution_count": 58
 			},
 			{
 				"cell_type": "code",
@@ -125,7 +125,7 @@
 					"    StructField('ModifiedDate', TimestampType(), True)\r\n",
 					"]) "
 				],
-				"execution_count": null
+				"execution_count": 59
 			},
 			{
 				"cell_type": "code",
@@ -143,9 +143,9 @@
 				},
 				"source": [
 					"#leemos delta de staging\r\n",
-					"df = getReadDelta(\"staging\",schema,\"SalesOrderHeader\")"
+					"df = getReadDelta(\"staging\",\"SalesOrderHeader\")"
 				],
-				"execution_count": null
+				"execution_count": 60
 			},
 			{
 				"cell_type": "code",
