@@ -114,7 +114,7 @@
 						"spark.dynamicAllocation.enabled": "false",
 						"spark.dynamicAllocation.minExecutors": "2",
 						"spark.dynamicAllocation.maxExecutors": "2",
-						"spark.autotune.trackingId": "b38bdcd5-b489-4ab8-9641-1ccbc5c7ec9f"
+						"spark.autotune.trackingId": "db62b029-c24e-4880-b432-c6c3edf95c38"
 					}
 				},
 				"metadata": {
@@ -181,28 +181,28 @@
 							"%%sql\r\n",
 							"\r\n",
 							"create table if not exists ods.SalesOrderHeader (\r\n",
-							"    SalesOrderID string,\r\n",
-							"\tRevisionNumber string,\r\n",
-							"\tOrderDate string,\r\n",
-							"\tDueDate string,\r\n",
-							"\tShipDate string,\r\n",
-							"\tStatus string,\r\n",
-							"\tOnlineOrderFlag string,\r\n",
+							"    SalesOrderID int,\r\n",
+							"\tRevisionNumber tinyint,\r\n",
+							"\tOrderDate timestamp,\r\n",
+							"\tDueDate timestamp,\r\n",
+							"\tShipDate timestamp,\r\n",
+							"\tStatus tinyint,\r\n",
+							"\tOnlineOrderFlag tinyint,\r\n",
 							"\tSalesOrderNumber string,\r\n",
 							"\tPurchaseOrderNumber string,\r\n",
 							"\tAccountNumber string,    \r\n",
-							"\tCustomerID string,\r\n",
-							"\tShipToAddressID string,\r\n",
-							"\tBillToAddressID string,\r\n",
-							"\tShipMethod string,     \r\n",
+							"\tCustomerID int,\r\n",
+							"\tShipToAddressID int,\r\n",
+							"\tBillToAddressID int,\r\n",
+							"\tShipMethod int,     \r\n",
 							"\tCreditCardApprovalCode string,\r\n",
-							"\tSubTotal string,\r\n",
-							"\tTaxAmt string,\r\n",
-							"\tFreight string,\r\n",
-							"\tTotalDue string,\r\n",
+							"\tSubTotal decimal,\r\n",
+							"\tTaxAmt decimal,\r\n",
+							"\tFreight decimal,\r\n",
+							"\tTotalDue decimal,\r\n",
 							"\tComment string, \r\n",
 							"\trowguid string,\r\n",
-							"\tModifiedDate string \r\n",
+							"\tModifiedDate timestampd \r\n",
 							")\r\n",
 							"using delta\r\n",
 							"location \"abfss://ods@stakyndryl.dfs.core.windows.net/SalesOrderHeader\""
@@ -629,7 +629,7 @@
 						"spark.dynamicAllocation.enabled": "false",
 						"spark.dynamicAllocation.minExecutors": "2",
 						"spark.dynamicAllocation.maxExecutors": "2",
-						"spark.autotune.trackingId": "5d454ede-35b3-4cf3-9637-1dc89b6dd083"
+						"spark.autotune.trackingId": "313b427e-716f-421c-9fce-1c767cbd97cf"
 					}
 				},
 				"metadata": {
@@ -677,7 +677,7 @@
 							"%run Utils"
 						],
 						"outputs": [],
-						"execution_count": 1
+						"execution_count": 10
 					},
 					{
 						"cell_type": "code",
@@ -697,7 +697,7 @@
 							"%run Aprovisionamiento ODS"
 						],
 						"outputs": [],
-						"execution_count": null
+						"execution_count": 11
 					},
 					{
 						"cell_type": "code",
@@ -718,7 +718,7 @@
 							"df = getReadDelta(\"staging\",\"SalesOrderHeader\")"
 						],
 						"outputs": [],
-						"execution_count": null
+						"execution_count": 6
 					},
 					{
 						"cell_type": "code",
@@ -735,10 +735,10 @@
 						},
 						"source": [
 							"#escribimos un dataframe en modo overwrite a ods\r\n",
-							"getWriteDelta(df, \"overwrite\", \"ods\", \"SalesOrderHeader\")"
+							"#getWriteDelta(df, \"overwrite\", \"ods\", \"SalesOrderHeader\")"
 						],
 						"outputs": [],
-						"execution_count": null
+						"execution_count": 7
 					}
 				]
 			},
