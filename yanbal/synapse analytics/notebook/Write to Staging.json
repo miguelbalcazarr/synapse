@@ -17,7 +17,7 @@
 				"spark.dynamicAllocation.enabled": "false",
 				"spark.dynamicAllocation.minExecutors": "2",
 				"spark.dynamicAllocation.maxExecutors": "2",
-				"spark.autotune.trackingId": "9c89ecfa-5bff-428e-8f15-ac17d02f53b4"
+				"spark.autotune.trackingId": "e3ba29ae-6ba7-4a60-8738-ed7964b1079e"
 			}
 		},
 		"metadata": {
@@ -99,7 +99,7 @@
 					"collapsed": false
 				},
 				"source": [
-					"%run Aprovisionamiento"
+					"%run Aprovisionamiento Staging"
 				],
 				"execution_count": null
 			},
@@ -137,7 +137,7 @@
 				},
 				"source": [
 					"#escribimos un dataframe en modo overwrite a staging\r\n",
-					"getWriteStaging(df, \"overwrite\", \"SalesOrderHeader\")"
+					"getWriteStaging(df, \"overwrite\", \"staging\", \"SalesOrderHeader\")"
 				],
 				"execution_count": null
 			}

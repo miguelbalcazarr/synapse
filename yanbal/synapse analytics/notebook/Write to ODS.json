@@ -1,5 +1,5 @@
 {
-	"name": "Write to ods",
+	"name": "Write to ODS",
 	"properties": {
 		"nbformat": 4,
 		"nbformat_minor": 2,
@@ -17,7 +17,7 @@
 				"spark.dynamicAllocation.enabled": "false",
 				"spark.dynamicAllocation.minExecutors": "2",
 				"spark.dynamicAllocation.maxExecutors": "2",
-				"spark.autotune.trackingId": "81cc4313-557d-4d5b-8ccb-0227c34b299c"
+				"spark.autotune.trackingId": "00de0101-d61f-42d2-be8b-76c7c6ef737c"
 			}
 		},
 		"metadata": {
@@ -64,7 +64,7 @@
 				"source": [
 					"%run Utils"
 				],
-				"execution_count": 52
+				"execution_count": 3
 			},
 			{
 				"cell_type": "code",
@@ -81,9 +81,9 @@
 					"collapsed": false
 				},
 				"source": [
-					"%run Aprovisionamiento"
+					"%run Aprovisionamiento ODS"
 				],
-				"execution_count": null
+				"execution_count": 4
 			},
 			{
 				"cell_type": "code",
@@ -96,14 +96,14 @@
 						"transient": {
 							"deleting": false
 						}
-					}
+					},
+					"collapsed": false
 				},
 				"source": [
 					"#leemos delta de staging\r\n",
-					"df = getReadStaging(\"abfss://staging@stakyndryl.dfs.core.windows.net/SalesOrderHeader\")\r\n",
-					"display(df)"
+					"df = getReadDelta(\"staging\",\"SalesOrderHeader\")"
 				],
-				"execution_count": 1
+				"execution_count": 10
 			},
 			{
 				"cell_type": "code",
@@ -119,8 +119,8 @@
 					}
 				},
 				"source": [
-					"#escribimos un dataframe en modo overwrite a staging\r\n",
-					"getWriteStaging(df, \"overwrite\", \"SalesOrderHeader\")"
+					"#escribimos un dataframe en modo overwrite a ods\r\n",
+					"getWriteStaging(df, \"overwrite\", \"ods\", \"SalesOrderHeader\")"
 				],
 				"execution_count": null
 			}

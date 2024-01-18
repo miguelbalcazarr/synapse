@@ -17,7 +17,7 @@
 				"spark.dynamicAllocation.enabled": "false",
 				"spark.dynamicAllocation.minExecutors": "2",
 				"spark.dynamicAllocation.maxExecutors": "2",
-				"spark.autotune.trackingId": "ee7a5ca6-6a8f-493a-af8a-8c4a55bd870f"
+				"spark.autotune.trackingId": "cf1903d0-8d59-4081-a88c-dfa36f4c27c4"
 			}
 		},
 		"metadata": {
@@ -128,11 +128,11 @@
 					}
 				},
 				"source": [
-					"def getWriteStaging(df, mode, path):\r\n",
+					"def getWriteDelta(df, mode, container, path):\r\n",
 					"\r\n",
 					"    df.write.format(\"delta\") \\\r\n",
 					"    .mode(mode) \\\r\n",
-					"    .save(f\"abfss://staging@stakyndryl.dfs.core.windows.net/{path}\")"
+					"    .save(f\"abfss://{container}@stakyndryl.dfs.core.windows.net/{path}\")"
 				],
 				"execution_count": null
 			},
@@ -150,9 +150,9 @@
 					}
 				},
 				"source": [
-					"def getReadStaging(path):\r\n",
+					"def getReadDelta(container, path):\r\n",
 					"    df = spark.read.format(\"delta\") \\\r\n",
-					"    .load(f\"abfss://staging@stakyndryl.dfs.core.windows.net/{path}\")\r\n",
+					"    .load(f\"abfss://{container}@stakyndryl.dfs.core.windows.net/{path}\")\r\n",
 					"    \r\n",
 					"    return df"
 				],
