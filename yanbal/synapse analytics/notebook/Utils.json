@@ -17,7 +17,7 @@
 				"spark.dynamicAllocation.enabled": "false",
 				"spark.dynamicAllocation.minExecutors": "2",
 				"spark.dynamicAllocation.maxExecutors": "2",
-				"spark.autotune.trackingId": "557cbc25-3709-42d7-9346-6ffaa52ec1c5"
+				"spark.autotune.trackingId": "ead53463-e4c3-4ce5-acd3-8348524cafdf"
 			}
 		},
 		"metadata": {
@@ -151,7 +151,7 @@
 				},
 				"source": [
 					"def getReadStaging(df, path):\r\n",
-					"    df.read.format(\"delta\") \\\r\n",
+					"    df = spark.read.format(\"delta\") \\\r\n",
 					"    .load(f\"abfss://staging@stakyndryl.dfs.core.windows.net/{path}\")\r\n",
 					"    \r\n",
 					"    return df"

@@ -17,7 +17,7 @@
 				"spark.dynamicAllocation.enabled": "false",
 				"spark.dynamicAllocation.minExecutors": "2",
 				"spark.dynamicAllocation.maxExecutors": "2",
-				"spark.autotune.trackingId": "9c688091-e304-4af0-b3e4-297617eef88c"
+				"spark.autotune.trackingId": "810e84f4-5c72-4252-9faa-e331e468affc"
 			}
 		},
 		"metadata": {
@@ -100,7 +100,7 @@
 				},
 				"source": [
 					"#leemos delta de staging\r\n",
-					"df = getReadCSV(\"SalesOrderHeader\")"
+					"df = getReadStaging(\"SalesOrderHeader\")"
 				],
 				"execution_count": null
 			},
