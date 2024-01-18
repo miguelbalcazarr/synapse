@@ -670,7 +670,7 @@
 						"spark.dynamicAllocation.enabled": "false",
 						"spark.dynamicAllocation.minExecutors": "2",
 						"spark.dynamicAllocation.maxExecutors": "2",
-						"spark.autotune.trackingId": "9d4e42ee-1b6e-409c-b7ee-97e7c5b0be80"
+						"spark.autotune.trackingId": "772f52f2-3201-4f1b-9985-6cf5e3e2133b"
 					}
 				},
 				"metadata": {
@@ -718,7 +718,7 @@
 							"%run Utils"
 						],
 						"outputs": [],
-						"execution_count": 136
+						"execution_count": 149
 					},
 					{
 						"cell_type": "code",
@@ -738,7 +738,7 @@
 							"%run Aprovisionamiento ODS"
 						],
 						"outputs": [],
-						"execution_count": 137
+						"execution_count": 150
 					},
 					{
 						"cell_type": "code",
@@ -781,26 +781,7 @@
 							"]) "
 						],
 						"outputs": [],
-						"execution_count": 138
-					},
-					{
-						"cell_type": "code",
-						"metadata": {
-							"jupyter": {
-								"source_hidden": false,
-								"outputs_hidden": false
-							},
-							"nteract": {
-								"transient": {
-									"deleting": false
-								}
-							}
-						},
-						"source": [
-							""
-						],
-						"outputs": [],
-						"execution_count": null
+						"execution_count": 151
 					},
 					{
 						"cell_type": "code",
@@ -821,7 +802,7 @@
 							"df = getReadDelta(\"staging\",\"SalesOrderHeader\")"
 						],
 						"outputs": [],
-						"execution_count": 139
+						"execution_count": 152
 					},
 					{
 						"cell_type": "code",
@@ -863,7 +844,7 @@
 							"} "
 						],
 						"outputs": [],
-						"execution_count": 140
+						"execution_count": 153
 					},
 					{
 						"cell_type": "code",
@@ -879,59 +860,13 @@
 							}
 						},
 						"source": [
-							"  \r\n",
-							"# course_df6 has all the column \r\n",
-							"# types as string \r\n",
-							"dfSchema = df.select( \r\n",
-							"    [df.cast(coltype_map) \r\n",
-							"     .alias(c) for c in df.columns] \r\n",
-							") \r\n",
-							"dfSchema.printSchema() "
-						],
-						"outputs": [],
-						"execution_count": 141
-					},
-					{
-						"cell_type": "code",
-						"metadata": {
-							"jupyter": {
-								"source_hidden": false,
-								"outputs_hidden": false
-							},
-							"nteract": {
-								"transient": {
-									"deleting": false
-								}
-							}
-						},
-						"source": [
-							"display(dfSchema)"
-						],
-						"outputs": [],
-						"execution_count": null
-					},
-					{
-						"cell_type": "code",
-						"metadata": {
-							"jupyter": {
-								"source_hidden": false,
-								"outputs_hidden": false
-							},
-							"nteract": {
-								"transient": {
-									"deleting": false
-								}
-							}
-						},
-						"source": [
-							"dfRefined = dfSchema \\\r\n",
-							"            .withColumn(\"SalesOrderID\", when(col(\"SalesOrderID\").isNull(), 0) \\\r\n",
-							"                                        .otherwise(col(\"SalesOrderID\")))\r\n",
+							"for columna, tipo in coltype_map.items():\r\n",
+							"    dfSchema = df.withColumn(columna, col(columna).cast(tipo))\r\n",
 							"\r\n",
-							"display(dfRefined)"
+							"dfSchema.printSchema()"
 						],
 						"outputs": [],
-						"execution_count": null
+						"execution_count": 160
 					},
 					{
 						"cell_type": "code",
