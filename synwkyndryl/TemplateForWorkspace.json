@@ -94,7 +94,7 @@
 			"dependsOn": []
 		},
 		{
-			"name": "[concat(parameters('workspaceName'), '/Aprovisionamiento')]",
+			"name": "[concat(parameters('workspaceName'), '/Aprovisionamiento ODS')]",
 			"type": "Microsoft.Synapse/workspaces/notebooks",
 			"apiVersion": "2019-06-01-preview",
 			"properties": {
@@ -114,7 +114,128 @@
 						"spark.dynamicAllocation.enabled": "false",
 						"spark.dynamicAllocation.minExecutors": "2",
 						"spark.dynamicAllocation.maxExecutors": "2",
-						"spark.autotune.trackingId": "b2c3c66f-8d96-4a91-894d-b6e786df1edc"
+						"spark.autotune.trackingId": "b38bdcd5-b489-4ab8-9641-1ccbc5c7ec9f"
+					}
+				},
+				"metadata": {
+					"saveOutput": true,
+					"enableDebugMode": false,
+					"kernelspec": {
+						"name": "synapse_pyspark",
+						"display_name": "Synapse PySpark"
+					},
+					"language_info": {
+						"name": "python"
+					},
+					"a365ComputeOptions": {
+						"id": "/subscriptions/e4516ad2-d1ef-463b-817c-b2a88c0b12bd/resourceGroups/rg-kyndryl/providers/Microsoft.Synapse/workspaces/synwkyndryl/bigDataPools/kyndryl",
+						"name": "kyndryl",
+						"type": "Spark",
+						"endpoint": "https://synwkyndryl.dev.azuresynapse.net/livyApi/versions/2019-11-01-preview/sparkPools/kyndryl",
+						"auth": {
+							"type": "AAD",
+							"authResource": "https://dev.azuresynapse.net"
+						},
+						"sparkVersion": "3.3",
+						"nodeCount": 3,
+						"cores": 4,
+						"memory": 28
+					},
+					"sessionKeepAliveTimeout": 30
+				},
+				"cells": [
+					{
+						"cell_type": "code",
+						"metadata": {
+							"microsoft": {
+								"language": "sparksql"
+							},
+							"collapsed": false
+						},
+						"source": [
+							"%%sql\r\n",
+							"\r\n",
+							"create database if not exists ods LOCATION \"abfss://ods@stakyndryl.dfs.core.windows.net/database/ods/\""
+						],
+						"outputs": [],
+						"execution_count": 2
+					},
+					{
+						"cell_type": "code",
+						"metadata": {
+							"jupyter": {
+								"source_hidden": false,
+								"outputs_hidden": false
+							},
+							"nteract": {
+								"transient": {
+									"deleting": false
+								}
+							},
+							"microsoft": {
+								"language": "sparksql"
+							},
+							"collapsed": false
+						},
+						"source": [
+							"%%sql\r\n",
+							"\r\n",
+							"create table if not exists ods.SalesOrderHeader (\r\n",
+							"    SalesOrderID string,\r\n",
+							"\tRevisionNumber string,\r\n",
+							"\tOrderDate string,\r\n",
+							"\tDueDate string,\r\n",
+							"\tShipDate string,\r\n",
+							"\tStatus string,\r\n",
+							"\tOnlineOrderFlag string,\r\n",
+							"\tSalesOrderNumber string,\r\n",
+							"\tPurchaseOrderNumber string,\r\n",
+							"\tAccountNumber string,    \r\n",
+							"\tCustomerID string,\r\n",
+							"\tShipToAddressID string,\r\n",
+							"\tBillToAddressID string,\r\n",
+							"\tShipMethod string,     \r\n",
+							"\tCreditCardApprovalCode string,\r\n",
+							"\tSubTotal string,\r\n",
+							"\tTaxAmt string,\r\n",
+							"\tFreight string,\r\n",
+							"\tTotalDue string,\r\n",
+							"\tComment string, \r\n",
+							"\trowguid string,\r\n",
+							"\tModifiedDate string \r\n",
+							")\r\n",
+							"using delta\r\n",
+							"location \"abfss://ods@stakyndryl.dfs.core.windows.net/SalesOrderHeader\""
+						],
+						"outputs": [],
+						"execution_count": 3
+					}
+				]
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/Aprovisionamiento Staging')]",
+			"type": "Microsoft.Synapse/workspaces/notebooks",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"nbformat": 4,
+				"nbformat_minor": 2,
+				"bigDataPool": {
+					"referenceName": "kyndryl",
+					"type": "BigDataPoolReference"
+				},
+				"sessionProperties": {
+					"driverMemory": "28g",
+					"driverCores": 4,
+					"executorMemory": "28g",
+					"executorCores": 4,
+					"numExecutors": 2,
+					"conf": {
+						"spark.dynamicAllocation.enabled": "false",
+						"spark.dynamicAllocation.minExecutors": "2",
+						"spark.dynamicAllocation.maxExecutors": "2",
+						"spark.autotune.trackingId": "ef7dac88-b215-4869-ad72-947cad6184d4"
 					}
 				},
 				"metadata": {
@@ -235,7 +356,7 @@
 						"spark.dynamicAllocation.enabled": "false",
 						"spark.dynamicAllocation.minExecutors": "2",
 						"spark.dynamicAllocation.maxExecutors": "2",
-						"spark.autotune.trackingId": "a1a9ec25-17cf-4d35-8748-9ec55ebd8522"
+						"spark.autotune.trackingId": "cf1903d0-8d59-4081-a88c-dfa36f4c27c4"
 					}
 				},
 				"metadata": {
@@ -348,11 +469,34 @@
 							}
 						},
 						"source": [
-							"def getWriteStaging(df, mode, path):\r\n",
+							"def getWriteDelta(df, mode, container, path):\r\n",
 							"\r\n",
 							"    df.write.format(\"delta\") \\\r\n",
 							"    .mode(mode) \\\r\n",
-							"    .save(f\"abfss://staging@stakyndryl.dfs.core.windows.net/{path}\")"
+							"    .save(f\"abfss://{container}@stakyndryl.dfs.core.windows.net/{path}\")"
+						],
+						"outputs": [],
+						"execution_count": null
+					},
+					{
+						"cell_type": "code",
+						"metadata": {
+							"jupyter": {
+								"source_hidden": false,
+								"outputs_hidden": false
+							},
+							"nteract": {
+								"transient": {
+									"deleting": false
+								}
+							}
+						},
+						"source": [
+							"def getReadDelta(container, path):\r\n",
+							"    df = spark.read.format(\"delta\") \\\r\n",
+							"    .load(f\"abfss://{container}@stakyndryl.dfs.core.windows.net/{path}\")\r\n",
+							"    \r\n",
+							"    return df"
 						],
 						"outputs": [],
 						"execution_count": null
@@ -465,7 +609,7 @@
 			"dependsOn": []
 		},
 		{
-			"name": "[concat(parameters('workspaceName'), '/Write to Staging')]",
+			"name": "[concat(parameters('workspaceName'), '/Write to ODS')]",
 			"type": "Microsoft.Synapse/workspaces/notebooks",
 			"apiVersion": "2019-06-01-preview",
 			"properties": {
@@ -485,7 +629,7 @@
 						"spark.dynamicAllocation.enabled": "false",
 						"spark.dynamicAllocation.minExecutors": "2",
 						"spark.dynamicAllocation.maxExecutors": "2",
-						"spark.autotune.trackingId": "d8858ef7-b1fe-4683-8c3a-1668e50017d4"
+						"spark.autotune.trackingId": "3eca27a3-ab13-44d4-bfbc-4278757e38cb"
 					}
 				},
 				"metadata": {
@@ -512,6 +656,141 @@
 						"cores": 4,
 						"memory": 28,
 						"automaticScaleJobs": false
+					},
+					"sessionKeepAliveTimeout": 30
+				},
+				"cells": [
+					{
+						"cell_type": "code",
+						"metadata": {
+							"jupyter": {
+								"source_hidden": false,
+								"outputs_hidden": false
+							},
+							"nteract": {
+								"transient": {
+									"deleting": false
+								}
+							}
+						},
+						"source": [
+							"%run Utils"
+						],
+						"outputs": [],
+						"execution_count": 3
+					},
+					{
+						"cell_type": "code",
+						"metadata": {
+							"jupyter": {
+								"source_hidden": false,
+								"outputs_hidden": false
+							},
+							"nteract": {
+								"transient": {
+									"deleting": false
+								}
+							},
+							"collapsed": false
+						},
+						"source": [
+							"%run Aprovisionamiento ODS"
+						],
+						"outputs": [],
+						"execution_count": 4
+					},
+					{
+						"cell_type": "code",
+						"metadata": {
+							"jupyter": {
+								"source_hidden": false,
+								"outputs_hidden": false
+							},
+							"nteract": {
+								"transient": {
+									"deleting": false
+								}
+							},
+							"collapsed": false
+						},
+						"source": [
+							"#leemos delta de staging\r\n",
+							"df = getReadDelta(\"staging\",\"SalesOrderHeader\")"
+						],
+						"outputs": [],
+						"execution_count": 10
+					},
+					{
+						"cell_type": "code",
+						"metadata": {
+							"jupyter": {
+								"source_hidden": false,
+								"outputs_hidden": false
+							},
+							"nteract": {
+								"transient": {
+									"deleting": false
+								}
+							}
+						},
+						"source": [
+							"#escribimos un dataframe en modo overwrite a ods\r\n",
+							"getWriteStaging(df, \"overwrite\", \"ods\", \"SalesOrderHeader\")"
+						],
+						"outputs": [],
+						"execution_count": null
+					}
+				]
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/Write to Staging')]",
+			"type": "Microsoft.Synapse/workspaces/notebooks",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"nbformat": 4,
+				"nbformat_minor": 2,
+				"bigDataPool": {
+					"referenceName": "kyndryl",
+					"type": "BigDataPoolReference"
+				},
+				"sessionProperties": {
+					"driverMemory": "28g",
+					"driverCores": 4,
+					"executorMemory": "28g",
+					"executorCores": 4,
+					"numExecutors": 2,
+					"conf": {
+						"spark.dynamicAllocation.enabled": "false",
+						"spark.dynamicAllocation.minExecutors": "2",
+						"spark.dynamicAllocation.maxExecutors": "2",
+						"spark.autotune.trackingId": "e3ba29ae-6ba7-4a60-8738-ed7964b1079e"
+					}
+				},
+				"metadata": {
+					"saveOutput": true,
+					"enableDebugMode": false,
+					"kernelspec": {
+						"name": "synapse_pyspark",
+						"display_name": "Synapse PySpark"
+					},
+					"language_info": {
+						"name": "python"
+					},
+					"a365ComputeOptions": {
+						"id": "/subscriptions/e4516ad2-d1ef-463b-817c-b2a88c0b12bd/resourceGroups/rg-kyndryl/providers/Microsoft.Synapse/workspaces/synwkyndryl/bigDataPools/kyndryl",
+						"name": "kyndryl",
+						"type": "Spark",
+						"endpoint": "https://synwkyndryl.dev.azuresynapse.net/livyApi/versions/2019-11-01-preview/sparkPools/kyndryl",
+						"auth": {
+							"type": "AAD",
+							"authResource": "https://dev.azuresynapse.net"
+						},
+						"sparkVersion": "3.3",
+						"nodeCount": 3,
+						"cores": 4,
+						"memory": 28
 					},
 					"sessionKeepAliveTimeout": 30
 				},
@@ -569,7 +848,7 @@
 							"collapsed": false
 						},
 						"source": [
-							"%run Aprovisionamiento"
+							"%run Aprovisionamiento Staging"
 						],
 						"outputs": [],
 						"execution_count": null
@@ -609,7 +888,7 @@
 						},
 						"source": [
 							"#escribimos un dataframe en modo overwrite a staging\r\n",
-							"getWriteStaging(df, \"overwrite\", \"SalesOrderHeader\")"
+							"getWriteStaging(df, \"overwrite\", \"staging\", \"SalesOrderHeader\")"
 						],
 						"outputs": [],
 						"execution_count": null
