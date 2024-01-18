@@ -17,7 +17,7 @@
 				"spark.dynamicAllocation.enabled": "false",
 				"spark.dynamicAllocation.minExecutors": "2",
 				"spark.dynamicAllocation.maxExecutors": "2",
-				"spark.autotune.trackingId": "810e84f4-5c72-4252-9faa-e331e468affc"
+				"spark.autotune.trackingId": "81cc4313-557d-4d5b-8ccb-0227c34b299c"
 			}
 		},
 		"metadata": {
@@ -100,9 +100,10 @@
 				},
 				"source": [
 					"#leemos delta de staging\r\n",
-					"df = getReadStaging(\"SalesOrderHeader\")"
+					"df = getReadStaging(\"abfss://staging@stakyndryl.dfs.core.windows.net/SalesOrderHeader\")\r\n",
+					"display(df)"
 				],
-				"execution_count": null
+				"execution_count": 1
 			},
 			{
 				"cell_type": "code",
