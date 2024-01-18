@@ -114,6 +114,26 @@
 			"dependsOn": []
 		},
 		{
+			"name": "[concat(parameters('workspaceName'), '/SQL script 2')]",
+			"type": "Microsoft.Synapse/workspaces/sqlscripts",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"content": {
+					"query": "SELECT TOP (100) * FROM [staging].[dbo].[salesorderheader]",
+					"metadata": {
+						"language": "sql"
+					},
+					"currentConnection": {
+						"databaseName": "staging",
+						"poolName": "Built-in"
+					},
+					"resultLimit": 5000
+				},
+				"type": "SqlQuery"
+			},
+			"dependsOn": []
+		},
+		{
 			"name": "[concat(parameters('workspaceName'), '/Aprovisionamiento ODS')]",
 			"type": "Microsoft.Synapse/workspaces/notebooks",
 			"apiVersion": "2019-06-01-preview",
@@ -134,7 +154,7 @@
 						"spark.dynamicAllocation.enabled": "false",
 						"spark.dynamicAllocation.minExecutors": "2",
 						"spark.dynamicAllocation.maxExecutors": "2",
-						"spark.autotune.trackingId": "9a4486fb-9c8a-46e9-867f-12619fc0a452"
+						"spark.autotune.trackingId": "357929cf-2507-45b5-8a73-afc81fe75c64"
 					}
 				},
 				"metadata": {
@@ -222,7 +242,8 @@
 							"\tTotalDue decimal(18,4),\r\n",
 							"\tComment string, \r\n",
 							"\trowguid string,\r\n",
-							"\tModifiedDate timestamp\r\n",
+							"\tModifiedDate timestamp,\r\n",
+							"\tauditDate timestamp\r\n",
 							")\r\n",
 							"using delta\r\n",
 							"location \"abfss://ods@stakyndryl.dfs.core.windows.net/SalesOrderHeader\""
@@ -695,7 +716,7 @@
 						"spark.dynamicAllocation.enabled": "false",
 						"spark.dynamicAllocation.minExecutors": "2",
 						"spark.dynamicAllocation.maxExecutors": "2",
-						"spark.autotune.trackingId": "9fa5c94d-5994-4a91-a48b-cb049756bb70"
+						"spark.autotune.trackingId": "f3cb7113-1ac1-411b-9f38-7c634609d545"
 					}
 				},
 				"metadata": {
@@ -720,7 +741,8 @@
 						"sparkVersion": "3.3",
 						"nodeCount": 3,
 						"cores": 4,
-						"memory": 28
+						"memory": 28,
+						"automaticScaleJobs": false
 					},
 					"sessionKeepAliveTimeout": 30
 				},
@@ -821,7 +843,8 @@
 							"    \"TotalDue\": DecimalType(18,4), \r\n",
 							"    \"Comment\": StringType(), \r\n",
 							"    \"rowguid\": StringType(), \r\n",
-							"    \"ModifiedDate\": TimestampType()  \r\n",
+							"    \"ModifiedDate\": TimestampType(),\r\n",
+							"    \"auditDate\": TimestampType()\r\n",
 							"} "
 						],
 						"outputs": [],
@@ -920,7 +943,7 @@
 						"spark.dynamicAllocation.enabled": "false",
 						"spark.dynamicAllocation.minExecutors": "2",
 						"spark.dynamicAllocation.maxExecutors": "2",
-						"spark.autotune.trackingId": "37299bc1-538e-48ca-ab0b-6e41a65bc540"
+						"spark.autotune.trackingId": "879c8c82-9962-4e44-815d-6e974be44d92"
 					}
 				},
 				"metadata": {
@@ -945,8 +968,7 @@
 						"sparkVersion": "3.3",
 						"nodeCount": 3,
 						"cores": 4,
-						"memory": 28,
-						"automaticScaleJobs": false
+						"memory": 28
 					},
 					"sessionKeepAliveTimeout": 30
 				},
@@ -968,7 +990,7 @@
 							"%run Utils"
 						],
 						"outputs": [],
-						"execution_count": 52
+						"execution_count": 10
 					},
 					{
 						"cell_type": "code",
@@ -987,7 +1009,7 @@
 							"%run Write to Landing"
 						],
 						"outputs": [],
-						"execution_count": null
+						"execution_count": 11
 					},
 					{
 						"cell_type": "code",
@@ -1007,7 +1029,7 @@
 							"%run Aprovisionamiento Staging"
 						],
 						"outputs": [],
-						"execution_count": null
+						"execution_count": 12
 					},
 					{
 						"cell_type": "code",
@@ -1027,7 +1049,7 @@
 							"df = getReadCSV(\"SalesOrderHeader\")"
 						],
 						"outputs": [],
-						"execution_count": null
+						"execution_count": 13
 					},
 					{
 						"cell_type": "code",
@@ -1047,7 +1069,7 @@
 							"df = df.withColumn(\"auditDate\", current_timestamp())"
 						],
 						"outputs": [],
-						"execution_count": null
+						"execution_count": 14
 					},
 					{
 						"cell_type": "code",
@@ -1064,10 +1086,10 @@
 						},
 						"source": [
 							"#escribimos un dataframe en modo append a staging\r\n",
-							"getWriteStaging(df, \"append\", \"staging\", \"SalesOrderHeader\")"
+							"getWriteDelta(df, \"append\", \"staging\", \"SalesOrderHeader\")"
 						],
 						"outputs": [],
-						"execution_count": null
+						"execution_count": 15
 					}
 				]
 			},
