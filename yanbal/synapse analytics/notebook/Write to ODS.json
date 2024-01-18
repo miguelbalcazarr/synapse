@@ -17,7 +17,7 @@
 				"spark.dynamicAllocation.enabled": "false",
 				"spark.dynamicAllocation.minExecutors": "2",
 				"spark.dynamicAllocation.maxExecutors": "2",
-				"spark.autotune.trackingId": "767ac3f8-8238-4464-9958-5d7679ee585e"
+				"spark.autotune.trackingId": "5e976f72-52a3-429b-b5ef-7a5fe6ac014a"
 			}
 		},
 		"metadata": {
@@ -64,7 +64,7 @@
 				"source": [
 					"%run Utils"
 				],
-				"execution_count": 270
+				"execution_count": 4
 			},
 			{
 				"cell_type": "code",
@@ -83,7 +83,7 @@
 				"source": [
 					"%run Aprovisionamiento ODS"
 				],
-				"execution_count": 271
+				"execution_count": 5
 			},
 			{
 				"cell_type": "code",
@@ -103,7 +103,7 @@
 					"#leemos delta de staging\r\n",
 					"df = getReadDelta(\"staging\",\"SalesOrderHeader\")"
 				],
-				"execution_count": 272
+				"execution_count": 6
 			},
 			{
 				"cell_type": "code",
@@ -145,7 +145,7 @@
 					"    \"auditDate\": TimestampType()\r\n",
 					"} "
 				],
-				"execution_count": 273
+				"execution_count": 7
 			},
 			{
 				"cell_type": "code",
@@ -167,7 +167,7 @@
 					"\r\n",
 					"df.printSchema()"
 				],
-				"execution_count": 274
+				"execution_count": 8
 			},
 			{
 				"cell_type": "code",
@@ -191,7 +191,7 @@
 					"                                        .otherwise(col(\"Comment\")))\r\n",
 					"#display(dfRefined)"
 				],
-				"execution_count": 275
+				"execution_count": 9
 			},
 			{
 				"cell_type": "code",
@@ -210,7 +210,7 @@
 					"# escribimos un dataframe en modo overwrite a ods\r\n",
 					"getWriteDelta(dfRefined, \"overwrite\", \"ods\", \"SalesOrderHeader\")"
 				],
-				"execution_count": 276
+				"execution_count": 10
 			}
 		]
 	}
