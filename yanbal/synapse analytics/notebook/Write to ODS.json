@@ -17,7 +17,7 @@
 				"spark.dynamicAllocation.enabled": "false",
 				"spark.dynamicAllocation.minExecutors": "2",
 				"spark.dynamicAllocation.maxExecutors": "2",
-				"spark.autotune.trackingId": "9ac902f1-c8c6-492c-8371-aca85d78dd4a"
+				"spark.autotune.trackingId": "0d78e223-04c4-417a-836b-918bedec5a49"
 			}
 		},
 		"metadata": {
@@ -64,7 +64,7 @@
 				"source": [
 					"%run Utils"
 				],
-				"execution_count": 37
+				"execution_count": 56
 			},
 			{
 				"cell_type": "code",
@@ -83,46 +83,7 @@
 				"source": [
 					"%run Aprovisionamiento ODS"
 				],
-				"execution_count": 38
-			},
-			{
-				"cell_type": "code",
-				"metadata": {
-					"jupyter": {
-						"source_hidden": false,
-						"outputs_hidden": false
-					},
-					"nteract": {
-						"transient": {
-							"deleting": false
-						}
-					},
-					"collapsed": false
-				},
-				"source": [
-					"#leemos delta de staging\r\n",
-					"df = getReadDelta(\"staging\",\"SalesOrderHeader\")"
-				],
-				"execution_count": 39
-			},
-			{
-				"cell_type": "code",
-				"metadata": {
-					"jupyter": {
-						"source_hidden": false,
-						"outputs_hidden": false
-					},
-					"nteract": {
-						"transient": {
-							"deleting": false
-						}
-					}
-				},
-				"source": [
-					"#escribimos un dataframe en modo overwrite a ods\r\n",
-					"#getWriteDelta(df, \"overwrite\", \"ods\", \"SalesOrderHeader\")"
-				],
-				"execution_count": 40
+				"execution_count": null
 			},
 			{
 				"cell_type": "code",
@@ -164,7 +125,46 @@
 					"    StructField('ModifiedDate', TimestampType(), True)\r\n",
 					"]) "
 				],
-				"execution_count": 55
+				"execution_count": null
+			},
+			{
+				"cell_type": "code",
+				"metadata": {
+					"jupyter": {
+						"source_hidden": false,
+						"outputs_hidden": false
+					},
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					},
+					"collapsed": false
+				},
+				"source": [
+					"#leemos delta de staging\r\n",
+					"df = getReadDelta(\"staging\",schema,\"SalesOrderHeader\")"
+				],
+				"execution_count": null
+			},
+			{
+				"cell_type": "code",
+				"metadata": {
+					"jupyter": {
+						"source_hidden": false,
+						"outputs_hidden": false
+					},
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					}
+				},
+				"source": [
+					"#escribimos un dataframe en modo overwrite a ods\r\n",
+					"#getWriteDelta(df, \"overwrite\", \"ods\", \"SalesOrderHeader\")"
+				],
+				"execution_count": null
 			}
 		]
 	}

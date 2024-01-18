@@ -17,7 +17,7 @@
 				"spark.dynamicAllocation.enabled": "false",
 				"spark.dynamicAllocation.minExecutors": "2",
 				"spark.dynamicAllocation.maxExecutors": "2",
-				"spark.autotune.trackingId": "62667e94-b594-422b-9037-75cc6431eb4a"
+				"spark.autotune.trackingId": "0faf4cd2-cdd6-4bf7-8a24-5c83e70727b9"
 			}
 		},
 		"metadata": {
@@ -172,7 +172,7 @@
 				"source": [
 					"def getReadDelta(container, schema, path):\r\n",
 					"    df = spark.read.format(\"delta\") \\\r\n",
-					"    .schema(schema)\r\n",
+					"    .schema(schema) \\\r\n",
 					"    .load(f\"abfss://{container}@stakyndryl.dfs.core.windows.net/{path}\")\r\n",
 					"    \r\n",
 					"    return df"
