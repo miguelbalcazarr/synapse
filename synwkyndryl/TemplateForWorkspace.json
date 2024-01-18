@@ -99,7 +99,7 @@
 			"apiVersion": "2019-06-01-preview",
 			"properties": {
 				"content": {
-					"query": "SELECT TOP (100) * FROM [staging].[dbo].[salesorderheader]",
+					"query": "SELECT * FROM [ods].[dbo].[salesorderheader]",
 					"metadata": {
 						"language": "sql"
 					},
@@ -670,7 +670,7 @@
 						"spark.dynamicAllocation.enabled": "false",
 						"spark.dynamicAllocation.minExecutors": "2",
 						"spark.dynamicAllocation.maxExecutors": "2",
-						"spark.autotune.trackingId": "ce1bbadc-8f4f-4698-a051-3e6fec932b52"
+						"spark.autotune.trackingId": "9e43244c-28dd-48b4-96cd-94202e18798c"
 					}
 				},
 				"metadata": {
@@ -718,7 +718,7 @@
 							"%run Utils"
 						],
 						"outputs": [],
-						"execution_count": 262
+						"execution_count": 270
 					},
 					{
 						"cell_type": "code",
@@ -738,7 +738,7 @@
 							"%run Aprovisionamiento ODS"
 						],
 						"outputs": [],
-						"execution_count": 263
+						"execution_count": 271
 					},
 					{
 						"cell_type": "code",
@@ -759,7 +759,7 @@
 							"df = getReadDelta(\"staging\",\"SalesOrderHeader\")"
 						],
 						"outputs": [],
-						"execution_count": 264
+						"execution_count": 272
 					},
 					{
 						"cell_type": "code",
@@ -801,7 +801,7 @@
 							"} "
 						],
 						"outputs": [],
-						"execution_count": 265
+						"execution_count": 273
 					},
 					{
 						"cell_type": "code",
@@ -824,7 +824,7 @@
 							"df.printSchema()"
 						],
 						"outputs": [],
-						"execution_count": 266
+						"execution_count": 274
 					},
 					{
 						"cell_type": "code",
@@ -849,7 +849,7 @@
 							"#display(dfRefined)"
 						],
 						"outputs": [],
-						"execution_count": 267
+						"execution_count": 275
 					},
 					{
 						"cell_type": "code",
@@ -869,7 +869,7 @@
 							"getWriteDelta(dfRefined, \"overwrite\", \"ods\", \"SalesOrderHeader\")"
 						],
 						"outputs": [],
-						"execution_count": 268
+						"execution_count": 276
 					}
 				]
 			},
