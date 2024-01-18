@@ -134,7 +134,7 @@
 						"spark.dynamicAllocation.enabled": "false",
 						"spark.dynamicAllocation.minExecutors": "2",
 						"spark.dynamicAllocation.maxExecutors": "2",
-						"spark.autotune.trackingId": "344fc8dc-7bab-4349-82b7-81a7ab569981"
+						"spark.autotune.trackingId": "c933fee3-d04f-417e-95b6-8f74d596c3ed"
 					}
 				},
 				"metadata": {
@@ -207,7 +207,7 @@
 							"\tDueDate timestamp,\r\n",
 							"\tShipDate timestamp,\r\n",
 							"\tStatus tinyint,\r\n",
-							"\tOnlineOrderFlag tinyint,\r\n",
+							"\tOnlineOrderFlag bool,\r\n",
 							"\tSalesOrderNumber string,\r\n",
 							"\tPurchaseOrderNumber string,\r\n",
 							"\tAccountNumber string,    \r\n",
@@ -670,7 +670,7 @@
 						"spark.dynamicAllocation.enabled": "false",
 						"spark.dynamicAllocation.minExecutors": "2",
 						"spark.dynamicAllocation.maxExecutors": "2",
-						"spark.autotune.trackingId": "772f52f2-3201-4f1b-9985-6cf5e3e2133b"
+						"spark.autotune.trackingId": "e618498e-4d02-4774-88f0-fbf505fe7770"
 					}
 				},
 				"metadata": {
@@ -718,7 +718,7 @@
 							"%run Utils"
 						],
 						"outputs": [],
-						"execution_count": 149
+						"execution_count": 239
 					},
 					{
 						"cell_type": "code",
@@ -738,50 +738,7 @@
 							"%run Aprovisionamiento ODS"
 						],
 						"outputs": [],
-						"execution_count": 150
-					},
-					{
-						"cell_type": "code",
-						"metadata": {
-							"jupyter": {
-								"source_hidden": false,
-								"outputs_hidden": false
-							},
-							"nteract": {
-								"transient": {
-									"deleting": false
-								}
-							}
-						},
-						"source": [
-							"# se define el esquema de tabla\r\n",
-							"schema = StructType([ \r\n",
-							"    StructField('SalesOrderID', IntegerType(), True), \r\n",
-							"    StructField('RevisionNumber', ByteType(), True), \r\n",
-							"    StructField('OrderDate', TimestampType(), True), \r\n",
-							"    StructField('DueDate', TimestampType(), True), \r\n",
-							"    StructField('ShipDate', TimestampType(), True), \r\n",
-							"    StructField('Status', ByteType(), True),\r\n",
-							"    StructField('OnlineOrderFlag', ByteType(), True),\r\n",
-							"    StructField('SalesOrderNumber', StringType(), True),\r\n",
-							"    StructField('PurchaseOrderNumber', StringType(), True),\r\n",
-							"    StructField('AccountNumber', StringType(), True),\r\n",
-							"    StructField('CustomerID', IntegerType(), True),\r\n",
-							"    StructField('ShipToAddressID', IntegerType(), True),\r\n",
-							"    StructField('BillToAddressID', IntegerType(), True),\r\n",
-							"    StructField('ShipMethod', IntegerType(), True),\r\n",
-							"    StructField('CreditCardApprovalCode', StringType(), True),\r\n",
-							"    StructField('SubTotal', DecimalType(), True),\r\n",
-							"    StructField('TaxAmt', DecimalType(), True),\r\n",
-							"    StructField('Freight', DecimalType(), True),\r\n",
-							"    StructField('TotalDue', DecimalType(), True),\r\n",
-							"    StructField('Comment', StringType(), True),\r\n",
-							"    StructField('rowguid', StringType(), True),\r\n",
-							"    StructField('ModifiedDate', TimestampType(), True)\r\n",
-							"]) "
-						],
-						"outputs": [],
-						"execution_count": 151
+						"execution_count": 240
 					},
 					{
 						"cell_type": "code",
@@ -802,7 +759,7 @@
 							"df = getReadDelta(\"staging\",\"SalesOrderHeader\")"
 						],
 						"outputs": [],
-						"execution_count": 152
+						"execution_count": 241
 					},
 					{
 						"cell_type": "code",
@@ -818,14 +775,14 @@
 							}
 						},
 						"source": [
-							"coltype_map = { \r\n",
+							"dict_schema = { \r\n",
 							"    \"SalesOrderID\": IntegerType(), \r\n",
 							"    \"RevisionNumber\": ByteType(), \r\n",
 							"    \"OrderDate\": TimestampType(), \r\n",
 							"    \"DueDate\": TimestampType(),  \r\n",
 							"    \"ShipDate\": TimestampType(), \r\n",
-							"    \"Status\": StringType(),\r\n",
-							"    \"OnlineOrderFlag\": ByteType(), \r\n",
+							"    \"Status\": ByteType(),\r\n",
+							"    \"OnlineOrderFlag\": StringType(), \r\n",
 							"    \"SalesOrderNumber\": StringType(), \r\n",
 							"    \"PurchaseOrderNumber\": StringType(), \r\n",
 							"    \"AccountNumber\": StringType(), \r\n",
@@ -844,7 +801,7 @@
 							"} "
 						],
 						"outputs": [],
-						"execution_count": 153
+						"execution_count": 242
 					},
 					{
 						"cell_type": "code",
@@ -860,13 +817,39 @@
 							}
 						},
 						"source": [
-							"for columna, tipo in coltype_map.items():\r\n",
-							"    dfSchema = df.withColumn(columna, col(columna).cast(tipo))\r\n",
+							"# se asigna el tipo de dato correcto al dataframe de staging\r\n",
+							"for columna, tipo in dict_schema.items():\r\n",
+							"    df = df.withColumn(columna, col(columna).cast(tipo))\r\n",
 							"\r\n",
-							"dfSchema.printSchema()"
+							"df.printSchema()"
 						],
 						"outputs": [],
-						"execution_count": 160
+						"execution_count": 243
+					},
+					{
+						"cell_type": "code",
+						"metadata": {
+							"jupyter": {
+								"source_hidden": false,
+								"outputs_hidden": false
+							},
+							"nteract": {
+								"transient": {
+									"deleting": false
+								}
+							},
+							"collapsed": false
+						},
+						"source": [
+							"dfRefined = df \\\r\n",
+							"            .withColumn(\"OnlineOrderFlag\", when(col(\"OnlineOrderFlag\") == \"false\", \"\") \\\r\n",
+							"                                        .otherwise(\"\")) \\\r\n",
+							"            .withColumn(\"Comment\", when(col(\"Comment\").isNull(), \"\") \\\r\n",
+							"                                        .otherwise(col(\"Comment\")))\r\n",
+							"#display(dfRefined)"
+						],
+						"outputs": [],
+						"execution_count": 244
 					},
 					{
 						"cell_type": "code",
@@ -882,11 +865,11 @@
 							}
 						},
 						"source": [
-							"#escribimos un dataframe en modo overwrite a ods\r\n",
-							"#getWriteDelta(df, \"overwrite\", \"ods\", \"SalesOrderHeader\")"
+							"# escribimos un dataframe en modo overwrite a ods\r\n",
+							"getWriteDelta(dfRefined, \"overwrite\", \"ods\", \"SalesOrderHeader\")"
 						],
 						"outputs": [],
-						"execution_count": null
+						"execution_count": 245
 					}
 				]
 			},
