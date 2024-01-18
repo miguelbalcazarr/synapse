@@ -255,7 +255,7 @@
 						"spark.dynamicAllocation.enabled": "false",
 						"spark.dynamicAllocation.minExecutors": "2",
 						"spark.dynamicAllocation.maxExecutors": "2",
-						"spark.autotune.trackingId": "ef7dac88-b215-4869-ad72-947cad6184d4"
+						"spark.autotune.trackingId": "1dae21a8-d48d-49ea-9b47-967aeae4560e"
 					}
 				},
 				"metadata": {
@@ -343,7 +343,8 @@
 							"\tTotalDue string,\r\n",
 							"\tComment string, \r\n",
 							"\trowguid string,\r\n",
-							"\tModifiedDate string \r\n",
+							"\tModifiedDate string,\r\n",
+							"\tauditDate timestamp\r\n",
 							")\r\n",
 							"using delta\r\n",
 							"location \"abfss://staging@stakyndryl.dfs.core.windows.net/SalesOrderHeader\""
@@ -376,7 +377,7 @@
 						"spark.dynamicAllocation.enabled": "false",
 						"spark.dynamicAllocation.minExecutors": "2",
 						"spark.dynamicAllocation.maxExecutors": "2",
-						"spark.autotune.trackingId": "dc412aac-4ab6-4944-94df-86ebe853297c"
+						"spark.autotune.trackingId": "109c897c-ebe6-4126-9603-18aecd23bfa4"
 					}
 				},
 				"metadata": {
@@ -423,6 +424,30 @@
 							"# importacion de librerias\r\n",
 							"from pyspark.sql.functions import *\r\n",
 							"from pyspark.sql.types import *"
+						],
+						"outputs": [],
+						"execution_count": null
+					},
+					{
+						"cell_type": "code",
+						"metadata": {
+							"jupyter": {
+								"source_hidden": false,
+								"outputs_hidden": false
+							},
+							"nteract": {
+								"transient": {
+									"deleting": false
+								}
+							}
+						},
+						"source": [
+							"# (Solo para uso en desarrollo)Borra tabla y path\r\n",
+							"def getDeleteTable(table, folder_path):\r\n",
+							"    spark.sql(f\"drop table {table}\")\r\n",
+							"    \r\n",
+							"    if mssparkutils.fs.exists(folder_path):\r\n",
+							"        mssparkutils.fs.rm(folder_path, True)"
 						],
 						"outputs": [],
 						"execution_count": null
@@ -670,7 +695,7 @@
 						"spark.dynamicAllocation.enabled": "false",
 						"spark.dynamicAllocation.minExecutors": "2",
 						"spark.dynamicAllocation.maxExecutors": "2",
-						"spark.autotune.trackingId": "9e43244c-28dd-48b4-96cd-94202e18798c"
+						"spark.autotune.trackingId": "9fa5c94d-5994-4a91-a48b-cb049756bb70"
 					}
 				},
 				"metadata": {
@@ -695,8 +720,7 @@
 						"sparkVersion": "3.3",
 						"nodeCount": 3,
 						"cores": 4,
-						"memory": 28,
-						"automaticScaleJobs": false
+						"memory": 28
 					},
 					"sessionKeepAliveTimeout": 30
 				},
@@ -896,7 +920,7 @@
 						"spark.dynamicAllocation.enabled": "false",
 						"spark.dynamicAllocation.minExecutors": "2",
 						"spark.dynamicAllocation.maxExecutors": "2",
-						"spark.autotune.trackingId": "e3ba29ae-6ba7-4a60-8738-ed7964b1079e"
+						"spark.autotune.trackingId": "37299bc1-538e-48ca-ab0b-6e41a65bc540"
 					}
 				},
 				"metadata": {
@@ -921,7 +945,8 @@
 						"sparkVersion": "3.3",
 						"nodeCount": 3,
 						"cores": 4,
-						"memory": 28
+						"memory": 28,
+						"automaticScaleJobs": false
 					},
 					"sessionKeepAliveTimeout": 30
 				},
@@ -1018,8 +1043,28 @@
 							}
 						},
 						"source": [
-							"#escribimos un dataframe en modo overwrite a staging\r\n",
-							"getWriteStaging(df, \"overwrite\", \"staging\", \"SalesOrderHeader\")"
+							"# se añade marca de tiempo en que se inserto el dato\r\n",
+							"df = df.withColumn(\"auditDate\", current_timestamp())"
+						],
+						"outputs": [],
+						"execution_count": null
+					},
+					{
+						"cell_type": "code",
+						"metadata": {
+							"jupyter": {
+								"source_hidden": false,
+								"outputs_hidden": false
+							},
+							"nteract": {
+								"transient": {
+									"deleting": false
+								}
+							}
+						},
+						"source": [
+							"#escribimos un dataframe en modo append a staging\r\n",
+							"getWriteStaging(df, \"append\", \"staging\", \"SalesOrderHeader\")"
 						],
 						"outputs": [],
 						"execution_count": null
