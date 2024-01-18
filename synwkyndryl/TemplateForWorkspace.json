@@ -134,7 +134,7 @@
 						"spark.dynamicAllocation.enabled": "false",
 						"spark.dynamicAllocation.minExecutors": "2",
 						"spark.dynamicAllocation.maxExecutors": "2",
-						"spark.autotune.trackingId": "c933fee3-d04f-417e-95b6-8f74d596c3ed"
+						"spark.autotune.trackingId": "ce8bce7c-69d5-4ca5-831e-d8c86a9191e1"
 					}
 				},
 				"metadata": {
@@ -207,7 +207,7 @@
 							"\tDueDate timestamp,\r\n",
 							"\tShipDate timestamp,\r\n",
 							"\tStatus tinyint,\r\n",
-							"\tOnlineOrderFlag bool,\r\n",
+							"\tOnlineOrderFlag boolean,\r\n",
 							"\tSalesOrderNumber string,\r\n",
 							"\tPurchaseOrderNumber string,\r\n",
 							"\tAccountNumber string,    \r\n",
@@ -670,7 +670,7 @@
 						"spark.dynamicAllocation.enabled": "false",
 						"spark.dynamicAllocation.minExecutors": "2",
 						"spark.dynamicAllocation.maxExecutors": "2",
-						"spark.autotune.trackingId": "e618498e-4d02-4774-88f0-fbf505fe7770"
+						"spark.autotune.trackingId": "dea6dcc4-8be9-464f-a2b9-1df2255483c3"
 					}
 				},
 				"metadata": {
@@ -718,7 +718,7 @@
 							"%run Utils"
 						],
 						"outputs": [],
-						"execution_count": 239
+						"execution_count": 247
 					},
 					{
 						"cell_type": "code",
@@ -738,7 +738,7 @@
 							"%run Aprovisionamiento ODS"
 						],
 						"outputs": [],
-						"execution_count": 240
+						"execution_count": 248
 					},
 					{
 						"cell_type": "code",
@@ -759,7 +759,7 @@
 							"df = getReadDelta(\"staging\",\"SalesOrderHeader\")"
 						],
 						"outputs": [],
-						"execution_count": 241
+						"execution_count": null
 					},
 					{
 						"cell_type": "code",
@@ -801,7 +801,7 @@
 							"} "
 						],
 						"outputs": [],
-						"execution_count": 242
+						"execution_count": null
 					},
 					{
 						"cell_type": "code",
@@ -824,7 +824,7 @@
 							"df.printSchema()"
 						],
 						"outputs": [],
-						"execution_count": 243
+						"execution_count": null
 					},
 					{
 						"cell_type": "code",
@@ -849,7 +849,7 @@
 							"#display(dfRefined)"
 						],
 						"outputs": [],
-						"execution_count": 244
+						"execution_count": null
 					},
 					{
 						"cell_type": "code",
@@ -869,7 +869,7 @@
 							"getWriteDelta(dfRefined, \"overwrite\", \"ods\", \"SalesOrderHeader\")"
 						],
 						"outputs": [],
-						"execution_count": 245
+						"execution_count": null
 					}
 				]
 			},
