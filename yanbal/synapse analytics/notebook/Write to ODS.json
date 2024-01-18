@@ -17,7 +17,7 @@
 				"spark.dynamicAllocation.enabled": "false",
 				"spark.dynamicAllocation.minExecutors": "2",
 				"spark.dynamicAllocation.maxExecutors": "2",
-				"spark.autotune.trackingId": "ccc642cd-453e-4c9d-930f-870469d2ea46"
+				"spark.autotune.trackingId": "7bd3421f-d7fa-4ad9-8049-9a04b4f464f4"
 			}
 		},
 		"metadata": {
@@ -64,7 +64,7 @@
 				"source": [
 					"%run Utils"
 				],
-				"execution_count": 65
+				"execution_count": 69
 			},
 			{
 				"cell_type": "code",
@@ -83,7 +83,7 @@
 				"source": [
 					"%run Aprovisionamiento ODS"
 				],
-				"execution_count": 66
+				"execution_count": 70
 			},
 			{
 				"cell_type": "code",
@@ -125,7 +125,7 @@
 					"    StructField('ModifiedDate', TimestampType(), True)\r\n",
 					"]) "
 				],
-				"execution_count": 67
+				"execution_count": 71
 			},
 			{
 				"cell_type": "code",
@@ -145,7 +145,26 @@
 					"#leemos delta de staging\r\n",
 					"df = getReadDelta(\"staging\",\"SalesOrderHeader\")"
 				],
-				"execution_count": 68
+				"execution_count": 72
+			},
+			{
+				"cell_type": "code",
+				"metadata": {
+					"jupyter": {
+						"source_hidden": false,
+						"outputs_hidden": false
+					},
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					}
+				},
+				"source": [
+					"df2 = spark.createDataFrame(df.rdd, schema)\r\n",
+					"df2.printSchema()"
+				],
+				"execution_count": 75
 			},
 			{
 				"cell_type": "code",
@@ -164,7 +183,7 @@
 					"#escribimos un dataframe en modo overwrite a ods\r\n",
 					"#getWriteDelta(df, \"overwrite\", \"ods\", \"SalesOrderHeader\")"
 				],
-				"execution_count": null
+				"execution_count": 73
 			}
 		]
 	}
