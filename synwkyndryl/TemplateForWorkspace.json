@@ -356,7 +356,7 @@
 						"spark.dynamicAllocation.enabled": "false",
 						"spark.dynamicAllocation.minExecutors": "2",
 						"spark.dynamicAllocation.maxExecutors": "2",
-						"spark.autotune.trackingId": "5380c2b2-e70e-49a8-b7fe-0c76cb07ae94"
+						"spark.autotune.trackingId": "dc412aac-4ab6-4944-94df-86ebe853297c"
 					}
 				},
 				"metadata": {
@@ -513,7 +513,7 @@
 							}
 						},
 						"source": [
-							"def getReadDelta(container, schema, path):\r\n",
+							"def getReadDelta(container, path):\r\n",
 							"    df = spark.read.format(\"delta\") \\\r\n",
 							"    .load(f\"abfss://{container}@stakyndryl.dfs.core.windows.net/{path}\")\r\n",
 							"    \r\n",
@@ -650,7 +650,7 @@
 						"spark.dynamicAllocation.enabled": "false",
 						"spark.dynamicAllocation.minExecutors": "2",
 						"spark.dynamicAllocation.maxExecutors": "2",
-						"spark.autotune.trackingId": "3ad8df03-13bf-4bda-b2e6-3947494155b5"
+						"spark.autotune.trackingId": "a5c6c4a5-8baa-49d5-b497-0ed9d71989ba"
 					}
 				},
 				"metadata": {
@@ -698,7 +698,7 @@
 							"%run Utils"
 						],
 						"outputs": [],
-						"execution_count": 57
+						"execution_count": 65
 					},
 					{
 						"cell_type": "code",
@@ -718,7 +718,7 @@
 							"%run Aprovisionamiento ODS"
 						],
 						"outputs": [],
-						"execution_count": 58
+						"execution_count": 66
 					},
 					{
 						"cell_type": "code",
@@ -761,7 +761,7 @@
 							"]) "
 						],
 						"outputs": [],
-						"execution_count": 59
+						"execution_count": 67
 					},
 					{
 						"cell_type": "code",
@@ -782,7 +782,7 @@
 							"df = getReadDelta(\"staging\",\"SalesOrderHeader\")"
 						],
 						"outputs": [],
-						"execution_count": 60
+						"execution_count": 68
 					},
 					{
 						"cell_type": "code",
