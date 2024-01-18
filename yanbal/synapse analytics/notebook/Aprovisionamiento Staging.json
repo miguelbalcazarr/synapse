@@ -17,7 +17,7 @@
 				"spark.dynamicAllocation.enabled": "false",
 				"spark.dynamicAllocation.minExecutors": "2",
 				"spark.dynamicAllocation.maxExecutors": "2",
-				"spark.autotune.trackingId": "ef7dac88-b215-4869-ad72-947cad6184d4"
+				"spark.autotune.trackingId": "1dae21a8-d48d-49ea-9b47-967aeae4560e"
 			}
 		},
 		"metadata": {
@@ -105,7 +105,8 @@
 					"\tTotalDue string,\r\n",
 					"\tComment string, \r\n",
 					"\trowguid string,\r\n",
-					"\tModifiedDate string \r\n",
+					"\tModifiedDate string,\r\n",
+					"\tauditDate timestamp\r\n",
 					")\r\n",
 					"using delta\r\n",
 					"location \"abfss://staging@stakyndryl.dfs.core.windows.net/SalesOrderHeader\""

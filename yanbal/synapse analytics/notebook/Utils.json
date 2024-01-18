@@ -17,7 +17,7 @@
 				"spark.dynamicAllocation.enabled": "false",
 				"spark.dynamicAllocation.minExecutors": "2",
 				"spark.dynamicAllocation.maxExecutors": "2",
-				"spark.autotune.trackingId": "dc412aac-4ab6-4944-94df-86ebe853297c"
+				"spark.autotune.trackingId": "109c897c-ebe6-4126-9603-18aecd23bfa4"
 			}
 		},
 		"metadata": {
@@ -65,6 +65,29 @@
 					"# importacion de librerias\r\n",
 					"from pyspark.sql.functions import *\r\n",
 					"from pyspark.sql.types import *"
+				],
+				"execution_count": null
+			},
+			{
+				"cell_type": "code",
+				"metadata": {
+					"jupyter": {
+						"source_hidden": false,
+						"outputs_hidden": false
+					},
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					}
+				},
+				"source": [
+					"# (Solo para uso en desarrollo)Borra tabla y path\r\n",
+					"def getDeleteTable(table, folder_path):\r\n",
+					"    spark.sql(f\"drop table {table}\")\r\n",
+					"    \r\n",
+					"    if mssparkutils.fs.exists(folder_path):\r\n",
+					"        mssparkutils.fs.rm(folder_path, True)"
 				],
 				"execution_count": null
 			},
