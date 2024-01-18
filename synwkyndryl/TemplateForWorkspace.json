@@ -114,7 +114,7 @@
 						"spark.dynamicAllocation.enabled": "false",
 						"spark.dynamicAllocation.minExecutors": "2",
 						"spark.dynamicAllocation.maxExecutors": "2",
-						"spark.autotune.trackingId": "bc1edf25-2401-4e62-8f22-934b911a41a7"
+						"spark.autotune.trackingId": "344fc8dc-7bab-4349-82b7-81a7ab569981"
 					}
 				},
 				"metadata": {
@@ -139,8 +139,7 @@
 						"sparkVersion": "3.3",
 						"nodeCount": 3,
 						"cores": 4,
-						"memory": 28,
-						"automaticScaleJobs": false
+						"memory": 28
 					},
 					"sessionKeepAliveTimeout": 30
 				},
@@ -357,7 +356,7 @@
 						"spark.dynamicAllocation.enabled": "false",
 						"spark.dynamicAllocation.minExecutors": "2",
 						"spark.dynamicAllocation.maxExecutors": "2",
-						"spark.autotune.trackingId": "cf1903d0-8d59-4081-a88c-dfa36f4c27c4"
+						"spark.autotune.trackingId": "62667e94-b594-422b-9037-75cc6431eb4a"
 					}
 				},
 				"metadata": {
@@ -387,6 +386,27 @@
 					"sessionKeepAliveTimeout": 30
 				},
 				"cells": [
+					{
+						"cell_type": "code",
+						"metadata": {
+							"jupyter": {
+								"source_hidden": false,
+								"outputs_hidden": false
+							},
+							"nteract": {
+								"transient": {
+									"deleting": false
+								}
+							}
+						},
+						"source": [
+							"# importacion de librerias\r\n",
+							"from pyspark.sql.functions import *\r\n",
+							"from pyspark.sql.types import *"
+						],
+						"outputs": [],
+						"execution_count": null
+					},
 					{
 						"cell_type": "code",
 						"source": [
@@ -493,8 +513,9 @@
 							}
 						},
 						"source": [
-							"def getReadDelta(container, path):\r\n",
+							"def getReadDelta(container, schema, path):\r\n",
 							"    df = spark.read.format(\"delta\") \\\r\n",
+							"    .schema(schema)\r\n",
 							"    .load(f\"abfss://{container}@stakyndryl.dfs.core.windows.net/{path}\")\r\n",
 							"    \r\n",
 							"    return df"
@@ -630,7 +651,7 @@
 						"spark.dynamicAllocation.enabled": "false",
 						"spark.dynamicAllocation.minExecutors": "2",
 						"spark.dynamicAllocation.maxExecutors": "2",
-						"spark.autotune.trackingId": "80080faa-ee4c-446f-934c-c42b4bc75808"
+						"spark.autotune.trackingId": "2779d755-f474-432a-81e2-5f3b473104c3"
 					}
 				},
 				"metadata": {
@@ -655,7 +676,8 @@
 						"sparkVersion": "3.3",
 						"nodeCount": 3,
 						"cores": 4,
-						"memory": 28
+						"memory": 28,
+						"automaticScaleJobs": false
 					},
 					"sessionKeepAliveTimeout": 30
 				},
@@ -677,7 +699,7 @@
 							"%run Utils"
 						],
 						"outputs": [],
-						"execution_count": 10
+						"execution_count": 37
 					},
 					{
 						"cell_type": "code",
@@ -697,7 +719,7 @@
 							"%run Aprovisionamiento ODS"
 						],
 						"outputs": [],
-						"execution_count": 14
+						"execution_count": 38
 					},
 					{
 						"cell_type": "code",
@@ -718,7 +740,7 @@
 							"df = getReadDelta(\"staging\",\"SalesOrderHeader\")"
 						],
 						"outputs": [],
-						"execution_count": 18
+						"execution_count": 39
 					},
 					{
 						"cell_type": "code",
@@ -738,7 +760,7 @@
 							"#getWriteDelta(df, \"overwrite\", \"ods\", \"SalesOrderHeader\")"
 						],
 						"outputs": [],
-						"execution_count": 7
+						"execution_count": 40
 					},
 					{
 						"cell_type": "code",
@@ -751,44 +773,37 @@
 								"transient": {
 									"deleting": false
 								}
-							},
-							"collapsed": false
+							}
 						},
 						"source": [
-							"from pyspark.sql.functions import *\r\n",
-							"from pyspark.sql.types import *\r\n",
-							"\r\n",
-							"dfRefined = df \\\r\n",
-							"            .withColumn(\"SalesOrderID\",col(\"SalesOrderID\").cast(IntegerType()).alias(\"SalesOrderID\")) \\\r\n",
-							"            .withColumn(\"RevisionNumber\",col(\"RevisionNumber\").cast(ByteType()).alias(\"RevisionNumber\")) \\\r\n",
-							"            .withColumn(\"OrderDate\",col(\"OrderDate\").cast(TimestampType()).alias(\"OrderDate\")) \\\r\n",
-							"            .withColumn(\"DueDate\",col(\"DueDate\").cast(TimestampType()).alias(\"DueDate\")) \\\r\n",
-							"            .withColumn(\"ShipDate\",col(\"ShipDate\").cast(TimestampType()).alias(\"ShipDate\")) \\\r\n",
-							"            .withColumn(\"Status\",col(\"Status\").cast(ByteType()).alias(\"Status\")) \\\r\n",
-							"            .withColumn(\"OnlineOrderFlag\",col(\"OnlineOrderFlag\").cast(ByteType()).alias(\"OnlineOrderFlag\")) \\\r\n",
-							"            .withColumn(\"SalesOrderNumber\",col(\"SalesOrderNumber\").cast(StringType()).alias(\"SalesOrderNumber\")) \\\r\n",
-							"            .withColumn(\"PurchaseOrderNumber\",col(\"PurchaseOrderNumber\").cast(StringType()).alias(\"PurchaseOrderNumber\")) \\\r\n",
-							"            .withColumn(\"AccountNumber\",col(\"AccountNumber\").cast(StringType()).alias(\"AccountNumber\")) \\\r\n",
-							"            .withColumn(\"CustomerID\",col(\"CustomerID\").cast(IntegerType()).alias(\"CustomerID\")) \\\r\n",
-							"            .withColumn(\"ShipToAddressID\",col(\"ShipToAddressID\").cast(IntegerType()).alias(\"ShipToAddressID\")) \\\r\n",
-							"            .withColumn(\"BillToAddressID\",col(\"BillToAddressID\").cast(IntegerType()).alias(\"BillToAddressID\")) \\\r\n",
-							"            .withColumn(\"ShipMethod\",col(\"ShipMethod\").cast(IntegerType()).alias(\"ShipMethod\")) \\\r\n",
-							"            .withColumn(\"CreditCardApprovalCode\",col(\"CreditCardApprovalCode\").cast(StringType()).alias(\"CreditCardApprovalCode\")) \\\r\n",
-							"            .withColumn(\"SubTotal\",col(\"SubTotal\").cast(DecimalType()).alias(\"SubTotal\")) \\\r\n",
-							"            .withColumn(\"TaxAmt\",col(\"TaxAmt\").cast(DecimalType()).alias(\"TaxAmt\")) \\\r\n",
-							"            .withColumn(\"Freight\",col(\"Freight\").cast(DecimalType()).alias(\"Freight\")) \\\r\n",
-							"            .withColumn(\"TotalDue\",col(\"TotalDue\").cast(DecimalType()).alias(\"TotalDue\")) \\\r\n",
-							"            .withColumn(\"Comment\",col(\"Comment\").cast(StringType()).alias(\"Comment\")) \\\r\n",
-							"            .withColumn(\"rowguid\",col(\"rowguid\").cast(StringType()).alias(\"rowguid\")) \\\r\n",
-							"            .withColumn(\"ModifiedDate\",col(\"ModifiedDate\").cast(TimestampType()).alias(\"ModifiedDate\")) \r\n",
-							"            \r\n",
-							"            \r\n",
-							"\r\n",
-							"# .withColumn(\"OrderDate\",col(\"OrderDate\").cast(TimestampType()).alias(\"OrderDate\")) \\\r\n",
-							"display(dfRefined)"
+							"# se define el esquema en ods\r\n",
+							"schema = StructType([ \r\n",
+							"    StructField('SalesOrderID', IntegerType(), True), \r\n",
+							"    StructField('RevisionNumber', ByteType(), True), \r\n",
+							"    StructField('OrderDate', TimestampType(), True), \r\n",
+							"    StructField('DueDate', TimestampType(), True), \r\n",
+							"    StructField('ShipDate', TimestampType(), True), \r\n",
+							"    StructField('Status', ByteType(), True),\r\n",
+							"    StructField('OnlineOrderFlag', ByteType(), True),\r\n",
+							"    StructField('SalesOrderNumber', StringType(), True),\r\n",
+							"    StructField('PurchaseOrderNumber', StringType(), True),\r\n",
+							"    StructField('AccountNumber', StringType(), True),\r\n",
+							"    StructField('CustomerID', IntegerType(), True),\r\n",
+							"    StructField('ShipToAddressID', IntegerType(), True),\r\n",
+							"    StructField('BillToAddressID', IntegerType(), True),\r\n",
+							"    StructField('ShipMethod', IntegerType(), True),\r\n",
+							"    StructField('CreditCardApprovalCode', StringType(), True),\r\n",
+							"    StructField('SubTotal', DecimalType(), True),\r\n",
+							"    StructField('TaxAmt', DecimalType(), True),\r\n",
+							"    StructField('Freight', DecimalType(), True),\r\n",
+							"    StructField('TotalDue', DecimalType(), True),\r\n",
+							"    StructField('Comment', StringType(), True),\r\n",
+							"    StructField('rowguid', StringType(), True),\r\n",
+							"    StructField('ModifiedDate', TimestampType(), True)\r\n",
+							"]) "
 						],
 						"outputs": [],
-						"execution_count": 34
+						"execution_count": 55
 					}
 				]
 			},
