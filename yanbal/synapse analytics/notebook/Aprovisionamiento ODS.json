@@ -17,7 +17,7 @@
 				"spark.dynamicAllocation.enabled": "false",
 				"spark.dynamicAllocation.minExecutors": "2",
 				"spark.dynamicAllocation.maxExecutors": "2",
-				"spark.autotune.trackingId": "344fc8dc-7bab-4349-82b7-81a7ab569981"
+				"spark.autotune.trackingId": "c933fee3-d04f-417e-95b6-8f74d596c3ed"
 			}
 		},
 		"metadata": {
@@ -90,7 +90,7 @@
 					"\tDueDate timestamp,\r\n",
 					"\tShipDate timestamp,\r\n",
 					"\tStatus tinyint,\r\n",
-					"\tOnlineOrderFlag tinyint,\r\n",
+					"\tOnlineOrderFlag bool,\r\n",
 					"\tSalesOrderNumber string,\r\n",
 					"\tPurchaseOrderNumber string,\r\n",
 					"\tAccountNumber string,    \r\n",
