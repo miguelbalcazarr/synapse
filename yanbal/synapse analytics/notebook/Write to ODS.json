@@ -17,7 +17,7 @@
 				"spark.dynamicAllocation.enabled": "false",
 				"spark.dynamicAllocation.minExecutors": "2",
 				"spark.dynamicAllocation.maxExecutors": "2",
-				"spark.autotune.trackingId": "8735fa3f-0b0a-45f9-b582-40a496c4cb5a"
+				"spark.autotune.trackingId": "c3b5e27e-6cf0-4d1e-a09c-2fe3a095e0f5"
 			}
 		},
 		"metadata": {
@@ -64,7 +64,7 @@
 				"source": [
 					"%run Utils"
 				],
-				"execution_count": 120
+				"execution_count": 136
 			},
 			{
 				"cell_type": "code",
@@ -83,7 +83,7 @@
 				"source": [
 					"%run Aprovisionamiento ODS"
 				],
-				"execution_count": 121
+				"execution_count": 137
 			},
 			{
 				"cell_type": "code",
@@ -125,7 +125,7 @@
 					"    StructField('ModifiedDate', TimestampType(), True)\r\n",
 					"]) "
 				],
-				"execution_count": 122
+				"execution_count": 138
 			},
 			{
 				"cell_type": "code",
@@ -163,7 +163,7 @@
 					"#leemos delta de staging\r\n",
 					"df = getReadDelta(\"staging\",\"SalesOrderHeader\")"
 				],
-				"execution_count": 123
+				"execution_count": 139
 			},
 			{
 				"cell_type": "code",
@@ -183,8 +183,7 @@
 					"    \"SalesOrderID\": IntegerType(), \r\n",
 					"    \"RevisionNumber\": ByteType(), \r\n",
 					"    \"OrderDate\": TimestampType(), \r\n",
-					"    \"DueDate\": TimestampType(), \r\n",
-					"    \"Start_Date\": TimestampType(), \r\n",
+					"    \"DueDate\": TimestampType(),  \r\n",
 					"    \"ShipDate\": TimestampType(), \r\n",
 					"    \"Status\": StringType(),\r\n",
 					"    \"OnlineOrderFlag\": ByteType(), \r\n",
@@ -205,7 +204,7 @@
 					"    \"ModifiedDate\": TimestampType()  \r\n",
 					"} "
 				],
-				"execution_count": 124
+				"execution_count": 140
 			},
 			{
 				"cell_type": "code",
@@ -230,7 +229,7 @@
 					") \r\n",
 					"dfSchema.printSchema() "
 				],
-				"execution_count": 125
+				"execution_count": 141
 			},
 			{
 				"cell_type": "code",
