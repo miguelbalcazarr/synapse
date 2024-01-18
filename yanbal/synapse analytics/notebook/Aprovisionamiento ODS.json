@@ -1,5 +1,5 @@
 {
-	"name": "Aprovisionamiento Staging",
+	"name": "Aprovisionamiento ODS",
 	"properties": {
 		"nbformat": 4,
 		"nbformat_minor": 2,
@@ -17,7 +17,7 @@
 				"spark.dynamicAllocation.enabled": "false",
 				"spark.dynamicAllocation.minExecutors": "2",
 				"spark.dynamicAllocation.maxExecutors": "2",
-				"spark.autotune.trackingId": "ef7dac88-b215-4869-ad72-947cad6184d4"
+				"spark.autotune.trackingId": "b38bdcd5-b489-4ab8-9641-1ccbc5c7ec9f"
 			}
 		},
 		"metadata": {
@@ -59,7 +59,7 @@
 				"source": [
 					"%%sql\r\n",
 					"\r\n",
-					"create database if not exists staging LOCATION \"abfss://staging@stakyndryl.dfs.core.windows.net/database/staging/\""
+					"create database if not exists ods LOCATION \"abfss://ods@stakyndryl.dfs.core.windows.net/database/ods/\""
 				],
 				"execution_count": 2
 			},
@@ -83,7 +83,7 @@
 				"source": [
 					"%%sql\r\n",
 					"\r\n",
-					"create table if not exists staging.SalesOrderHeader (\r\n",
+					"create table if not exists ods.SalesOrderHeader (\r\n",
 					"    SalesOrderID string,\r\n",
 					"\tRevisionNumber string,\r\n",
 					"\tOrderDate string,\r\n",
@@ -108,7 +108,7 @@
 					"\tModifiedDate string \r\n",
 					")\r\n",
 					"using delta\r\n",
-					"location \"abfss://staging@stakyndryl.dfs.core.windows.net/SalesOrderHeader\""
+					"location \"abfss://ods@stakyndryl.dfs.core.windows.net/SalesOrderHeader\""
 				],
 				"execution_count": 3
 			}

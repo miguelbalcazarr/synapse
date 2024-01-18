@@ -1,5 +1,5 @@
 {
-	"name": "Utils",
+	"name": "Write to ods",
 	"properties": {
 		"nbformat": 4,
 		"nbformat_minor": 2,
@@ -17,7 +17,7 @@
 				"spark.dynamicAllocation.enabled": "false",
 				"spark.dynamicAllocation.minExecutors": "2",
 				"spark.dynamicAllocation.maxExecutors": "2",
-				"spark.autotune.trackingId": "557cbc25-3709-42d7-9346-6ffaa52ec1c5"
+				"spark.autotune.trackingId": "9c688091-e304-4af0-b3e4-297617eef88c"
 			}
 		},
 		"metadata": {
@@ -50,28 +50,6 @@
 		"cells": [
 			{
 				"cell_type": "code",
-				"source": [
-					"def getReadSQL(db, query):\r\n",
-					"    server = mssparkutils.credentials.getSecret('kvkyndryl','azuresqlserver')\r\n",
-					"    url = f\"{server}{db}\"\r\n",
-					"    user = mssparkutils.credentials.getSecret('kvkyndryl',\"azuresqluser\")\r\n",
-					"    #principal_client_id = mssparkutils.credentials.getSecret('kvkyndryl',\"principalclientid\")\r\n",
-					"    #principal_secret = mssparkutils.credentials.getSecret('kvkyndryl',\"principalsecret\")\r\n",
-					"    password = mssparkutils.credentials.getSecret('kvkyndryl',\"azuresqlpassword\")\r\n",
-					"\r\n",
-					"    df = spark.read \\\r\n",
-					"    .format(\"com.microsoft.sqlserver.jdbc.spark\") \\\r\n",
-					"    .option(\"url\", url) \\\r\n",
-					"    .option(\"query\", query) \\\r\n",
-					"    .option(\"user\", user) \\\r\n",
-					"    .option(\"password\", password).load()\r\n",
-					"\r\n",
-					"    return df"
-				],
-				"execution_count": 3
-			},
-			{
-				"cell_type": "code",
 				"metadata": {
 					"jupyter": {
 						"source_hidden": false,
@@ -84,13 +62,9 @@
 					}
 				},
 				"source": [
-					"def getWriteCSV(df, path):\r\n",
-					"    df.write.format(\"csv\") \\\r\n",
-					"    .mode(\"overwrite\") \\\r\n",
-					"    .option(\"header\", \"true\") \\\r\n",
-					"    .save(f\"abfss://landing@stakyndryl.dfs.core.windows.net/{path}\")"
+					"%run Utils"
 				],
-				"execution_count": 4
+				"execution_count": 52
 			},
 			{
 				"cell_type": "code",
@@ -103,14 +77,11 @@
 						"transient": {
 							"deleting": false
 						}
-					}
+					},
+					"collapsed": false
 				},
 				"source": [
-					"def getReadCSV(path):\r\n",
-					"    df = spark.read \\\r\n",
-					"    .option(\"header\",True) \\\r\n",
-					"    .csv(f\"abfss://landing@stakyndryl.dfs.core.windows.net/{path}\")\r\n",
-					"    return df"
+					"%run Aprovisionamiento"
 				],
 				"execution_count": null
 			},
@@ -128,11 +99,8 @@
 					}
 				},
 				"source": [
-					"def getWriteStaging(df, mode, path):\r\n",
-					"\r\n",
-					"    df.write.format(\"delta\") \\\r\n",
-					"    .mode(mode) \\\r\n",
-					"    .save(f\"abfss://staging@stakyndryl.dfs.core.windows.net/{path}\")"
+					"#leemos delta de staging\r\n",
+					"df = getReadCSV(\"SalesOrderHeader\")"
 				],
 				"execution_count": null
 			},
@@ -150,11 +118,8 @@
 					}
 				},
 				"source": [
-					"def getReadStaging(df, path):\r\n",
-					"    df.read.format(\"delta\") \\\r\n",
-					"    .load(f\"abfss://staging@stakyndryl.dfs.core.windows.net/{path}\")\r\n",
-					"    \r\n",
-					"    return df"
+					"#escribimos un dataframe en modo overwrite a staging\r\n",
+					"getWriteStaging(df, \"overwrite\", \"SalesOrderHeader\")"
 				],
 				"execution_count": null
 			}
