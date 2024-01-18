@@ -17,7 +17,7 @@
 				"spark.dynamicAllocation.enabled": "false",
 				"spark.dynamicAllocation.minExecutors": "2",
 				"spark.dynamicAllocation.maxExecutors": "2",
-				"spark.autotune.trackingId": "9fa5c94d-5994-4a91-a48b-cb049756bb70"
+				"spark.autotune.trackingId": "767ac3f8-8238-4464-9958-5d7679ee585e"
 			}
 		},
 		"metadata": {
@@ -141,7 +141,8 @@
 					"    \"TotalDue\": DecimalType(18,4), \r\n",
 					"    \"Comment\": StringType(), \r\n",
 					"    \"rowguid\": StringType(), \r\n",
-					"    \"ModifiedDate\": TimestampType()  \r\n",
+					"    \"ModifiedDate\": TimestampType(),\r\n",
+					"    \"auditDate\": TimestampType()\r\n",
 					"} "
 				],
 				"execution_count": 273

@@ -17,7 +17,7 @@
 				"spark.dynamicAllocation.enabled": "false",
 				"spark.dynamicAllocation.minExecutors": "2",
 				"spark.dynamicAllocation.maxExecutors": "2",
-				"spark.autotune.trackingId": "8396050f-3475-4562-b4a2-9b13e2e6cfda"
+				"spark.autotune.trackingId": "879c8c82-9962-4e44-815d-6e974be44d92"
 			}
 		},
 		"metadata": {
@@ -64,7 +64,7 @@
 				"source": [
 					"%run Utils"
 				],
-				"execution_count": 52
+				"execution_count": 10
 			},
 			{
 				"cell_type": "code",
@@ -82,7 +82,7 @@
 				"source": [
 					"%run Write to Landing"
 				],
-				"execution_count": null
+				"execution_count": 11
 			},
 			{
 				"cell_type": "code",
@@ -101,7 +101,7 @@
 				"source": [
 					"%run Aprovisionamiento Staging"
 				],
-				"execution_count": null
+				"execution_count": 12
 			},
 			{
 				"cell_type": "code",
@@ -120,7 +120,7 @@
 					"#leemos un csv de landing\r\n",
 					"df = getReadCSV(\"SalesOrderHeader\")"
 				],
-				"execution_count": null
+				"execution_count": 13
 			},
 			{
 				"cell_type": "code",
@@ -139,7 +139,7 @@
 					"# se añade marca de tiempo en que se inserto el dato\r\n",
 					"df = df.withColumn(\"auditDate\", current_timestamp())"
 				],
-				"execution_count": null
+				"execution_count": 14
 			},
 			{
 				"cell_type": "code",
@@ -156,9 +156,9 @@
 				},
 				"source": [
 					"#escribimos un dataframe en modo append a staging\r\n",
-					"getWriteStaging(df, \"append\", \"staging\", \"SalesOrderHeader\")"
+					"getWriteDelta(df, \"append\", \"staging\", \"SalesOrderHeader\")"
 				],
-				"execution_count": null
+				"execution_count": 15
 			}
 		]
 	}
