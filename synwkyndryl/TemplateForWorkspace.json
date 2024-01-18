@@ -356,7 +356,7 @@
 						"spark.dynamicAllocation.enabled": "false",
 						"spark.dynamicAllocation.minExecutors": "2",
 						"spark.dynamicAllocation.maxExecutors": "2",
-						"spark.autotune.trackingId": "62667e94-b594-422b-9037-75cc6431eb4a"
+						"spark.autotune.trackingId": "0faf4cd2-cdd6-4bf7-8a24-5c83e70727b9"
 					}
 				},
 				"metadata": {
@@ -515,7 +515,7 @@
 						"source": [
 							"def getReadDelta(container, schema, path):\r\n",
 							"    df = spark.read.format(\"delta\") \\\r\n",
-							"    .schema(schema)\r\n",
+							"    .schema(schema) \\\r\n",
 							"    .load(f\"abfss://{container}@stakyndryl.dfs.core.windows.net/{path}\")\r\n",
 							"    \r\n",
 							"    return df"
@@ -651,7 +651,7 @@
 						"spark.dynamicAllocation.enabled": "false",
 						"spark.dynamicAllocation.minExecutors": "2",
 						"spark.dynamicAllocation.maxExecutors": "2",
-						"spark.autotune.trackingId": "2779d755-f474-432a-81e2-5f3b473104c3"
+						"spark.autotune.trackingId": "9dc64a60-7a70-47fc-8b9a-bf8fbdecc035"
 					}
 				},
 				"metadata": {
@@ -699,7 +699,7 @@
 							"%run Utils"
 						],
 						"outputs": [],
-						"execution_count": 37
+						"execution_count": 56
 					},
 					{
 						"cell_type": "code",
@@ -719,48 +719,7 @@
 							"%run Aprovisionamiento ODS"
 						],
 						"outputs": [],
-						"execution_count": 38
-					},
-					{
-						"cell_type": "code",
-						"metadata": {
-							"jupyter": {
-								"source_hidden": false,
-								"outputs_hidden": false
-							},
-							"nteract": {
-								"transient": {
-									"deleting": false
-								}
-							},
-							"collapsed": false
-						},
-						"source": [
-							"#leemos delta de staging\r\n",
-							"df = getReadDelta(\"staging\",\"SalesOrderHeader\")"
-						],
-						"outputs": [],
-						"execution_count": 39
-					},
-					{
-						"cell_type": "code",
-						"metadata": {
-							"jupyter": {
-								"source_hidden": false,
-								"outputs_hidden": false
-							},
-							"nteract": {
-								"transient": {
-									"deleting": false
-								}
-							}
-						},
-						"source": [
-							"#escribimos un dataframe en modo overwrite a ods\r\n",
-							"#getWriteDelta(df, \"overwrite\", \"ods\", \"SalesOrderHeader\")"
-						],
-						"outputs": [],
-						"execution_count": 40
+						"execution_count": null
 					},
 					{
 						"cell_type": "code",
@@ -803,7 +762,48 @@
 							"]) "
 						],
 						"outputs": [],
-						"execution_count": 55
+						"execution_count": null
+					},
+					{
+						"cell_type": "code",
+						"metadata": {
+							"jupyter": {
+								"source_hidden": false,
+								"outputs_hidden": false
+							},
+							"nteract": {
+								"transient": {
+									"deleting": false
+								}
+							},
+							"collapsed": false
+						},
+						"source": [
+							"#leemos delta de staging\r\n",
+							"df = getReadDelta(\"staging\",schema,\"SalesOrderHeader\")"
+						],
+						"outputs": [],
+						"execution_count": null
+					},
+					{
+						"cell_type": "code",
+						"metadata": {
+							"jupyter": {
+								"source_hidden": false,
+								"outputs_hidden": false
+							},
+							"nteract": {
+								"transient": {
+									"deleting": false
+								}
+							}
+						},
+						"source": [
+							"#escribimos un dataframe en modo overwrite a ods\r\n",
+							"#getWriteDelta(df, \"overwrite\", \"ods\", \"SalesOrderHeader\")"
+						],
+						"outputs": [],
+						"execution_count": null
 					}
 				]
 			},
