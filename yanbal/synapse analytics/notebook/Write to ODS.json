@@ -17,7 +17,7 @@
 				"spark.dynamicAllocation.enabled": "false",
 				"spark.dynamicAllocation.minExecutors": "2",
 				"spark.dynamicAllocation.maxExecutors": "2",
-				"spark.autotune.trackingId": "00de0101-d61f-42d2-be8b-76c7c6ef737c"
+				"spark.autotune.trackingId": "0cea1e2d-49c0-4f64-8bdf-b9ecf41fb350"
 			}
 		},
 		"metadata": {
@@ -64,7 +64,7 @@
 				"source": [
 					"%run Utils"
 				],
-				"execution_count": 3
+				"execution_count": 1
 			},
 			{
 				"cell_type": "code",
@@ -83,7 +83,7 @@
 				"source": [
 					"%run Aprovisionamiento ODS"
 				],
-				"execution_count": 4
+				"execution_count": null
 			},
 			{
 				"cell_type": "code",
@@ -103,7 +103,7 @@
 					"#leemos delta de staging\r\n",
 					"df = getReadDelta(\"staging\",\"SalesOrderHeader\")"
 				],
-				"execution_count": 10
+				"execution_count": null
 			},
 			{
 				"cell_type": "code",
@@ -120,7 +120,7 @@
 				},
 				"source": [
 					"#escribimos un dataframe en modo overwrite a ods\r\n",
-					"getWriteStaging(df, \"overwrite\", \"ods\", \"SalesOrderHeader\")"
+					"getWriteDelta(df, \"overwrite\", \"ods\", \"SalesOrderHeader\")"
 				],
 				"execution_count": null
 			}
