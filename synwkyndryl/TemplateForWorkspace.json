@@ -716,7 +716,7 @@
 						"spark.dynamicAllocation.enabled": "false",
 						"spark.dynamicAllocation.minExecutors": "2",
 						"spark.dynamicAllocation.maxExecutors": "2",
-						"spark.autotune.trackingId": "f3cb7113-1ac1-411b-9f38-7c634609d545"
+						"spark.autotune.trackingId": "9e07fa26-9eaf-4076-a282-7df027a176b4"
 					}
 				},
 				"metadata": {
@@ -764,7 +764,7 @@
 							"%run Utils"
 						],
 						"outputs": [],
-						"execution_count": 270
+						"execution_count": 4
 					},
 					{
 						"cell_type": "code",
@@ -784,7 +784,7 @@
 							"%run Aprovisionamiento ODS"
 						],
 						"outputs": [],
-						"execution_count": 271
+						"execution_count": 5
 					},
 					{
 						"cell_type": "code",
@@ -805,7 +805,7 @@
 							"df = getReadDelta(\"staging\",\"SalesOrderHeader\")"
 						],
 						"outputs": [],
-						"execution_count": 272
+						"execution_count": 6
 					},
 					{
 						"cell_type": "code",
@@ -848,7 +848,7 @@
 							"} "
 						],
 						"outputs": [],
-						"execution_count": 273
+						"execution_count": 7
 					},
 					{
 						"cell_type": "code",
@@ -871,7 +871,7 @@
 							"df.printSchema()"
 						],
 						"outputs": [],
-						"execution_count": 274
+						"execution_count": 8
 					},
 					{
 						"cell_type": "code",
@@ -896,7 +896,7 @@
 							"#display(dfRefined)"
 						],
 						"outputs": [],
-						"execution_count": 275
+						"execution_count": 9
 					},
 					{
 						"cell_type": "code",
@@ -916,7 +916,7 @@
 							"getWriteDelta(dfRefined, \"overwrite\", \"ods\", \"SalesOrderHeader\")"
 						],
 						"outputs": [],
-						"execution_count": 276
+						"execution_count": 10
 					}
 				]
 			},
