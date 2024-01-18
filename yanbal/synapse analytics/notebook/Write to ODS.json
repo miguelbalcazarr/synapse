@@ -17,7 +17,7 @@
 				"spark.dynamicAllocation.enabled": "false",
 				"spark.dynamicAllocation.minExecutors": "2",
 				"spark.dynamicAllocation.maxExecutors": "2",
-				"spark.autotune.trackingId": "7bd3421f-d7fa-4ad9-8049-9a04b4f464f4"
+				"spark.autotune.trackingId": "8735fa3f-0b0a-45f9-b582-40a496c4cb5a"
 			}
 		},
 		"metadata": {
@@ -64,7 +64,7 @@
 				"source": [
 					"%run Utils"
 				],
-				"execution_count": 69
+				"execution_count": 120
 			},
 			{
 				"cell_type": "code",
@@ -83,7 +83,7 @@
 				"source": [
 					"%run Aprovisionamiento ODS"
 				],
-				"execution_count": 70
+				"execution_count": 121
 			},
 			{
 				"cell_type": "code",
@@ -99,7 +99,7 @@
 					}
 				},
 				"source": [
-					"# se define el esquema en ods\r\n",
+					"# se define el esquema de tabla\r\n",
 					"schema = StructType([ \r\n",
 					"    StructField('SalesOrderID', IntegerType(), True), \r\n",
 					"    StructField('RevisionNumber', ByteType(), True), \r\n",
@@ -125,7 +125,25 @@
 					"    StructField('ModifiedDate', TimestampType(), True)\r\n",
 					"]) "
 				],
-				"execution_count": 71
+				"execution_count": 122
+			},
+			{
+				"cell_type": "code",
+				"metadata": {
+					"jupyter": {
+						"source_hidden": false,
+						"outputs_hidden": false
+					},
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					}
+				},
+				"source": [
+					""
+				],
+				"execution_count": null
 			},
 			{
 				"cell_type": "code",
@@ -145,7 +163,7 @@
 					"#leemos delta de staging\r\n",
 					"df = getReadDelta(\"staging\",\"SalesOrderHeader\")"
 				],
-				"execution_count": 72
+				"execution_count": 123
 			},
 			{
 				"cell_type": "code",
@@ -161,10 +179,98 @@
 					}
 				},
 				"source": [
-					"df2 = spark.createDataFrame(df.rdd, schema)\r\n",
-					"df2.printSchema()"
+					"coltype_map = { \r\n",
+					"    \"SalesOrderID\": IntegerType(), \r\n",
+					"    \"RevisionNumber\": ByteType(), \r\n",
+					"    \"OrderDate\": TimestampType(), \r\n",
+					"    \"DueDate\": TimestampType(), \r\n",
+					"    \"Start_Date\": TimestampType(), \r\n",
+					"    \"ShipDate\": TimestampType(), \r\n",
+					"    \"Status\": StringType(),\r\n",
+					"    \"OnlineOrderFlag\": ByteType(), \r\n",
+					"    \"SalesOrderNumber\": StringType(), \r\n",
+					"    \"PurchaseOrderNumber\": StringType(), \r\n",
+					"    \"AccountNumber\": StringType(), \r\n",
+					"    \"CustomerID\": IntegerType(), \r\n",
+					"    \"ShipToAddressID\": IntegerType(), \r\n",
+					"    \"BillToAddressID\": IntegerType(), \r\n",
+					"    \"ShipMethod\": IntegerType(), \r\n",
+					"    \"CreditCardApprovalCode\": StringType(), \r\n",
+					"    \"SubTotal\": DecimalType(18,4), \r\n",
+					"    \"TaxAmt\": DecimalType(18,4), \r\n",
+					"    \"Freight\": DecimalType(18,4), \r\n",
+					"    \"TotalDue\": DecimalType(18,4), \r\n",
+					"    \"Comment\": StringType(), \r\n",
+					"    \"rowguid\": StringType(), \r\n",
+					"    \"ModifiedDate\": TimestampType()  \r\n",
+					"} "
 				],
-				"execution_count": 75
+				"execution_count": 124
+			},
+			{
+				"cell_type": "code",
+				"metadata": {
+					"jupyter": {
+						"source_hidden": false,
+						"outputs_hidden": false
+					},
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					}
+				},
+				"source": [
+					"  \r\n",
+					"# course_df6 has all the column \r\n",
+					"# types as string \r\n",
+					"dfSchema = df.select( \r\n",
+					"    [df.cast(coltype_map) \r\n",
+					"     .alias(c) for c in df.columns] \r\n",
+					") \r\n",
+					"dfSchema.printSchema() "
+				],
+				"execution_count": 125
+			},
+			{
+				"cell_type": "code",
+				"metadata": {
+					"jupyter": {
+						"source_hidden": false,
+						"outputs_hidden": false
+					},
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					}
+				},
+				"source": [
+					"display(dfSchema)"
+				],
+				"execution_count": null
+			},
+			{
+				"cell_type": "code",
+				"metadata": {
+					"jupyter": {
+						"source_hidden": false,
+						"outputs_hidden": false
+					},
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					}
+				},
+				"source": [
+					"dfRefined = dfSchema \\\r\n",
+					"            .withColumn(\"SalesOrderID\", when(col(\"SalesOrderID\").isNull(), 0) \\\r\n",
+					"                                        .otherwise(col(\"SalesOrderID\")))\r\n",
+					"\r\n",
+					"display(dfRefined)"
+				],
+				"execution_count": null
 			},
 			{
 				"cell_type": "code",
@@ -183,7 +289,7 @@
 					"#escribimos un dataframe en modo overwrite a ods\r\n",
 					"#getWriteDelta(df, \"overwrite\", \"ods\", \"SalesOrderHeader\")"
 				],
-				"execution_count": 73
+				"execution_count": null
 			}
 		]
 	}
