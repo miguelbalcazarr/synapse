@@ -17,7 +17,7 @@
 				"spark.dynamicAllocation.enabled": "false",
 				"spark.dynamicAllocation.minExecutors": "2",
 				"spark.dynamicAllocation.maxExecutors": "2",
-				"spark.autotune.trackingId": "dd221722-c7f9-4462-86bc-b9b1e1441f9a"
+				"spark.autotune.trackingId": "344fc8dc-7bab-4349-82b7-81a7ab569981"
 			}
 		},
 		"metadata": {
@@ -99,10 +99,10 @@
 					"\tBillToAddressID int,\r\n",
 					"\tShipMethod int,     \r\n",
 					"\tCreditCardApprovalCode string,\r\n",
-					"\tSubTotal decimal,\r\n",
-					"\tTaxAmt decimal,\r\n",
-					"\tFreight decimal,\r\n",
-					"\tTotalDue decimal,\r\n",
+					"\tSubTotal decimal(18,4),\r\n",
+					"\tTaxAmt decimal(18,4),\r\n",
+					"\tFreight decimal(18,4),\r\n",
+					"\tTotalDue decimal(18,4),\r\n",
 					"\tComment string, \r\n",
 					"\trowguid string,\r\n",
 					"\tModifiedDate timestamp\r\n",
