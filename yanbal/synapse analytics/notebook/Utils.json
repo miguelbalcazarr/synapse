@@ -17,7 +17,7 @@
 				"spark.dynamicAllocation.enabled": "false",
 				"spark.dynamicAllocation.minExecutors": "2",
 				"spark.dynamicAllocation.maxExecutors": "2",
-				"spark.autotune.trackingId": "cf1903d0-8d59-4081-a88c-dfa36f4c27c4"
+				"spark.autotune.trackingId": "62667e94-b594-422b-9037-75cc6431eb4a"
 			}
 		},
 		"metadata": {
@@ -48,6 +48,26 @@
 			"sessionKeepAliveTimeout": 30
 		},
 		"cells": [
+			{
+				"cell_type": "code",
+				"metadata": {
+					"jupyter": {
+						"source_hidden": false,
+						"outputs_hidden": false
+					},
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					}
+				},
+				"source": [
+					"# importacion de librerias\r\n",
+					"from pyspark.sql.functions import *\r\n",
+					"from pyspark.sql.types import *"
+				],
+				"execution_count": null
+			},
 			{
 				"cell_type": "code",
 				"source": [
@@ -150,8 +170,9 @@
 					}
 				},
 				"source": [
-					"def getReadDelta(container, path):\r\n",
+					"def getReadDelta(container, schema, path):\r\n",
 					"    df = spark.read.format(\"delta\") \\\r\n",
+					"    .schema(schema)\r\n",
 					"    .load(f\"abfss://{container}@stakyndryl.dfs.core.windows.net/{path}\")\r\n",
 					"    \r\n",
 					"    return df"
