@@ -114,7 +114,7 @@
 						"spark.dynamicAllocation.enabled": "false",
 						"spark.dynamicAllocation.minExecutors": "2",
 						"spark.dynamicAllocation.maxExecutors": "2",
-						"spark.autotune.trackingId": "db62b029-c24e-4880-b432-c6c3edf95c38"
+						"spark.autotune.trackingId": "dd221722-c7f9-4462-86bc-b9b1e1441f9a"
 					}
 				},
 				"metadata": {
@@ -202,7 +202,7 @@
 							"\tTotalDue decimal,\r\n",
 							"\tComment string, \r\n",
 							"\trowguid string,\r\n",
-							"\tModifiedDate timestampd \r\n",
+							"\tModifiedDate timestamp\r\n",
 							")\r\n",
 							"using delta\r\n",
 							"location \"abfss://ods@stakyndryl.dfs.core.windows.net/SalesOrderHeader\""
@@ -629,7 +629,7 @@
 						"spark.dynamicAllocation.enabled": "false",
 						"spark.dynamicAllocation.minExecutors": "2",
 						"spark.dynamicAllocation.maxExecutors": "2",
-						"spark.autotune.trackingId": "313b427e-716f-421c-9fce-1c767cbd97cf"
+						"spark.autotune.trackingId": "0fda9666-a4c6-4e03-b059-a6bbc47d5619"
 					}
 				},
 				"metadata": {
@@ -697,7 +697,7 @@
 							"%run Aprovisionamiento ODS"
 						],
 						"outputs": [],
-						"execution_count": 11
+						"execution_count": 13
 					},
 					{
 						"cell_type": "code",
