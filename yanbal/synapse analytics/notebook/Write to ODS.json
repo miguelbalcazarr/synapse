@@ -17,7 +17,7 @@
 				"spark.dynamicAllocation.enabled": "false",
 				"spark.dynamicAllocation.minExecutors": "2",
 				"spark.dynamicAllocation.maxExecutors": "2",
-				"spark.autotune.trackingId": "9a653e49-7c88-40da-97bb-ea891efbc8a3"
+				"spark.autotune.trackingId": "80080faa-ee4c-446f-934c-c42b4bc75808"
 			}
 		},
 		"metadata": {
@@ -83,7 +83,7 @@
 				"source": [
 					"%run Aprovisionamiento ODS"
 				],
-				"execution_count": 13
+				"execution_count": 14
 			},
 			{
 				"cell_type": "code",
@@ -103,7 +103,7 @@
 					"#leemos delta de staging\r\n",
 					"df = getReadDelta(\"staging\",\"SalesOrderHeader\")"
 				],
-				"execution_count": 6
+				"execution_count": 18
 			},
 			{
 				"cell_type": "code",
@@ -123,6 +123,55 @@
 					"#getWriteDelta(df, \"overwrite\", \"ods\", \"SalesOrderHeader\")"
 				],
 				"execution_count": 7
+			},
+			{
+				"cell_type": "code",
+				"metadata": {
+					"jupyter": {
+						"source_hidden": false,
+						"outputs_hidden": false
+					},
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					},
+					"collapsed": false
+				},
+				"source": [
+					"from pyspark.sql.functions import *\r\n",
+					"from pyspark.sql.types import *\r\n",
+					"\r\n",
+					"dfRefined = df \\\r\n",
+					"            .withColumn(\"SalesOrderID\",col(\"SalesOrderID\").cast(IntegerType()).alias(\"SalesOrderID\")) \\\r\n",
+					"            .withColumn(\"RevisionNumber\",col(\"RevisionNumber\").cast(ByteType()).alias(\"RevisionNumber\")) \\\r\n",
+					"            .withColumn(\"OrderDate\",col(\"OrderDate\").cast(TimestampType()).alias(\"OrderDate\")) \\\r\n",
+					"            .withColumn(\"DueDate\",col(\"DueDate\").cast(TimestampType()).alias(\"DueDate\")) \\\r\n",
+					"            .withColumn(\"ShipDate\",col(\"ShipDate\").cast(TimestampType()).alias(\"ShipDate\")) \\\r\n",
+					"            .withColumn(\"Status\",col(\"Status\").cast(ByteType()).alias(\"Status\")) \\\r\n",
+					"            .withColumn(\"OnlineOrderFlag\",col(\"OnlineOrderFlag\").cast(ByteType()).alias(\"OnlineOrderFlag\")) \\\r\n",
+					"            .withColumn(\"SalesOrderNumber\",col(\"SalesOrderNumber\").cast(StringType()).alias(\"SalesOrderNumber\")) \\\r\n",
+					"            .withColumn(\"PurchaseOrderNumber\",col(\"PurchaseOrderNumber\").cast(StringType()).alias(\"PurchaseOrderNumber\")) \\\r\n",
+					"            .withColumn(\"AccountNumber\",col(\"AccountNumber\").cast(StringType()).alias(\"AccountNumber\")) \\\r\n",
+					"            .withColumn(\"CustomerID\",col(\"CustomerID\").cast(IntegerType()).alias(\"CustomerID\")) \\\r\n",
+					"            .withColumn(\"ShipToAddressID\",col(\"ShipToAddressID\").cast(IntegerType()).alias(\"ShipToAddressID\")) \\\r\n",
+					"            .withColumn(\"BillToAddressID\",col(\"BillToAddressID\").cast(IntegerType()).alias(\"BillToAddressID\")) \\\r\n",
+					"            .withColumn(\"ShipMethod\",col(\"ShipMethod\").cast(IntegerType()).alias(\"ShipMethod\")) \\\r\n",
+					"            .withColumn(\"CreditCardApprovalCode\",col(\"CreditCardApprovalCode\").cast(StringType()).alias(\"CreditCardApprovalCode\")) \\\r\n",
+					"            .withColumn(\"SubTotal\",col(\"SubTotal\").cast(DecimalType()).alias(\"SubTotal\")) \\\r\n",
+					"            .withColumn(\"TaxAmt\",col(\"TaxAmt\").cast(DecimalType()).alias(\"TaxAmt\")) \\\r\n",
+					"            .withColumn(\"Freight\",col(\"Freight\").cast(DecimalType()).alias(\"Freight\")) \\\r\n",
+					"            .withColumn(\"TotalDue\",col(\"TotalDue\").cast(DecimalType()).alias(\"TotalDue\")) \\\r\n",
+					"            .withColumn(\"Comment\",col(\"Comment\").cast(StringType()).alias(\"Comment\")) \\\r\n",
+					"            .withColumn(\"rowguid\",col(\"rowguid\").cast(StringType()).alias(\"rowguid\")) \\\r\n",
+					"            .withColumn(\"ModifiedDate\",col(\"ModifiedDate\").cast(TimestampType()).alias(\"ModifiedDate\")) \r\n",
+					"            \r\n",
+					"            \r\n",
+					"\r\n",
+					"# .withColumn(\"OrderDate\",col(\"OrderDate\").cast(TimestampType()).alias(\"OrderDate\")) \\\r\n",
+					"display(dfRefined)"
+				],
+				"execution_count": 34
 			}
 		]
 	}
