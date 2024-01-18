@@ -94,6 +94,26 @@
 			"dependsOn": []
 		},
 		{
+			"name": "[concat(parameters('workspaceName'), '/SQL script 1')]",
+			"type": "Microsoft.Synapse/workspaces/sqlscripts",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"content": {
+					"query": "SELECT TOP (100) * FROM [staging].[dbo].[salesorderheader]",
+					"metadata": {
+						"language": "sql"
+					},
+					"currentConnection": {
+						"databaseName": "ods",
+						"poolName": "Built-in"
+					},
+					"resultLimit": 5000
+				},
+				"type": "SqlQuery"
+			},
+			"dependsOn": []
+		},
+		{
 			"name": "[concat(parameters('workspaceName'), '/Aprovisionamiento ODS')]",
 			"type": "Microsoft.Synapse/workspaces/notebooks",
 			"apiVersion": "2019-06-01-preview",
@@ -650,7 +670,7 @@
 						"spark.dynamicAllocation.enabled": "false",
 						"spark.dynamicAllocation.minExecutors": "2",
 						"spark.dynamicAllocation.maxExecutors": "2",
-						"spark.autotune.trackingId": "010c3d6e-2661-4124-b4b2-184236b953fb"
+						"spark.autotune.trackingId": "9d4e42ee-1b6e-409c-b7ee-97e7c5b0be80"
 					}
 				},
 				"metadata": {
@@ -698,7 +718,7 @@
 							"%run Utils"
 						],
 						"outputs": [],
-						"execution_count": 120
+						"execution_count": 136
 					},
 					{
 						"cell_type": "code",
@@ -718,7 +738,7 @@
 							"%run Aprovisionamiento ODS"
 						],
 						"outputs": [],
-						"execution_count": 121
+						"execution_count": 137
 					},
 					{
 						"cell_type": "code",
@@ -761,7 +781,7 @@
 							"]) "
 						],
 						"outputs": [],
-						"execution_count": 122
+						"execution_count": 138
 					},
 					{
 						"cell_type": "code",
@@ -801,7 +821,7 @@
 							"df = getReadDelta(\"staging\",\"SalesOrderHeader\")"
 						],
 						"outputs": [],
-						"execution_count": 123
+						"execution_count": 139
 					},
 					{
 						"cell_type": "code",
@@ -821,8 +841,7 @@
 							"    \"SalesOrderID\": IntegerType(), \r\n",
 							"    \"RevisionNumber\": ByteType(), \r\n",
 							"    \"OrderDate\": TimestampType(), \r\n",
-							"    \"DueDate\": TimestampType(), \r\n",
-							"    \"Start_Date\": TimestampType(), \r\n",
+							"    \"DueDate\": TimestampType(),  \r\n",
 							"    \"ShipDate\": TimestampType(), \r\n",
 							"    \"Status\": StringType(),\r\n",
 							"    \"OnlineOrderFlag\": ByteType(), \r\n",
@@ -844,7 +863,7 @@
 							"} "
 						],
 						"outputs": [],
-						"execution_count": 124
+						"execution_count": 140
 					},
 					{
 						"cell_type": "code",
@@ -870,7 +889,7 @@
 							"dfSchema.printSchema() "
 						],
 						"outputs": [],
-						"execution_count": 125
+						"execution_count": 141
 					},
 					{
 						"cell_type": "code",
