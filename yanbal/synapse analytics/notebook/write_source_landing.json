@@ -1,6 +1,9 @@
 {
-	"name": "Write to Landing",
+	"name": "write_source_landing",
 	"properties": {
+		"folder": {
+			"name": "landing"
+		},
 		"nbformat": 4,
 		"nbformat_minor": 2,
 		"bigDataPool": {
@@ -17,7 +20,7 @@
 				"spark.dynamicAllocation.enabled": "false",
 				"spark.dynamicAllocation.minExecutors": "2",
 				"spark.dynamicAllocation.maxExecutors": "2",
-				"spark.autotune.trackingId": "08edba0c-4d63-431c-adc4-69478dfb9614"
+				"spark.autotune.trackingId": "3549fcc8-587c-4474-8ee3-ff9ca7ffa270"
 			}
 		},
 		"metadata": {

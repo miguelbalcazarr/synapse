@@ -1,6 +1,9 @@
 {
-	"name": "Aprovisionamiento Staging",
+	"name": "aprovisionamiento_staging",
 	"properties": {
+		"folder": {
+			"name": "staging"
+		},
 		"nbformat": 4,
 		"nbformat_minor": 2,
 		"bigDataPool": {
@@ -17,7 +20,7 @@
 				"spark.dynamicAllocation.enabled": "false",
 				"spark.dynamicAllocation.minExecutors": "2",
 				"spark.dynamicAllocation.maxExecutors": "2",
-				"spark.autotune.trackingId": "1dae21a8-d48d-49ea-9b47-967aeae4560e"
+				"spark.autotune.trackingId": "b3ff23a8-41ae-4206-aef9-cf06bdd541f2"
 			}
 		},
 		"metadata": {

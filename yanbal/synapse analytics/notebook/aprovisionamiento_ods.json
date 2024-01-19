@@ -1,6 +1,9 @@
 {
-	"name": "Aprovisionamiento ODS",
+	"name": "aprovisionamiento_ods",
 	"properties": {
+		"folder": {
+			"name": "ods"
+		},
 		"nbformat": 4,
 		"nbformat_minor": 2,
 		"bigDataPool": {
@@ -17,7 +20,7 @@
 				"spark.dynamicAllocation.enabled": "false",
 				"spark.dynamicAllocation.minExecutors": "2",
 				"spark.dynamicAllocation.maxExecutors": "2",
-				"spark.autotune.trackingId": "357929cf-2507-45b5-8a73-afc81fe75c64"
+				"spark.autotune.trackingId": "93696a23-48d1-4151-b771-1f8ee413b746"
 			}
 		},
 		"metadata": {

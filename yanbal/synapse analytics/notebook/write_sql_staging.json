@@ -1,6 +1,9 @@
 {
-	"name": "Write to Staging",
+	"name": "write_sql_staging",
 	"properties": {
+		"folder": {
+			"name": "staging"
+		},
 		"nbformat": 4,
 		"nbformat_minor": 2,
 		"bigDataPool": {
@@ -17,7 +20,7 @@
 				"spark.dynamicAllocation.enabled": "false",
 				"spark.dynamicAllocation.minExecutors": "2",
 				"spark.dynamicAllocation.maxExecutors": "2",
-				"spark.autotune.trackingId": "879c8c82-9962-4e44-815d-6e974be44d92"
+				"spark.autotune.trackingId": "4b7d5136-ca2b-40ef-b7b4-0896ebb5e149"
 			}
 		},
 		"metadata": {

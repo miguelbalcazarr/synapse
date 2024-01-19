@@ -1,6 +1,9 @@
 {
-	"name": "Write to ODS",
+	"name": "write_staging_ods",
 	"properties": {
+		"folder": {
+			"name": "ods"
+		},
 		"nbformat": 4,
 		"nbformat_minor": 2,
 		"bigDataPool": {
@@ -17,7 +20,7 @@
 				"spark.dynamicAllocation.enabled": "false",
 				"spark.dynamicAllocation.minExecutors": "2",
 				"spark.dynamicAllocation.maxExecutors": "2",
-				"spark.autotune.trackingId": "5e976f72-52a3-429b-b5ef-7a5fe6ac014a"
+				"spark.autotune.trackingId": "93cc1cee-d60d-4ac3-aee5-12e4b9e2b536"
 			}
 		},
 		"metadata": {
