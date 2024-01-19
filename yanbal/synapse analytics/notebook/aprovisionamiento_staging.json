@@ -20,7 +20,7 @@
 				"spark.dynamicAllocation.enabled": "false",
 				"spark.dynamicAllocation.minExecutors": "2",
 				"spark.dynamicAllocation.maxExecutors": "2",
-				"spark.autotune.trackingId": "53830a61-9cae-4d6b-9168-4a4e25493118"
+				"spark.autotune.trackingId": "d5b63cad-df68-4379-a6a2-e0703f01215c"
 			}
 		},
 		"metadata": {
@@ -62,7 +62,8 @@
 						"transient": {
 							"deleting": false
 						}
-					}
+					},
+					"tags": []
 				},
 				"source": [
 					"#database\r\n",
@@ -103,6 +104,27 @@
 			{
 				"cell_type": "code",
 				"metadata": {
+					"jupyter": {
+						"source_hidden": false,
+						"outputs_hidden": false
+					},
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					},
+					"tags": [
+						"parameters"
+					]
+				},
+				"source": [
+					"name_table2 = \"\""
+				],
+				"execution_count": 40
+			},
+			{
+				"cell_type": "code",
+				"metadata": {
 					"collapsed": false
 				},
 				"source": [
@@ -128,9 +150,9 @@
 					"collapsed": false
 				},
 				"source": [
-					"spark.sql(f\"\"\"create table if not exists {name_database}.{name_table} ({schema_table}) using delta location '{location_table}'\"\"\")\r\n",
+					"spark.sql(f\"\"\"create table if not exists {name_database}.{name_table2} ({schema_table}) using delta location '{location_table}'\"\"\")\r\n",
 					"\r\n",
-					"print(f\"Table {name_database}.{name_table} created successfully\")"
+					"print(f\"Table {name_database}.{name_table2} created successfully\")"
 				],
 				"execution_count": 39
 			}
