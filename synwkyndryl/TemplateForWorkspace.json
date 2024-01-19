@@ -282,7 +282,7 @@
 						"spark.dynamicAllocation.enabled": "false",
 						"spark.dynamicAllocation.minExecutors": "2",
 						"spark.dynamicAllocation.maxExecutors": "2",
-						"spark.autotune.trackingId": "f141d637-a8bc-4579-a5bb-afb15a9f1e76"
+						"spark.autotune.trackingId": "94d95734-9189-45ad-9bef-5e0f2ead17bc"
 					}
 				},
 				"metadata": {
@@ -334,7 +334,7 @@
 							"\r\n",
 							"#table\r\n",
 							"name_table = \"SalesOrderHeader2\"\r\n",
-							"location_table = \"abfss://staging@stakyndryl.dfs.core.windows.net/SalesOrderHeader2\"\r\n",
+							"location_table = \"abfss://staging@stakyndryl.dfs.core.windows.net/SalesOrderHeader3\"\r\n",
 							"schema_table = \"\"\"\r\n",
 							"SalesOrderID string,\r\n",
 							"RevisionNumber string,\r\n",
