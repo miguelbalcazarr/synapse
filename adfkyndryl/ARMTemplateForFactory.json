@@ -17,6 +17,84 @@
 	},
 	"resources": [
 		{
+			"name": "[concat(parameters('factoryName'), '/pp_data_parameters')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Notebook1",
+						"type": "SynapseNotebook",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"notebook": {
+								"referenceName": {
+									"value": "aprovisionamiento",
+									"type": "Expression"
+								},
+								"type": "NotebookReference"
+							},
+							"parameters": {
+								"name_database": {
+									"value": "staging",
+									"type": "string"
+								},
+								"location_database": {
+									"value": "abfss://staging@stakyndryl.dfs.core.windows.net/database/staging/",
+									"type": "string"
+								},
+								"name_table": {
+									"value": "SalesOrderHeader5",
+									"type": "string"
+								},
+								"location_table": {
+									"value": "abfss://staging@stakyndryl.dfs.core.windows.net/SalesOrderHeader5",
+									"type": "string"
+								},
+								"schema_table": {
+									"value": "SalesOrderID string,\nRevisionNumber string,\nOrderDate string,\nDueDate string,\nShipDate string,\nStatus string,\nOnlineOrderFlag string,\nSalesOrderNumber string,\nPurchaseOrderNumber string,\nAccountNumber string,    \nCustomerID string,\nShipToAddressID string,\nBillToAddressID string,\nShipMethod string,     \nCreditCardApprovalCode string,\nSubTotal string,\nTaxAmt string,\nFreight string,\nTotalDue string,\nComment string, \nrowguid string,\nModifiedDate string,\nauditDate timestamp",
+									"type": "string"
+								}
+							},
+							"snapshot": true,
+							"sparkPool": {
+								"referenceName": {
+									"value": "kyndryl",
+									"type": "Expression"
+								},
+								"type": "BigDataPoolReference"
+							},
+							"conf": {
+								"spark.dynamicAllocation.enabled": null,
+								"spark.dynamicAllocation.minExecutors": null,
+								"spark.dynamicAllocation.maxExecutors": null
+							},
+							"numExecutors": null
+						},
+						"linkedServiceName": {
+							"referenceName": "lnk_synapse",
+							"type": "LinkedServiceReference"
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/lnk_synapse')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/ppl_data')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
