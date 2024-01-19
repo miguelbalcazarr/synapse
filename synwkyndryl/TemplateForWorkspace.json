@@ -351,7 +351,7 @@
 						"spark.dynamicAllocation.enabled": "false",
 						"spark.dynamicAllocation.minExecutors": "2",
 						"spark.dynamicAllocation.maxExecutors": "2",
-						"spark.autotune.trackingId": "93696a23-48d1-4151-b771-1f8ee413b746"
+						"spark.autotune.trackingId": "b7150271-2f8a-46e6-8aea-0eaf67adefe4"
 					}
 				},
 				"metadata": {
@@ -376,7 +376,8 @@
 						"sparkVersion": "3.3",
 						"nodeCount": 3,
 						"cores": 4,
-						"memory": 28
+						"memory": 28,
+						"automaticScaleJobs": false
 					},
 					"sessionKeepAliveTimeout": 30
 				},
@@ -476,7 +477,7 @@
 						"spark.dynamicAllocation.enabled": "false",
 						"spark.dynamicAllocation.minExecutors": "2",
 						"spark.dynamicAllocation.maxExecutors": "2",
-						"spark.autotune.trackingId": "f8d96a3a-bd5e-4518-bb8a-825a460f34c6"
+						"spark.autotune.trackingId": "371ee08e-7fa0-4b73-895a-49ea0acb3632"
 					}
 				},
 				"metadata": {
@@ -501,8 +502,7 @@
 						"sparkVersion": "3.3",
 						"nodeCount": 3,
 						"cores": 4,
-						"memory": 28,
-						"automaticScaleJobs": false
+						"memory": 28
 					},
 					"sessionKeepAliveTimeout": 30
 				},
@@ -583,7 +583,6 @@
 					},
 					{
 						"cell_type": "code",
-						"metadata": {},
 						"source": [
 							"# ------------------------------------------------------------------------------------------\r\n",
 							"# se lee una query de Azure SQL\r\n",
@@ -748,7 +747,7 @@
 			"dependsOn": []
 		},
 		{
-			"name": "[concat(parameters('workspaceName'), '/write_source_landing')]",
+			"name": "[concat(parameters('workspaceName'), '/write_csv_source_to_landing')]",
 			"type": "Microsoft.Synapse/workspaces/notebooks",
 			"apiVersion": "2019-06-01-preview",
 			"properties": {
@@ -771,7 +770,7 @@
 						"spark.dynamicAllocation.enabled": "false",
 						"spark.dynamicAllocation.minExecutors": "2",
 						"spark.dynamicAllocation.maxExecutors": "2",
-						"spark.autotune.trackingId": "3549fcc8-587c-4474-8ee3-ff9ca7ffa270"
+						"spark.autotune.trackingId": "1a881687-f970-4663-be9d-3a2753639251"
 					}
 				},
 				"metadata": {
@@ -854,7 +853,7 @@
 			"dependsOn": []
 		},
 		{
-			"name": "[concat(parameters('workspaceName'), '/write_sql_staging')]",
+			"name": "[concat(parameters('workspaceName'), '/write_delta_landing_to_staging')]",
 			"type": "Microsoft.Synapse/workspaces/notebooks",
 			"apiVersion": "2019-06-01-preview",
 			"properties": {
@@ -877,7 +876,7 @@
 						"spark.dynamicAllocation.enabled": "false",
 						"spark.dynamicAllocation.minExecutors": "2",
 						"spark.dynamicAllocation.maxExecutors": "2",
-						"spark.autotune.trackingId": "4b7d5136-ca2b-40ef-b7b4-0896ebb5e149"
+						"spark.autotune.trackingId": "e0e58102-7309-464e-aada-531b058862c0"
 					}
 				},
 				"metadata": {
@@ -925,45 +924,6 @@
 						],
 						"outputs": [],
 						"execution_count": 10
-					},
-					{
-						"cell_type": "code",
-						"metadata": {
-							"jupyter": {
-								"source_hidden": false,
-								"outputs_hidden": false
-							},
-							"nteract": {
-								"transient": {
-									"deleting": false
-								}
-							}
-						},
-						"source": [
-							"%run Write to Landing"
-						],
-						"outputs": [],
-						"execution_count": 11
-					},
-					{
-						"cell_type": "code",
-						"metadata": {
-							"jupyter": {
-								"source_hidden": false,
-								"outputs_hidden": false
-							},
-							"nteract": {
-								"transient": {
-									"deleting": false
-								}
-							},
-							"collapsed": false
-						},
-						"source": [
-							"%run Aprovisionamiento Staging"
-						],
-						"outputs": [],
-						"execution_count": 12
 					},
 					{
 						"cell_type": "code",
@@ -1030,7 +990,7 @@
 			"dependsOn": []
 		},
 		{
-			"name": "[concat(parameters('workspaceName'), '/write_staging_ods')]",
+			"name": "[concat(parameters('workspaceName'), '/write_delta_staging_to_ods')]",
 			"type": "Microsoft.Synapse/workspaces/notebooks",
 			"apiVersion": "2019-06-01-preview",
 			"properties": {
@@ -1053,7 +1013,7 @@
 						"spark.dynamicAllocation.enabled": "false",
 						"spark.dynamicAllocation.minExecutors": "2",
 						"spark.dynamicAllocation.maxExecutors": "2",
-						"spark.autotune.trackingId": "93cc1cee-d60d-4ac3-aee5-12e4b9e2b536"
+						"spark.autotune.trackingId": "afe0aed2-3174-447a-aff1-c364bb5e6d07"
 					}
 				},
 				"metadata": {
@@ -1101,26 +1061,6 @@
 						],
 						"outputs": [],
 						"execution_count": 4
-					},
-					{
-						"cell_type": "code",
-						"metadata": {
-							"jupyter": {
-								"source_hidden": false,
-								"outputs_hidden": false
-							},
-							"nteract": {
-								"transient": {
-									"deleting": false
-								}
-							},
-							"collapsed": false
-						},
-						"source": [
-							"%run Aprovisionamiento ODS"
-						],
-						"outputs": [],
-						"execution_count": 5
 					},
 					{
 						"cell_type": "code",
