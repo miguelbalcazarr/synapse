@@ -28,7 +28,7 @@
 			"properties": {
 				"activities": [
 					{
-						"name": "aprovisionamiento_staging",
+						"name": "aprovisionamiento",
 						"type": "SynapseNotebook",
 						"dependsOn": [],
 						"policy": {
