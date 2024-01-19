@@ -476,7 +476,7 @@
 						"spark.dynamicAllocation.enabled": "false",
 						"spark.dynamicAllocation.minExecutors": "2",
 						"spark.dynamicAllocation.maxExecutors": "2",
-						"spark.autotune.trackingId": "95a96463-3834-400b-9e60-7bd322037c9e"
+						"spark.autotune.trackingId": "f8d96a3a-bd5e-4518-bb8a-825a460f34c6"
 					}
 				},
 				"metadata": {
@@ -699,10 +699,10 @@
 							"# se escribe delta\r\n",
 							"# ------------------------------------------------------------------------------------------\r\n",
 							"# parametros:\r\n",
-							"#   header : encabezado [True, False]\r\n",
-							"#   delimiter : delimitado [\",\", \"|\", \" \", \";\"]\r\n",
+							"#   df : dataframe a escribir\r\n",
+							"#   mode : modo de escritura [\"append\", \"overwrite\", \"ignore\"]\r\n",
 							"#   container : nombre de contenedor en ADLS\r\n",
-							"#   path : ruta donde se leera el csv [\"abfss://contenedor@nombre_adls.dfs.core.windows.net/?/nombre_tabla\"]\r\n",
+							"#   path : ruta donde se escribira el delta [\"abfss://contenedor@nombre_adls.dfs.core.windows.net/?/nombre_tabla\"]\r\n",
 							"\r\n",
 							"def write_delta(df, mode, container, path):\r\n",
 							"\r\n",
@@ -727,6 +727,13 @@
 							}
 						},
 						"source": [
+							"# ------------------------------------------------------------------------------------------\r\n",
+							"# se lee delta\r\n",
+							"# ------------------------------------------------------------------------------------------\r\n",
+							"# parametros:\r\n",
+							"#   container : nombre de contenedor en ADLS\r\n",
+							"#   path : ruta donde se leera el delta [\"abfss://contenedor@nombre_adls.dfs.core.windows.net/?/nombre_tabla\"]\r\n",
+							"\r\n",
 							"def read_delta(container, path):\r\n",
 							"    df = spark.read.format(\"delta\") \\\r\n",
 							"    .load(f\"abfss://{container}@{storage_account}.dfs.core.windows.net/{path}\")\r\n",
