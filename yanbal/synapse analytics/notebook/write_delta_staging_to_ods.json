@@ -1,5 +1,5 @@
 {
-	"name": "write_staging_ods",
+	"name": "write_delta_staging_to_ods",
 	"properties": {
 		"folder": {
 			"name": "ods"
@@ -20,7 +20,7 @@
 				"spark.dynamicAllocation.enabled": "false",
 				"spark.dynamicAllocation.minExecutors": "2",
 				"spark.dynamicAllocation.maxExecutors": "2",
-				"spark.autotune.trackingId": "93cc1cee-d60d-4ac3-aee5-12e4b9e2b536"
+				"spark.autotune.trackingId": "afe0aed2-3174-447a-aff1-c364bb5e6d07"
 			}
 		},
 		"metadata": {
@@ -68,25 +68,6 @@
 					"%run Utils"
 				],
 				"execution_count": 4
-			},
-			{
-				"cell_type": "code",
-				"metadata": {
-					"jupyter": {
-						"source_hidden": false,
-						"outputs_hidden": false
-					},
-					"nteract": {
-						"transient": {
-							"deleting": false
-						}
-					},
-					"collapsed": false
-				},
-				"source": [
-					"%run Aprovisionamiento ODS"
-				],
-				"execution_count": 5
 			},
 			{
 				"cell_type": "code",

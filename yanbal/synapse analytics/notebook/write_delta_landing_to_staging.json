@@ -1,5 +1,5 @@
 {
-	"name": "write_sql_staging",
+	"name": "write_delta_landing_to_staging",
 	"properties": {
 		"folder": {
 			"name": "staging"
@@ -20,7 +20,7 @@
 				"spark.dynamicAllocation.enabled": "false",
 				"spark.dynamicAllocation.minExecutors": "2",
 				"spark.dynamicAllocation.maxExecutors": "2",
-				"spark.autotune.trackingId": "4b7d5136-ca2b-40ef-b7b4-0896ebb5e149"
+				"spark.autotune.trackingId": "e0e58102-7309-464e-aada-531b058862c0"
 			}
 		},
 		"metadata": {
@@ -68,43 +68,6 @@
 					"%run Utils"
 				],
 				"execution_count": 10
-			},
-			{
-				"cell_type": "code",
-				"metadata": {
-					"jupyter": {
-						"source_hidden": false,
-						"outputs_hidden": false
-					},
-					"nteract": {
-						"transient": {
-							"deleting": false
-						}
-					}
-				},
-				"source": [
-					"%run Write to Landing"
-				],
-				"execution_count": 11
-			},
-			{
-				"cell_type": "code",
-				"metadata": {
-					"jupyter": {
-						"source_hidden": false,
-						"outputs_hidden": false
-					},
-					"nteract": {
-						"transient": {
-							"deleting": false
-						}
-					},
-					"collapsed": false
-				},
-				"source": [
-					"%run Aprovisionamiento Staging"
-				],
-				"execution_count": 12
 			},
 			{
 				"cell_type": "code",

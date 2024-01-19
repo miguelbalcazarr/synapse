@@ -1,5 +1,5 @@
 {
-	"name": "write_source_landing",
+	"name": "write_csv_source_to_landing",
 	"properties": {
 		"folder": {
 			"name": "landing"
@@ -20,7 +20,7 @@
 				"spark.dynamicAllocation.enabled": "false",
 				"spark.dynamicAllocation.minExecutors": "2",
 				"spark.dynamicAllocation.maxExecutors": "2",
-				"spark.autotune.trackingId": "3549fcc8-587c-4474-8ee3-ff9ca7ffa270"
+				"spark.autotune.trackingId": "1a881687-f970-4663-be9d-3a2753639251"
 			}
 		},
 		"metadata": {
