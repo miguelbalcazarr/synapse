@@ -282,7 +282,7 @@
 						"spark.dynamicAllocation.enabled": "false",
 						"spark.dynamicAllocation.minExecutors": "2",
 						"spark.dynamicAllocation.maxExecutors": "2",
-						"spark.autotune.trackingId": "b3ff23a8-41ae-4206-aef9-cf06bdd541f2"
+						"spark.autotune.trackingId": "cb972c5e-bbfe-409c-b45e-b6ac1ba7dcc5"
 					}
 				},
 				"metadata": {
@@ -307,7 +307,8 @@
 						"sparkVersion": "3.3",
 						"nodeCount": 3,
 						"cores": 4,
-						"memory": 28
+						"memory": 28,
+						"automaticScaleJobs": false
 					},
 					"sessionKeepAliveTimeout": 30
 				},
@@ -315,18 +316,66 @@
 					{
 						"cell_type": "code",
 						"metadata": {
-							"microsoft": {
-								"language": "sparksql"
+							"jupyter": {
+								"source_hidden": false,
+								"outputs_hidden": false
 							},
+							"nteract": {
+								"transient": {
+									"deleting": false
+								}
+							}
+						},
+						"source": [
+							"#database\r\n",
+							"name_database = \"staging\"\r\n",
+							"location_database = \"abfss://staging@stakyndryl.dfs.core.windows.net/database/staging/\"\r\n",
+							"\r\n",
+							"#table\r\n",
+							"name_table = \"SalesOrderHeader2\"\r\n",
+							"location_table = \"abfss://staging@stakyndryl.dfs.core.windows.net/SalesOrderHeader2\"\r\n",
+							"schema_table = \"\"\"\r\n",
+							"SalesOrderID string,\r\n",
+							"RevisionNumber string,\r\n",
+							"OrderDate string,\r\n",
+							"DueDate string,\r\n",
+							"ShipDate string,\r\n",
+							"Status string,\r\n",
+							"OnlineOrderFlag string,\r\n",
+							"SalesOrderNumber string,\r\n",
+							"PurchaseOrderNumber string,\r\n",
+							"AccountNumber string,    \r\n",
+							"CustomerID string,\r\n",
+							"ShipToAddressID string,\r\n",
+							"BillToAddressID string,\r\n",
+							"ShipMethod string,     \r\n",
+							"CreditCardApprovalCode string,\r\n",
+							"SubTotal string,\r\n",
+							"TaxAmt string,\r\n",
+							"Freight string,\r\n",
+							"TotalDue string,\r\n",
+							"Comment string, \r\n",
+							"rowguid string,\r\n",
+							"ModifiedDate string,\r\n",
+							"auditDate timestamp\r\n",
+							"\"\"\""
+						],
+						"outputs": [],
+						"execution_count": 37
+					},
+					{
+						"cell_type": "code",
+						"metadata": {
 							"collapsed": false
 						},
 						"source": [
-							"%%sql\r\n",
+							"spark.sql(f\"create database if not exists {name_database} LOCATION '{location_database}'\")\r\n",
 							"\r\n",
-							"create database if not exists staging LOCATION \"abfss://staging@stakyndryl.dfs.core.windows.net/database/staging/\""
+							"print(f\"Database {name_database} created successfully\")\r\n",
+							""
 						],
 						"outputs": [],
-						"execution_count": 2
+						"execution_count": 38
 					},
 					{
 						"cell_type": "code",
@@ -340,44 +389,15 @@
 									"deleting": false
 								}
 							},
-							"microsoft": {
-								"language": "sparksql"
-							},
 							"collapsed": false
 						},
 						"source": [
-							"%%sql\r\n",
+							"spark.sql(f\"\"\"create table if not exists {name_database}.{name_table} ({schema_table}) using delta location '{location_table}'\"\"\")\r\n",
 							"\r\n",
-							"create table if not exists staging.SalesOrderHeader (\r\n",
-							"    SalesOrderID string,\r\n",
-							"\tRevisionNumber string,\r\n",
-							"\tOrderDate string,\r\n",
-							"\tDueDate string,\r\n",
-							"\tShipDate string,\r\n",
-							"\tStatus string,\r\n",
-							"\tOnlineOrderFlag string,\r\n",
-							"\tSalesOrderNumber string,\r\n",
-							"\tPurchaseOrderNumber string,\r\n",
-							"\tAccountNumber string,    \r\n",
-							"\tCustomerID string,\r\n",
-							"\tShipToAddressID string,\r\n",
-							"\tBillToAddressID string,\r\n",
-							"\tShipMethod string,     \r\n",
-							"\tCreditCardApprovalCode string,\r\n",
-							"\tSubTotal string,\r\n",
-							"\tTaxAmt string,\r\n",
-							"\tFreight string,\r\n",
-							"\tTotalDue string,\r\n",
-							"\tComment string, \r\n",
-							"\trowguid string,\r\n",
-							"\tModifiedDate string,\r\n",
-							"\tauditDate timestamp\r\n",
-							")\r\n",
-							"using delta\r\n",
-							"location \"abfss://staging@stakyndryl.dfs.core.windows.net/SalesOrderHeader\""
+							"print(f\"Table {name_database}.{name_table} created successfully\")"
 						],
 						"outputs": [],
-						"execution_count": 3
+						"execution_count": 39
 					}
 				]
 			},
@@ -407,7 +427,7 @@
 						"spark.dynamicAllocation.enabled": "false",
 						"spark.dynamicAllocation.minExecutors": "2",
 						"spark.dynamicAllocation.maxExecutors": "2",
-						"spark.autotune.trackingId": "c85cd59b-0d5e-4273-96a2-d164dc805b62"
+						"spark.autotune.trackingId": "2e4c375b-68ff-4c51-b4b4-478ecb4f82e9"
 					}
 				},
 				"metadata": {
@@ -432,8 +452,7 @@
 						"sparkVersion": "3.3",
 						"nodeCount": 3,
 						"cores": 4,
-						"memory": 28,
-						"automaticScaleJobs": false
+						"memory": 28
 					},
 					"sessionKeepAliveTimeout": 30
 				},
@@ -485,7 +504,6 @@
 					},
 					{
 						"cell_type": "code",
-						"metadata": {},
 						"source": [
 							"def getReadSQL(db, query):\r\n",
 							"    server = mssparkutils.credentials.getSecret('kvkyndryl','azuresqlserver')\r\n",
