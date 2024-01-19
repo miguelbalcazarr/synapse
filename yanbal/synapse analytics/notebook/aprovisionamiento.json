@@ -20,7 +20,7 @@
 				"spark.dynamicAllocation.enabled": "false",
 				"spark.dynamicAllocation.minExecutors": "2",
 				"spark.dynamicAllocation.maxExecutors": "2",
-				"spark.autotune.trackingId": "8e05af49-706c-49aa-ba35-54649b03a38a"
+				"spark.autotune.trackingId": "0112d7cf-0486-4d30-99d8-bc1c59d9f862"
 			}
 		},
 		"metadata": {
@@ -68,11 +68,11 @@
 					]
 				},
 				"source": [
-					"#database\r\n",
+					"# se define parametros de la base de datos\r\n",
 					"name_database = \"\"\r\n",
 					"location_database = \"\"\r\n",
 					"\r\n",
-					"#table\r\n",
+					"# se define parametros de la tabla\r\n",
 					"name_table = \"\"\r\n",
 					"location_table = \"\"\r\n",
 					"schema_table = \"\"\"\"\"\""
@@ -85,6 +85,7 @@
 					"collapsed": false
 				},
 				"source": [
+					"# se crea database\r\n",
 					"spark.sql(f\"create database if not exists {name_database} LOCATION '{location_database}'\")\r\n",
 					"\r\n",
 					"print(f\"Database {name_database} created successfully\")\r\n",
@@ -107,6 +108,7 @@
 					"collapsed": false
 				},
 				"source": [
+					"# se crea tabla\r\n",
 					"spark.sql(f\"\"\"create table if not exists {name_database}.{name_table} ({schema_table}) using delta location '{location_table}'\"\"\")\r\n",
 					"\r\n",
 					"print(f\"Table {name_database}.{name_table} created successfully\")"

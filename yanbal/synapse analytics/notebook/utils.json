@@ -20,7 +20,7 @@
 				"spark.dynamicAllocation.enabled": "false",
 				"spark.dynamicAllocation.minExecutors": "2",
 				"spark.dynamicAllocation.maxExecutors": "2",
-				"spark.autotune.trackingId": "2e4c375b-68ff-4c51-b4b4-478ecb4f82e9"
+				"spark.autotune.trackingId": "e302ba56-1852-4411-8a3a-63b0a9a060a9"
 			}
 		},
 		"metadata": {
@@ -65,7 +65,10 @@
 					}
 				},
 				"source": [
-					"# importacion de librerias\r\n",
+					"# ------------------------------------------------------------------------------------------\r\n",
+					"# se importa de librerias\r\n",
+					"# ------------------------------------------------------------------------------------------\r\n",
+					"\r\n",
 					"from pyspark.sql.functions import *\r\n",
 					"from pyspark.sql.types import *"
 				],
@@ -85,9 +88,34 @@
 					}
 				},
 				"source": [
+					"# ------------------------------------------------------------------------------------------\r\n",
+					"# parametros globales\r\n",
+					"# ------------------------------------------------------------------------------------------\r\n",
+					"\r\n",
+					"storage_account = \"stakyndryl\""
+				],
+				"execution_count": 4
+			},
+			{
+				"cell_type": "code",
+				"metadata": {
+					"jupyter": {
+						"source_hidden": false,
+						"outputs_hidden": false
+					},
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					}
+				},
+				"source": [
+					"# ------------------------------------------------------------------------------------------\r\n",
 					"# (Solo para uso en desarrollo)Borra tabla y path\r\n",
-					"def getDeleteTable(table, folder_path):\r\n",
-					"    spark.sql(f\"drop table {table}\")\r\n",
+					"# ------------------------------------------------------------------------------------------\r\n",
+					"\r\n",
+					"def delete_table(table, folder_path):\r\n",
+					"    spark.sql(f\"drop table if exists {table}\")\r\n",
 					"    \r\n",
 					"    if mssparkutils.fs.exists(folder_path):\r\n",
 					"        mssparkutils.fs.rm(folder_path, True)"
@@ -97,7 +125,14 @@
 			{
 				"cell_type": "code",
 				"source": [
-					"def getReadSQL(db, query):\r\n",
+					"# ------------------------------------------------------------------------------------------\r\n",
+					"# se lee una query de Azure SQL\r\n",
+					"# ------------------------------------------------------------------------------------------\r\n",
+					"# parametros:\r\n",
+					"#   db : nombre de base de datos\r\n",
+					"#   query : query sql\r\n",
+					"\r\n",
+					"def read_sql(db, query):\r\n",
 					"    server = mssparkutils.credentials.getSecret('kvkyndryl','azuresqlserver')\r\n",
 					"    url = f\"{server}{db}\"\r\n",
 					"    user = mssparkutils.credentials.getSecret('kvkyndryl',\"azuresqluser\")\r\n",
@@ -130,13 +165,25 @@
 					}
 				},
 				"source": [
-					"def getWriteCSV(df, path):\r\n",
+					"# ------------------------------------------------------------------------------------------\r\n",
+					"# se escribe csv\r\n",
+					"# ------------------------------------------------------------------------------------------\r\n",
+					"# parametros:\r\n",
+					"#   df : dataframe a escribir\r\n",
+					"#   mode : modo de escritura [\"append\", \"overwrite\", \"ignore\"]\r\n",
+					"#   header : encabezado [True, False]\r\n",
+					"#   delimiter : delimitado [\",\", \"|\", \" \", \";\"]\r\n",
+					"#   container : nombre de contenedor en ADLS\r\n",
+					"#   path : ruta donde se guardará el csv [\"abfss://contenedor@nombre_adls.dfs.core.windows.net/?/nombre_tabla\"]\r\n",
+					"\r\n",
+					"def write_csv(df, mode, header, delimiter,container, path):\r\n",
 					"    df.write.format(\"csv\") \\\r\n",
-					"    .mode(\"overwrite\") \\\r\n",
-					"    .option(\"header\", \"true\") \\\r\n",
-					"    .save(f\"abfss://landing@stakyndryl.dfs.core.windows.net/{path}\")"
+					"    .mode(mode) \\\r\n",
+					"    .option(\"header\", header) \\\r\n",
+					"    .option(\"delimiter\", delimiter) \\\r\n",
+					"    .save(f\"abfss://{container}@{storage_account}.dfs.core.windows.net/{path}\")"
 				],
-				"execution_count": 4
+				"execution_count": 2
 			},
 			{
 				"cell_type": "code",
@@ -152,10 +199,21 @@
 					}
 				},
 				"source": [
-					"def getReadCSV(path):\r\n",
+					"# ------------------------------------------------------------------------------------------\r\n",
+					"# se lee csv\r\n",
+					"# ------------------------------------------------------------------------------------------\r\n",
+					"# parametros:\r\n",
+					"#   header : encabezado [True, False]\r\n",
+					"#   delimiter : delimitado [\",\", \"|\", \" \", \";\"]\r\n",
+					"#   container : nombre de contenedor en ADLS\r\n",
+					"#   path : ruta donde se leera el csv [\"abfss://contenedor@nombre_adls.dfs.core.windows.net/?/nombre_tabla\"]\r\n",
+					"\r\n",
+					"def read_csv(header, delimiter, container, path):\r\n",
 					"    df = spark.read \\\r\n",
-					"    .option(\"header\",True) \\\r\n",
-					"    .csv(f\"abfss://landing@stakyndryl.dfs.core.windows.net/{path}\")\r\n",
+					"    .option(\"header\",header) \\\r\n",
+					"    .option(\"delimiter\",delimiter) \\\r\n",
+					"    .csv(f\"abfss://{container}@{storage_account}.dfs.core.windows.net/{path}\")\r\n",
+					"\r\n",
 					"    return df"
 				],
 				"execution_count": null
@@ -174,11 +232,20 @@
 					}
 				},
 				"source": [
-					"def getWriteDelta(df, mode, container, path):\r\n",
+					"# ------------------------------------------------------------------------------------------\r\n",
+					"# se escribe delta\r\n",
+					"# ------------------------------------------------------------------------------------------\r\n",
+					"# parametros:\r\n",
+					"#   header : encabezado [True, False]\r\n",
+					"#   delimiter : delimitado [\",\", \"|\", \" \", \";\"]\r\n",
+					"#   container : nombre de contenedor en ADLS\r\n",
+					"#   path : ruta donde se leera el csv [\"abfss://contenedor@nombre_adls.dfs.core.windows.net/?/nombre_tabla\"]\r\n",
+					"\r\n",
+					"def write_delta(df, mode, container, path):\r\n",
 					"\r\n",
 					"    df.write.format(\"delta\") \\\r\n",
 					"    .mode(mode) \\\r\n",
-					"    .save(f\"abfss://{container}@stakyndryl.dfs.core.windows.net/{path}\")"
+					"    .save(f\"abfss://{container}@{storage_account}.dfs.core.windows.net/{path}\")"
 				],
 				"execution_count": null
 			},
@@ -196,9 +263,9 @@
 					}
 				},
 				"source": [
-					"def getReadDelta(container, path):\r\n",
+					"def read_delta(container, path):\r\n",
 					"    df = spark.read.format(\"delta\") \\\r\n",
-					"    .load(f\"abfss://{container}@stakyndryl.dfs.core.windows.net/{path}\")\r\n",
+					"    .load(f\"abfss://{container}@{storage_account}.dfs.core.windows.net/{path}\")\r\n",
 					"    \r\n",
 					"    return df"
 				],
