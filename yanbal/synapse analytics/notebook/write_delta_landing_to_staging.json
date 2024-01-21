@@ -20,7 +20,7 @@
 				"spark.dynamicAllocation.enabled": "false",
 				"spark.dynamicAllocation.minExecutors": "2",
 				"spark.dynamicAllocation.maxExecutors": "2",
-				"spark.autotune.trackingId": "e0e58102-7309-464e-aada-531b058862c0"
+				"spark.autotune.trackingId": "38392c43-1a9c-413e-932b-0b60df945a3f"
 			}
 		},
 		"metadata": {
@@ -62,6 +62,33 @@
 						"transient": {
 							"deleting": false
 						}
+					},
+					"tags": [
+						"parameters"
+					]
+				},
+				"source": [
+					"header_csv = \"\"\r\n",
+					"delimiter_csv = \"\"\r\n",
+					"container_csv = \"\"\r\n",
+					"path_csv = \"\"\r\n",
+					"mode_delta = \"\"\r\n",
+					"container_delta = \"\"\r\n",
+					"path_delta = \"\""
+				],
+				"execution_count": null
+			},
+			{
+				"cell_type": "code",
+				"metadata": {
+					"jupyter": {
+						"source_hidden": false,
+						"outputs_hidden": false
+					},
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
 					}
 				},
 				"source": [
@@ -84,7 +111,7 @@
 				},
 				"source": [
 					"#leemos un csv de landing\r\n",
-					"df = getReadCSV(\"SalesOrderHeader\")"
+					"df = read_csv(header_csv, delimiter_csv, container_csv, path_csv)"
 				],
 				"execution_count": 13
 			},
@@ -102,7 +129,7 @@
 					}
 				},
 				"source": [
-					"# se añade marca de tiempo en que se inserto el dato\r\n",
+					"# se añade marca de tiempo\r\n",
 					"df = df.withColumn(\"auditDate\", current_timestamp())"
 				],
 				"execution_count": 14
@@ -122,7 +149,7 @@
 				},
 				"source": [
 					"#escribimos un dataframe en modo append a staging\r\n",
-					"getWriteDelta(df, \"append\", \"staging\", \"SalesOrderHeader\")"
+					"write_delta(df, mode_delta, container_delta, path_delta)"
 				],
 				"execution_count": 15
 			}
