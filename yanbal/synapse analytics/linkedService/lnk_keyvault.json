@@ -1,0 +1,10 @@
+{
+	"name": "lnk_keyvault",
+	"properties": {
+		"annotations": [],
+		"type": "AzureKeyVault",
+		"typeProperties": {
+			"baseUrl": "https://kvkyndryl.vault.azure.net/"
+		}
+	}
+}
