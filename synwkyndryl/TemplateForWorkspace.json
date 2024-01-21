@@ -561,7 +561,7 @@
 						"spark.dynamicAllocation.enabled": "false",
 						"spark.dynamicAllocation.minExecutors": "2",
 						"spark.dynamicAllocation.maxExecutors": "2",
-						"spark.autotune.trackingId": "2520ce58-d312-453a-8a47-c4f4f2916896"
+						"spark.autotune.trackingId": "38e93996-e954-48e3-890b-765c476ee531"
 					}
 				},
 				"metadata": {
@@ -676,12 +676,12 @@
 							"#   query : query sql\r\n",
 							"\r\n",
 							"def read_sql(db, query):\r\n",
-							"    server = mssparkutils.credentials.getSecret('kvkyndryl','azuresqlserver')\r\n",
+							"    server = mssparkutils.credentials.getSecret('kvkyndryl','azuresqlserver', 'lnk_keyvault')\r\n",
 							"    url = f\"{server}{db}\"\r\n",
-							"    user = mssparkutils.credentials.getSecret('kvkyndryl',\"azuresqluser\")\r\n",
+							"    user = mssparkutils.credentials.getSecret('kvkyndryl',\"azuresqluser\", 'lnk_keyvault')\r\n",
 							"    #principal_client_id = mssparkutils.credentials.getSecret('kvkyndryl',\"principalclientid\")\r\n",
 							"    #principal_secret = mssparkutils.credentials.getSecret('kvkyndryl',\"principalsecret\")\r\n",
-							"    password = mssparkutils.credentials.getSecret('kvkyndryl',\"azuresqlpassword\")\r\n",
+							"    password = mssparkutils.credentials.getSecret('kvkyndryl',\"azuresqlpassword\", 'lnk_keyvault')\r\n",
 							"\r\n",
 							"    df = spark.read \\\r\n",
 							"    .format(\"com.microsoft.sqlserver.jdbc.spark\") \\\r\n",
@@ -854,7 +854,7 @@
 						"spark.dynamicAllocation.enabled": "false",
 						"spark.dynamicAllocation.minExecutors": "2",
 						"spark.dynamicAllocation.maxExecutors": "2",
-						"spark.autotune.trackingId": "fb4ec0c0-b389-4d0f-af71-05530337df28"
+						"spark.autotune.trackingId": "9899c70f-5219-4a90-ab01-82a717d4d0d8"
 					}
 				},
 				"metadata": {
