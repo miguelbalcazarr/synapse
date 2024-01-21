@@ -100,7 +100,7 @@
 							"type": "string"
 						},
 						"container_csv": {
-							"value": "stakyndryl",
+							"value": "landing",
 							"type": "string"
 						},
 						"path_csv": {
@@ -112,7 +112,13 @@
 					"sparkPool": {
 						"referenceName": "kyndryl",
 						"type": "BigDataPoolReference"
-					}
+					},
+					"conf": {
+						"spark.dynamicAllocation.enabled": null,
+						"spark.dynamicAllocation.minExecutors": null,
+						"spark.dynamicAllocation.maxExecutors": null
+					},
+					"numExecutors": null
 				}
 			}
 		],
