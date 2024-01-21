@@ -561,7 +561,7 @@
 						"spark.dynamicAllocation.enabled": "false",
 						"spark.dynamicAllocation.minExecutors": "2",
 						"spark.dynamicAllocation.maxExecutors": "2",
-						"spark.autotune.trackingId": "4b1af876-6af1-48b2-9fb5-8ca5cc09387c"
+						"spark.autotune.trackingId": "70c2c404-ee1b-4668-938b-57c3f15885e5"
 					}
 				},
 				"metadata": {
@@ -586,8 +586,7 @@
 						"sparkVersion": "3.3",
 						"nodeCount": 3,
 						"cores": 4,
-						"memory": 28,
-						"automaticScaleJobs": false
+						"memory": 28
 					},
 					"sessionKeepAliveTimeout": 30
 				},
@@ -668,7 +667,6 @@
 					},
 					{
 						"cell_type": "code",
-						"metadata": {},
 						"source": [
 							"# ------------------------------------------------------------------------------------------\r\n",
 							"# se lee una query de Azure SQL\r\n",
@@ -856,7 +854,7 @@
 						"spark.dynamicAllocation.enabled": "false",
 						"spark.dynamicAllocation.minExecutors": "2",
 						"spark.dynamicAllocation.maxExecutors": "2",
-						"spark.autotune.trackingId": "af75d418-885f-4e82-aa01-8f7121b8bce7"
+						"spark.autotune.trackingId": "d1d3acf0-b0f9-4247-96f5-92306a2ac777"
 					}
 				},
 				"metadata": {
@@ -903,7 +901,7 @@
 						"source": [
 							"# se define parametros del notebook\r\n",
 							"name_database = \"\"\r\n",
-							"query = \"select * from SalesLT.SalesOrderHeader\"\r\n",
+							"query = \"\"\r\n",
 							"mode_csv = \"\"\r\n",
 							"header_csv = \"\"\r\n",
 							"delimiter_csv = \"\"\r\n",
