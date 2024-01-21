@@ -20,7 +20,7 @@
 				"spark.dynamicAllocation.enabled": "false",
 				"spark.dynamicAllocation.minExecutors": "2",
 				"spark.dynamicAllocation.maxExecutors": "2",
-				"spark.autotune.trackingId": "6467e90d-57ba-4408-bb63-0b255e57ceae"
+				"spark.autotune.trackingId": "a5bcde2e-002f-4e8c-9909-b1702dfbcc43"
 			}
 		},
 		"metadata": {
@@ -66,22 +66,22 @@
 				},
 				"source": [
 					"# se define parametros del notebook\r\n",
-					"name_database = \"\"\r\n",
-					"query = \"\"\r\n",
+					"name_database = \"kyndryldb\"\r\n",
+					"query = \"select * from SalesLT.SalesOrderHeader\"\r\n",
 					"mode_csv = \"\"\r\n",
 					"header_csv = \"\"\r\n",
 					"delimiter_csv = \"\"\r\n",
 					"container_csv = \"\"\r\n",
 					"path_csv = \"\""
 				],
-				"execution_count": null
+				"execution_count": 1
 			},
 			{
 				"cell_type": "code",
 				"source": [
 					"%run Utils"
 				],
-				"execution_count": 6
+				"execution_count": 2
 			},
 			{
 				"cell_type": "code",
@@ -100,7 +100,7 @@
 					"#leemos una query en azure sql\r\n",
 					"df = read_sql(name_database, query)"
 				],
-				"execution_count": 7
+				"execution_count": 3
 			},
 			{
 				"cell_type": "code",
