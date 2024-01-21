@@ -5,7 +5,14 @@
 			{
 				"name": "aprovisionamiento",
 				"type": "SynapseNotebook",
-				"dependsOn": [],
+				"dependsOn": [
+					{
+						"activity": "write_csv_source_to_landing",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
 				"policy": {
 					"timeout": "0.12:00:00",
 					"retry": 0,
@@ -52,6 +59,60 @@
 						"spark.dynamicAllocation.maxExecutors": null
 					},
 					"numExecutors": null
+				}
+			},
+			{
+				"name": "write_csv_source_to_landing",
+				"type": "SynapseNotebook",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"notebook": {
+						"referenceName": "write_csv_source_to_landing",
+						"type": "NotebookReference"
+					},
+					"parameters": {
+						"name_database": {
+							"value": "kyndryldb",
+							"type": "string"
+						},
+						"query": {
+							"value": "select * from SalesLT.SalesOrderHeader",
+							"type": "string"
+						},
+						"mode_csv": {
+							"value": "overwrite",
+							"type": "string"
+						},
+						"header_csv": {
+							"value": "True",
+							"type": "string"
+						},
+						"delimiter_csv": {
+							"value": "|",
+							"type": "string"
+						},
+						"container_csv": {
+							"value": "stakyndryl",
+							"type": "string"
+						},
+						"path_csv": {
+							"value": "SalesOrderHeader",
+							"type": "string"
+						}
+					},
+					"snapshot": true,
+					"sparkPool": {
+						"referenceName": "kyndryl",
+						"type": "BigDataPoolReference"
+					}
 				}
 			}
 		],

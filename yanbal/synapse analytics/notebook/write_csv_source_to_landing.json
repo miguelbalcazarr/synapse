@@ -20,7 +20,7 @@
 				"spark.dynamicAllocation.enabled": "false",
 				"spark.dynamicAllocation.minExecutors": "2",
 				"spark.dynamicAllocation.maxExecutors": "2",
-				"spark.autotune.trackingId": "1a881687-f970-4663-be9d-3a2753639251"
+				"spark.autotune.trackingId": "83d76947-ad47-483b-9491-01381c676b2d"
 			}
 		},
 		"metadata": {
@@ -53,6 +53,31 @@
 		"cells": [
 			{
 				"cell_type": "code",
+				"metadata": {
+					"jupyter": {
+						"source_hidden": false,
+						"outputs_hidden": false
+					},
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					}
+				},
+				"source": [
+					"# se define parametros del notebook\r\n",
+					"name_database = \"\"\r\n",
+					"query = \"\"\r\n",
+					"mode_csv = \"\"\r\n",
+					"header_csv = \"\"\r\n",
+					"delimiter_csv = \"\"\r\n",
+					"container_csv = \"\"\r\n",
+					"path_csv = \"\""
+				],
+				"execution_count": null
+			},
+			{
+				"cell_type": "code",
 				"source": [
 					"%run Utils"
 				],
@@ -73,7 +98,7 @@
 				},
 				"source": [
 					"#leemos una query en azure sql\r\n",
-					"df = getReadSQL(\"kyndryldb\",\"select * from SalesLT.SalesOrderHeader\")"
+					"df = getReadSQL(name_database, query)"
 				],
 				"execution_count": 7
 			},
@@ -91,8 +116,8 @@
 					}
 				},
 				"source": [
-					"#escribimos en formato csv a landing\r\n",
-					"getWriteCSV(df, \"SalesOrderHeader\")"
+					"#escribimos en formato csv a landing el dataframe que obtuvimos en read_sql()\r\n",
+					"write_csv(df, mode_csv, header_csv, delimiter_csv,container_csv, path_csv)"
 				],
 				"execution_count": 8
 			}
