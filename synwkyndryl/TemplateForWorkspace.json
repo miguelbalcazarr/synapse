@@ -854,7 +854,7 @@
 						"spark.dynamicAllocation.enabled": "false",
 						"spark.dynamicAllocation.minExecutors": "2",
 						"spark.dynamicAllocation.maxExecutors": "2",
-						"spark.autotune.trackingId": "8dc9ff0e-8c7e-41ec-9882-1530eea8142c"
+						"spark.autotune.trackingId": "6eaaee9f-a924-45d9-8adf-57940fc31364"
 					}
 				},
 				"metadata": {
@@ -879,8 +879,7 @@
 						"sparkVersion": "3.3",
 						"nodeCount": 3,
 						"cores": 4,
-						"memory": 28,
-						"automaticScaleJobs": false
+						"memory": 28
 					},
 					"sessionKeepAliveTimeout": 30
 				},
@@ -896,24 +895,26 @@
 								"transient": {
 									"deleting": false
 								}
-							}
+							},
+							"tags": [
+								"parameters"
+							]
 						},
 						"source": [
 							"# se define parametros del notebook\r\n",
-							"#name_database = \"\"\r\n",
-							"#query = \"\"\r\n",
-							"#mode_csv = \"\"\r\n",
-							"#header_csv = \"\"\r\n",
-							"#delimiter_csv = \"\"\r\n",
-							"#container_csv = \"\"\r\n",
-							"#path_csv = \"\""
+							"name_database = \"\"\r\n",
+							"query = \"\"\r\n",
+							"mode_csv = \"\"\r\n",
+							"header_csv = \"\"\r\n",
+							"delimiter_csv = \"\"\r\n",
+							"container_csv = \"\"\r\n",
+							"path_csv = \"\""
 						],
 						"outputs": [],
 						"execution_count": 1
 					},
 					{
 						"cell_type": "code",
-						"metadata": {},
 						"source": [
 							"%run Utils"
 						],
