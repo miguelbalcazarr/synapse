@@ -561,7 +561,7 @@
 						"spark.dynamicAllocation.enabled": "false",
 						"spark.dynamicAllocation.minExecutors": "2",
 						"spark.dynamicAllocation.maxExecutors": "2",
-						"spark.autotune.trackingId": "70c2c404-ee1b-4668-938b-57c3f15885e5"
+						"spark.autotune.trackingId": "2520ce58-d312-453a-8a47-c4f4f2916896"
 					}
 				},
 				"metadata": {
@@ -676,7 +676,7 @@
 							"#   query : query sql\r\n",
 							"\r\n",
 							"def read_sql(db, query):\r\n",
-							"    server = mssparkutils.credentials.getSecret('kvkyndryl','azuresqlserver', '')\r\n",
+							"    server = mssparkutils.credentials.getSecret('kvkyndryl','azuresqlserver')\r\n",
 							"    url = f\"{server}{db}\"\r\n",
 							"    user = mssparkutils.credentials.getSecret('kvkyndryl',\"azuresqluser\")\r\n",
 							"    #principal_client_id = mssparkutils.credentials.getSecret('kvkyndryl',\"principalclientid\")\r\n",
@@ -854,7 +854,7 @@
 						"spark.dynamicAllocation.enabled": "false",
 						"spark.dynamicAllocation.minExecutors": "2",
 						"spark.dynamicAllocation.maxExecutors": "2",
-						"spark.autotune.trackingId": "d1d3acf0-b0f9-4247-96f5-92306a2ac777"
+						"spark.autotune.trackingId": "fb4ec0c0-b389-4d0f-af71-05530337df28"
 					}
 				},
 				"metadata": {
@@ -879,8 +879,7 @@
 						"sparkVersion": "3.3",
 						"nodeCount": 3,
 						"cores": 4,
-						"memory": 28,
-						"automaticScaleJobs": false
+						"memory": 28
 					},
 					"sessionKeepAliveTimeout": 30
 				},
@@ -913,7 +912,6 @@
 					},
 					{
 						"cell_type": "code",
-						"metadata": {},
 						"source": [
 							"%run Utils"
 						],
