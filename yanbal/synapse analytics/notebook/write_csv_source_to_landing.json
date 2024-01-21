@@ -20,7 +20,7 @@
 				"spark.dynamicAllocation.enabled": "false",
 				"spark.dynamicAllocation.minExecutors": "2",
 				"spark.dynamicAllocation.maxExecutors": "2",
-				"spark.autotune.trackingId": "9899c70f-5219-4a90-ab01-82a717d4d0d8"
+				"spark.autotune.trackingId": "85a6510a-2dd9-4a7d-aded-075f64cbbc8e"
 			}
 		},
 		"metadata": {
@@ -66,7 +66,7 @@
 				},
 				"source": [
 					"# se define parametros del notebook\r\n",
-					"name_database = \"\"\r\n",
+					"#name_database = \"\"\r\n",
 					"query = \"\"\r\n",
 					"mode_csv = \"\"\r\n",
 					"header_csv = \"\"\r\n",
