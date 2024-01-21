@@ -8,6 +8,9 @@
 		"synwkyndryl-WorkspaceDefaultSqlServer_connectionString": {
 			"value": "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=tcp:synwkyndryl.sql.azuresynapse.net,1433;Initial Catalog=@{linkedService().DBName}"
 		},
+		"lnk_keyvault_properties_typeProperties_baseUrl": {
+			"value": "https://kvkyndryl.vault.azure.net/"
+		},
 		"synwkyndryl-WorkspaceDefaultStorage_properties_typeProperties_url": {
 			"value": "https://stakyndryl.dfs.core.windows.net"
 		}

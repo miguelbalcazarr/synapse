@@ -12,6 +12,10 @@
 			"metadata": "Secure string for 'connectionString' of 'synwkyndryl-WorkspaceDefaultSqlServer'",
 			"defaultValue": "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=tcp:synwkyndryl.sql.azuresynapse.net,1433;Initial Catalog=@{linkedService().DBName}"
 		},
+		"lnk_keyvault_properties_typeProperties_baseUrl": {
+			"type": "string",
+			"defaultValue": "https://kvkyndryl.vault.azure.net/"
+		},
 		"synwkyndryl-WorkspaceDefaultStorage_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://stakyndryl.dfs.core.windows.net"
@@ -157,6 +161,19 @@
 				"[concat(variables('workspaceId'), '/bigDataPools/kyndryl')]",
 				"[concat(variables('workspaceId'), '/notebooks/write_csv_source_to_landing')]"
 			]
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/lnk_keyvault')]",
+			"type": "Microsoft.Synapse/workspaces/linkedServices",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"annotations": [],
+				"type": "AzureKeyVault",
+				"typeProperties": {
+					"baseUrl": "[parameters('lnk_keyvault_properties_typeProperties_baseUrl')]"
+				}
+			},
+			"dependsOn": []
 		},
 		{
 			"name": "[concat(parameters('workspaceName'), '/synwkyndryl-WorkspaceDefaultSqlServer')]",
@@ -544,7 +561,7 @@
 						"spark.dynamicAllocation.enabled": "false",
 						"spark.dynamicAllocation.minExecutors": "2",
 						"spark.dynamicAllocation.maxExecutors": "2",
-						"spark.autotune.trackingId": "371ee08e-7fa0-4b73-895a-49ea0acb3632"
+						"spark.autotune.trackingId": "4b1af876-6af1-48b2-9fb5-8ca5cc09387c"
 					}
 				},
 				"metadata": {
@@ -569,7 +586,8 @@
 						"sparkVersion": "3.3",
 						"nodeCount": 3,
 						"cores": 4,
-						"memory": 28
+						"memory": 28,
+						"automaticScaleJobs": false
 					},
 					"sessionKeepAliveTimeout": 30
 				},
@@ -650,6 +668,7 @@
 					},
 					{
 						"cell_type": "code",
+						"metadata": {},
 						"source": [
 							"# ------------------------------------------------------------------------------------------\r\n",
 							"# se lee una query de Azure SQL\r\n",
@@ -659,7 +678,7 @@
 							"#   query : query sql\r\n",
 							"\r\n",
 							"def read_sql(db, query):\r\n",
-							"    server = mssparkutils.credentials.getSecret('kvkyndryl','azuresqlserver')\r\n",
+							"    server = mssparkutils.credentials.getSecret('kvkyndryl','azuresqlserver', '')\r\n",
 							"    url = f\"{server}{db}\"\r\n",
 							"    user = mssparkutils.credentials.getSecret('kvkyndryl',\"azuresqluser\")\r\n",
 							"    #principal_client_id = mssparkutils.credentials.getSecret('kvkyndryl',\"principalclientid\")\r\n",
@@ -837,7 +856,7 @@
 						"spark.dynamicAllocation.enabled": "false",
 						"spark.dynamicAllocation.minExecutors": "2",
 						"spark.dynamicAllocation.maxExecutors": "2",
-						"spark.autotune.trackingId": "affb12a8-2052-4582-b864-866c5f488ee7"
+						"spark.autotune.trackingId": "af75d418-885f-4e82-aa01-8f7121b8bce7"
 					}
 				},
 				"metadata": {
@@ -884,7 +903,7 @@
 						"source": [
 							"# se define parametros del notebook\r\n",
 							"name_database = \"\"\r\n",
-							"query = \"\"\r\n",
+							"query = \"select * from SalesLT.SalesOrderHeader\"\r\n",
 							"mode_csv = \"\"\r\n",
 							"header_csv = \"\"\r\n",
 							"delimiter_csv = \"\"\r\n",
@@ -892,7 +911,7 @@
 							"path_csv = \"\""
 						],
 						"outputs": [],
-						"execution_count": null
+						"execution_count": 1
 					},
 					{
 						"cell_type": "code",
@@ -901,7 +920,7 @@
 							"%run Utils"
 						],
 						"outputs": [],
-						"execution_count": 6
+						"execution_count": 2
 					},
 					{
 						"cell_type": "code",
@@ -921,7 +940,7 @@
 							"df = read_sql(name_database, query)"
 						],
 						"outputs": [],
-						"execution_count": 7
+						"execution_count": 3
 					},
 					{
 						"cell_type": "code",
