@@ -29,11 +29,11 @@
 							"type": "string"
 						},
 						"name_table": {
-							"value": "SalesOrderHeader5",
+							"value": "SalesOrderHeader",
 							"type": "string"
 						},
 						"location_table": {
-							"value": "abfss://staging@stakyndryl.dfs.core.windows.net/SalesOrderHeader5",
+							"value": "abfss://staging@stakyndryl.dfs.core.windows.net/SalesOrderHeader",
 							"type": "string"
 						},
 						"schema_table": {
