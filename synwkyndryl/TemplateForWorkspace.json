@@ -30,7 +30,14 @@
 					{
 						"name": "aprovisionamiento",
 						"type": "SynapseNotebook",
-						"dependsOn": [],
+						"dependsOn": [
+							{
+								"activity": "write_csv_source_to_landing",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
 						"policy": {
 							"timeout": "0.12:00:00",
 							"retry": 0,
@@ -54,15 +61,75 @@
 									"type": "string"
 								},
 								"name_table": {
-									"value": "SalesOrderHeader5",
+									"value": "SalesOrderHeader",
 									"type": "string"
 								},
 								"location_table": {
-									"value": "abfss://staging@stakyndryl.dfs.core.windows.net/SalesOrderHeader5",
+									"value": "abfss://staging@stakyndryl.dfs.core.windows.net/SalesOrderHeader",
 									"type": "string"
 								},
 								"schema_table": {
 									"value": "SalesOrderID string,\nRevisionNumber string,\nOrderDate string,\nDueDate string,\nShipDate string,\nStatus string,\nOnlineOrderFlag string,\nSalesOrderNumber string,\nPurchaseOrderNumber string,\nAccountNumber string,    \nCustomerID string,\nShipToAddressID string,\nBillToAddressID string,\nShipMethod string,     \nCreditCardApprovalCode string,\nSubTotal string,\nTaxAmt string,\nFreight string,\nTotalDue string,\nComment string, \nrowguid string,\nModifiedDate string,\nauditDate timestamp",
+									"type": "string"
+								}
+							},
+							"snapshot": true,
+							"sparkPool": {
+								"referenceName": "kyndryl",
+								"type": "BigDataPoolReference"
+							},
+							"conf": {
+								"spark.dynamicAllocation.enabled": null,
+								"spark.dynamicAllocation.minExecutors": null,
+								"spark.dynamicAllocation.maxExecutors": null
+							},
+							"numExecutors": null
+						}
+					},
+					{
+						"name": "write_csv_source_to_landing",
+						"type": "SynapseNotebook",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"notebook": {
+								"referenceName": "write_csv_source_to_landing",
+								"type": "NotebookReference"
+							},
+							"parameters": {
+								"name_database": {
+									"value": "kyndryldb",
+									"type": "string"
+								},
+								"query": {
+									"value": "select * from SalesLT.SalesOrderHeader",
+									"type": "string"
+								},
+								"mode_csv": {
+									"value": "overwrite",
+									"type": "string"
+								},
+								"header_csv": {
+									"value": "True",
+									"type": "string"
+								},
+								"delimiter_csv": {
+									"value": "|",
+									"type": "string"
+								},
+								"container_csv": {
+									"value": "stakyndryl",
+									"type": "string"
+								},
+								"path_csv": {
+									"value": "SalesOrderHeader",
 									"type": "string"
 								}
 							},
@@ -87,7 +154,8 @@
 			},
 			"dependsOn": [
 				"[concat(variables('workspaceId'), '/notebooks/aprovisionamiento')]",
-				"[concat(variables('workspaceId'), '/bigDataPools/kyndryl')]"
+				"[concat(variables('workspaceId'), '/bigDataPools/kyndryl')]",
+				"[concat(variables('workspaceId'), '/notebooks/write_csv_source_to_landing')]"
 			]
 		},
 		{
@@ -226,7 +294,7 @@
 						"spark.dynamicAllocation.enabled": "false",
 						"spark.dynamicAllocation.minExecutors": "2",
 						"spark.dynamicAllocation.maxExecutors": "2",
-						"spark.autotune.trackingId": "0112d7cf-0486-4d30-99d8-bc1c59d9f862"
+						"spark.autotune.trackingId": "6cf5cd57-6118-415b-8aa8-33cbe4102b52"
 					}
 				},
 				"metadata": {
@@ -351,7 +419,7 @@
 						"spark.dynamicAllocation.enabled": "false",
 						"spark.dynamicAllocation.minExecutors": "2",
 						"spark.dynamicAllocation.maxExecutors": "2",
-						"spark.autotune.trackingId": "b7150271-2f8a-46e6-8aea-0eaf67adefe4"
+						"spark.autotune.trackingId": "93696a23-48d1-4151-b771-1f8ee413b746"
 					}
 				},
 				"metadata": {
@@ -376,8 +444,7 @@
 						"sparkVersion": "3.3",
 						"nodeCount": 3,
 						"cores": 4,
-						"memory": 28,
-						"automaticScaleJobs": false
+						"memory": 28
 					},
 					"sessionKeepAliveTimeout": 30
 				},
@@ -477,7 +544,7 @@
 						"spark.dynamicAllocation.enabled": "false",
 						"spark.dynamicAllocation.minExecutors": "2",
 						"spark.dynamicAllocation.maxExecutors": "2",
-						"spark.autotune.trackingId": "371ee08e-7fa0-4b73-895a-49ea0acb3632"
+						"spark.autotune.trackingId": "417ec5f5-003a-4cff-a268-2d270bcb6267"
 					}
 				},
 				"metadata": {
@@ -502,7 +569,8 @@
 						"sparkVersion": "3.3",
 						"nodeCount": 3,
 						"cores": 4,
-						"memory": 28
+						"memory": 28,
+						"automaticScaleJobs": false
 					},
 					"sessionKeepAliveTimeout": 30
 				},
@@ -583,6 +651,7 @@
 					},
 					{
 						"cell_type": "code",
+						"metadata": {},
 						"source": [
 							"# ------------------------------------------------------------------------------------------\r\n",
 							"# se lee una query de Azure SQL\r\n",
@@ -770,7 +839,7 @@
 						"spark.dynamicAllocation.enabled": "false",
 						"spark.dynamicAllocation.minExecutors": "2",
 						"spark.dynamicAllocation.maxExecutors": "2",
-						"spark.autotune.trackingId": "1a881687-f970-4663-be9d-3a2753639251"
+						"spark.autotune.trackingId": "f517f8b2-75bc-4b47-b5cc-e3fe140ad597"
 					}
 				},
 				"metadata": {
@@ -795,13 +864,41 @@
 						"sparkVersion": "3.3",
 						"nodeCount": 3,
 						"cores": 4,
-						"memory": 28
+						"memory": 28,
+						"automaticScaleJobs": false
 					},
 					"sessionKeepAliveTimeout": 30
 				},
 				"cells": [
 					{
 						"cell_type": "code",
+						"metadata": {
+							"jupyter": {
+								"source_hidden": false,
+								"outputs_hidden": false
+							},
+							"nteract": {
+								"transient": {
+									"deleting": false
+								}
+							}
+						},
+						"source": [
+							"# se define parametros del notebook\r\n",
+							"name_database = \"\"\r\n",
+							"query = \"\"\r\n",
+							"mode_csv = \"\"\r\n",
+							"header_csv = \"\"\r\n",
+							"delimiter_csv = \"\"\r\n",
+							"container_csv = \"\"\r\n",
+							"path_csv = \"\""
+						],
+						"outputs": [],
+						"execution_count": null
+					},
+					{
+						"cell_type": "code",
+						"metadata": {},
 						"source": [
 							"%run Utils"
 						],
@@ -823,7 +920,7 @@
 						},
 						"source": [
 							"#leemos una query en azure sql\r\n",
-							"df = getReadSQL(\"kyndryldb\",\"select * from SalesLT.SalesOrderHeader\")"
+							"df = getReadSQL(name_database, query)"
 						],
 						"outputs": [],
 						"execution_count": 7
@@ -842,8 +939,8 @@
 							}
 						},
 						"source": [
-							"#escribimos en formato csv a landing\r\n",
-							"getWriteCSV(df, \"SalesOrderHeader\")"
+							"#escribimos en formato csv a landing el dataframe que obtuvimos en read_sql()\r\n",
+							"write_csv(df, mode_csv, header_csv, delimiter_csv,container_csv, path_csv)"
 						],
 						"outputs": [],
 						"execution_count": 8
