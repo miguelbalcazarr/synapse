@@ -129,7 +129,7 @@
 									"type": "string"
 								},
 								"container_csv": {
-									"value": "stakyndryl",
+									"value": "landing",
 									"type": "string"
 								},
 								"path_csv": {
