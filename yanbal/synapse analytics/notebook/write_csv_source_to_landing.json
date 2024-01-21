@@ -20,7 +20,7 @@
 				"spark.dynamicAllocation.enabled": "false",
 				"spark.dynamicAllocation.minExecutors": "2",
 				"spark.dynamicAllocation.maxExecutors": "2",
-				"spark.autotune.trackingId": "83d76947-ad47-483b-9491-01381c676b2d"
+				"spark.autotune.trackingId": "6467e90d-57ba-4408-bb63-0b255e57ceae"
 			}
 		},
 		"metadata": {
@@ -98,7 +98,7 @@
 				},
 				"source": [
 					"#leemos una query en azure sql\r\n",
-					"df = getReadSQL(name_database, query)"
+					"df = read_sql(name_database, query)"
 				],
 				"execution_count": 7
 			},
