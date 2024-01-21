@@ -544,7 +544,7 @@
 						"spark.dynamicAllocation.enabled": "false",
 						"spark.dynamicAllocation.minExecutors": "2",
 						"spark.dynamicAllocation.maxExecutors": "2",
-						"spark.autotune.trackingId": "417ec5f5-003a-4cff-a268-2d270bcb6267"
+						"spark.autotune.trackingId": "371ee08e-7fa0-4b73-895a-49ea0acb3632"
 					}
 				},
 				"metadata": {
@@ -569,8 +569,7 @@
 						"sparkVersion": "3.3",
 						"nodeCount": 3,
 						"cores": 4,
-						"memory": 28,
-						"automaticScaleJobs": false
+						"memory": 28
 					},
 					"sessionKeepAliveTimeout": 30
 				},
@@ -651,7 +650,6 @@
 					},
 					{
 						"cell_type": "code",
-						"metadata": {},
 						"source": [
 							"# ------------------------------------------------------------------------------------------\r\n",
 							"# se lee una query de Azure SQL\r\n",
@@ -839,7 +837,7 @@
 						"spark.dynamicAllocation.enabled": "false",
 						"spark.dynamicAllocation.minExecutors": "2",
 						"spark.dynamicAllocation.maxExecutors": "2",
-						"spark.autotune.trackingId": "f517f8b2-75bc-4b47-b5cc-e3fe140ad597"
+						"spark.autotune.trackingId": "affb12a8-2052-4582-b864-866c5f488ee7"
 					}
 				},
 				"metadata": {
@@ -920,7 +918,7 @@
 						},
 						"source": [
 							"#leemos una query en azure sql\r\n",
-							"df = getReadSQL(name_database, query)"
+							"df = read_sql(name_database, query)"
 						],
 						"outputs": [],
 						"execution_count": 7
