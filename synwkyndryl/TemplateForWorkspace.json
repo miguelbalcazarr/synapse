@@ -854,7 +854,7 @@
 						"spark.dynamicAllocation.enabled": "false",
 						"spark.dynamicAllocation.minExecutors": "2",
 						"spark.dynamicAllocation.maxExecutors": "2",
-						"spark.autotune.trackingId": "9899c70f-5219-4a90-ab01-82a717d4d0d8"
+						"spark.autotune.trackingId": "36e40612-81f0-4b4e-b7f8-5f573281f8f2"
 					}
 				},
 				"metadata": {
@@ -879,7 +879,8 @@
 						"sparkVersion": "3.3",
 						"nodeCount": 3,
 						"cores": 4,
-						"memory": 28
+						"memory": 28,
+						"automaticScaleJobs": false
 					},
 					"sessionKeepAliveTimeout": 30
 				},
@@ -899,7 +900,7 @@
 						},
 						"source": [
 							"# se define parametros del notebook\r\n",
-							"name_database = \"\"\r\n",
+							"#name_database = \"\"\r\n",
 							"query = \"\"\r\n",
 							"mode_csv = \"\"\r\n",
 							"header_csv = \"\"\r\n",
@@ -912,6 +913,7 @@
 					},
 					{
 						"cell_type": "code",
+						"metadata": {},
 						"source": [
 							"%run Utils"
 						],
