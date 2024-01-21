@@ -20,7 +20,7 @@
 				"spark.dynamicAllocation.enabled": "false",
 				"spark.dynamicAllocation.minExecutors": "2",
 				"spark.dynamicAllocation.maxExecutors": "2",
-				"spark.autotune.trackingId": "a5bcde2e-002f-4e8c-9909-b1702dfbcc43"
+				"spark.autotune.trackingId": "54b925ce-bd00-4e11-9980-92b6f6cef2d6"
 			}
 		},
 		"metadata": {
@@ -66,8 +66,8 @@
 				},
 				"source": [
 					"# se define parametros del notebook\r\n",
-					"name_database = \"kyndryldb\"\r\n",
-					"query = \"select * from SalesLT.SalesOrderHeader\"\r\n",
+					"name_database = \"\"\r\n",
+					"query = \"\"\r\n",
 					"mode_csv = \"\"\r\n",
 					"header_csv = \"\"\r\n",
 					"delimiter_csv = \"\"\r\n",
