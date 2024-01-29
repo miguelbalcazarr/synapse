@@ -20,7 +20,7 @@
 				"spark.dynamicAllocation.enabled": "false",
 				"spark.dynamicAllocation.minExecutors": "2",
 				"spark.dynamicAllocation.maxExecutors": "2",
-				"spark.autotune.trackingId": "e0421aaa-e4d1-41f5-b930-10daa2c1a20b"
+				"spark.autotune.trackingId": "e7780868-5c52-4056-a4b9-1e824791a65f"
 			}
 		},
 		"metadata": {
@@ -76,7 +76,7 @@
 					"container_delta = \"staging\"\r\n",
 					"path_delta = \"SalesOrderHeader\""
 				],
-				"execution_count": 1
+				"execution_count": 8
 			},
 			{
 				"cell_type": "code",
@@ -94,7 +94,7 @@
 				"source": [
 					"%run Utils"
 				],
-				"execution_count": 2
+				"execution_count": 9
 			},
 			{
 				"cell_type": "code",
@@ -112,7 +112,7 @@
 				"source": [
 					"%run aprovisionamiento_Copy1"
 				],
-				"execution_count": null
+				"execution_count": 10
 			},
 			{
 				"cell_type": "code",
@@ -131,7 +131,7 @@
 					"#leemos un csv de landing\r\n",
 					"df = read_csv(header_csv, delimiter_csv, container_csv, path_csv)"
 				],
-				"execution_count": 3
+				"execution_count": 11
 			},
 			{
 				"cell_type": "code",
@@ -148,9 +148,9 @@
 				},
 				"source": [
 					"# se añade marca de tiempo\r\n",
-					"df = df.withColumn(\"auditDate\", current_date())"
+					"df = df.withColumn(\"auditDate\", date_format(current_date(), \"yyyyMMdd\").cast('int').alias(\"auditDate\"))"
 				],
-				"execution_count": 4
+				"execution_count": 12
 			},
 			{
 				"cell_type": "code",
@@ -169,7 +169,7 @@
 					"#escribimos un dataframe en modo append a staging\r\n",
 					"write_delta(df, mode_delta, container_delta, path_delta)"
 				],
-				"execution_count": 5
+				"execution_count": 13
 			},
 			{
 				"cell_type": "code",
@@ -187,7 +187,7 @@
 				"source": [
 					"#delete_table(\"staging.SalesOrderHeader\", \"abfss://staging@stakyndryl.dfs.core.windows.net/SalesOrderHeader/\")"
 				],
-				"execution_count": 6
+				"execution_count": 16
 			}
 		]
 	}

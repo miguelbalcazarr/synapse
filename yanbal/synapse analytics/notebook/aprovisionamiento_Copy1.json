@@ -20,7 +20,7 @@
 				"spark.dynamicAllocation.enabled": "false",
 				"spark.dynamicAllocation.minExecutors": "2",
 				"spark.dynamicAllocation.maxExecutors": "2",
-				"spark.autotune.trackingId": "f9a199b5-a38b-46de-b708-89dcb1cdd829"
+				"spark.autotune.trackingId": "87a29d21-5dc0-4b82-9078-e7e0896d73ae"
 			}
 		},
 		"metadata": {
@@ -98,7 +98,7 @@
 					"Comment string, \r\n",
 					"rowguid string,\r\n",
 					"ModifiedDate string,\r\n",
-					"auditDate date\"\"\"\r\n",
+					"auditDate int\"\"\"\r\n",
 					"\r\n",
 					""
 				],
