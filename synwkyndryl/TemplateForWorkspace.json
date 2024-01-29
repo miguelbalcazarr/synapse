@@ -1324,7 +1324,7 @@
 						"spark.dynamicAllocation.enabled": "false",
 						"spark.dynamicAllocation.minExecutors": "2",
 						"spark.dynamicAllocation.maxExecutors": "2",
-						"spark.autotune.trackingId": "3d1ad2a3-bcc4-4f33-93e9-34ceee63ad22"
+						"spark.autotune.trackingId": "028bd2b1-4324-47f7-94ef-cdbbdd4c72e5"
 					}
 				},
 				"metadata": {
@@ -1381,7 +1381,7 @@
 							"path_delta = \"SalesOrderHeader\""
 						],
 						"outputs": [],
-						"execution_count": 8
+						"execution_count": 17
 					},
 					{
 						"cell_type": "code",
@@ -1400,7 +1400,7 @@
 							"%run Utils"
 						],
 						"outputs": [],
-						"execution_count": 9
+						"execution_count": 18
 					},
 					{
 						"cell_type": "code",
@@ -1419,7 +1419,7 @@
 							"%run aprovisionamiento_Copy1"
 						],
 						"outputs": [],
-						"execution_count": 10
+						"execution_count": 19
 					},
 					{
 						"cell_type": "code",
@@ -1439,7 +1439,7 @@
 							"df = read_csv(header_csv, delimiter_csv, container_csv, path_csv)"
 						],
 						"outputs": [],
-						"execution_count": 11
+						"execution_count": 20
 					},
 					{
 						"cell_type": "code",
@@ -1459,7 +1459,7 @@
 							"df = df.withColumn(\"auditDate\", date_format(current_date(), \"yyyyMMdd\").cast('int').alias(\"auditDate\"))"
 						],
 						"outputs": [],
-						"execution_count": 12
+						"execution_count": 21
 					},
 					{
 						"cell_type": "code",
@@ -1479,7 +1479,7 @@
 							"write_delta(df, mode_delta, container_delta, path_delta)"
 						],
 						"outputs": [],
-						"execution_count": 13
+						"execution_count": 22
 					},
 					{
 						"cell_type": "code",
@@ -1498,7 +1498,7 @@
 							"#delete_table(\"staging.SalesOrderHeader\", \"abfss://staging@stakyndryl.dfs.core.windows.net/SalesOrderHeader/\")"
 						],
 						"outputs": [],
-						"execution_count": 16
+						"execution_count": 23
 					}
 				]
 			},
