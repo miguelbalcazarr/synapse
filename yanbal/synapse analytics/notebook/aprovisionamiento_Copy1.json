@@ -20,7 +20,7 @@
 				"spark.dynamicAllocation.enabled": "false",
 				"spark.dynamicAllocation.minExecutors": "2",
 				"spark.dynamicAllocation.maxExecutors": "2",
-				"spark.autotune.trackingId": "87a29d21-5dc0-4b82-9078-e7e0896d73ae"
+				"spark.autotune.trackingId": "cad5d2b6-958d-4c3e-96f5-7fb2ba9e99b6"
 			}
 		},
 		"metadata": {
@@ -139,6 +139,78 @@
 					"print(f\"Table {name_database}.{name_table} created successfully\")"
 				],
 				"execution_count": 39
+			},
+			{
+				"cell_type": "code",
+				"metadata": {
+					"jupyter": {
+						"source_hidden": false,
+						"outputs_hidden": false
+					},
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					}
+				},
+				"source": [
+					"# Especificar la tabla SQL\r\n",
+					"tabla_sql = \"staging.salesorderheader\"\r\n",
+					"\r\n",
+					"# Leer todos los datos de la tabla SQL en un DataFrame\r\n",
+					"df = spark.sql(f\"SELECT * FROM {tabla_sql}\")\r\n",
+					"\r\n",
+					"# Especificar la ruta en el sistema de archivos de Databricks\r\n",
+					"ruta_parquet = \"abfss://staging@stakyndryl.dfs.core.windows.net/parquet/\"\r\n",
+					"ruta_csv = \"abfss://staging@stakyndryl.dfs.core.windows.net/csv/\"\r\n",
+					"\r\n",
+					"# Escribir el DataFrame en formato Parquet con un nombre de archivo específico\r\n",
+					"nombre_archivo_parquet = \"salesorderheader.parquet\"\r\n",
+					"#df = df.repartition(2)\r\n",
+					"df.coalesce(1).write.parquet(ruta_parquet)\r\n",
+					"#df.write.csv(ruta_csv)"
+				],
+				"execution_count": 24
+			},
+			{
+				"cell_type": "code",
+				"metadata": {
+					"jupyter": {
+						"source_hidden": false,
+						"outputs_hidden": false
+					},
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					}
+				},
+				"source": [
+					"ruta_parquet = \"abfss://staging@stakyndryl.dfs.core.windows.net/parquet/data2.parquet\"\r\n",
+					"nueva_ruta = \"abfss://staging@stakyndryl.dfs.core.windows.net/parquet/data3.parquet\"\r\n",
+					"mssparkutils.fs.mv(ruta_parquet,nueva_ruta)"
+				],
+				"execution_count": 26
+			},
+			{
+				"cell_type": "code",
+				"metadata": {
+					"jupyter": {
+						"source_hidden": false,
+						"outputs_hidden": false
+					},
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					},
+					"collapsed": false
+				},
+				"source": [
+					"df = spark.read.parquet(\"abfss://staging@stakyndryl.dfs.core.windows.net/parquet/data.parquet\")\r\n",
+					"display(df)"
+				],
+				"execution_count": 16
 			}
 		]
 	}
