@@ -456,7 +456,7 @@
 						"spark.dynamicAllocation.enabled": "false",
 						"spark.dynamicAllocation.minExecutors": "2",
 						"spark.dynamicAllocation.maxExecutors": "2",
-						"spark.autotune.trackingId": "c7679ea3-415f-4ff5-929b-11cb1fa8b53e"
+						"spark.autotune.trackingId": "cad5d2b6-958d-4c3e-96f5-7fb2ba9e99b6"
 					}
 				},
 				"metadata": {
@@ -481,8 +481,7 @@
 						"sparkVersion": "3.3",
 						"nodeCount": 3,
 						"cores": 4,
-						"memory": 28,
-						"automaticScaleJobs": false
+						"memory": 28
 					},
 					"sessionKeepAliveTimeout": 30
 				},
@@ -778,6 +777,307 @@
 						],
 						"outputs": [],
 						"execution_count": 3
+					}
+				]
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/upsert')]",
+			"type": "Microsoft.Synapse/workspaces/notebooks",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"folder": {
+					"name": "staging"
+				},
+				"nbformat": 4,
+				"nbformat_minor": 2,
+				"bigDataPool": {
+					"referenceName": "kyndryl",
+					"type": "BigDataPoolReference"
+				},
+				"sessionProperties": {
+					"driverMemory": "28g",
+					"driverCores": 4,
+					"executorMemory": "28g",
+					"executorCores": 4,
+					"numExecutors": 2,
+					"conf": {
+						"spark.dynamicAllocation.enabled": "false",
+						"spark.dynamicAllocation.minExecutors": "2",
+						"spark.dynamicAllocation.maxExecutors": "2",
+						"spark.autotune.trackingId": "8c7b4287-cf6c-4989-8f95-18b888dba355"
+					}
+				},
+				"metadata": {
+					"saveOutput": true,
+					"enableDebugMode": false,
+					"kernelspec": {
+						"name": "synapse_pyspark",
+						"display_name": "Synapse PySpark"
+					},
+					"language_info": {
+						"name": "python"
+					},
+					"a365ComputeOptions": {
+						"id": "/subscriptions/e4516ad2-d1ef-463b-817c-b2a88c0b12bd/resourceGroups/rg-kyndryl/providers/Microsoft.Synapse/workspaces/synwkyndryl/bigDataPools/kyndryl",
+						"name": "kyndryl",
+						"type": "Spark",
+						"endpoint": "https://synwkyndryl.dev.azuresynapse.net/livyApi/versions/2019-11-01-preview/sparkPools/kyndryl",
+						"auth": {
+							"type": "AAD",
+							"authResource": "https://dev.azuresynapse.net"
+						},
+						"sparkVersion": "3.3",
+						"nodeCount": 3,
+						"cores": 4,
+						"memory": 28,
+						"automaticScaleJobs": false
+					},
+					"sessionKeepAliveTimeout": 30
+				},
+				"cells": [
+					{
+						"cell_type": "code",
+						"metadata": {
+							"collapsed": false
+						},
+						"source": [
+							"# ------------------------------------------------------------------------------------------\r\n",
+							"# se importa de librerias\r\n",
+							"# ------------------------------------------------------------------------------------------\r\n",
+							"\r\n",
+							"from pyspark.sql.functions import *\r\n",
+							"from pyspark.sql.types import *\r\n",
+							"\r\n",
+							"# Dataframe AccountAddressOne\r\n",
+							"\r\n",
+							"esquema = StructType([\r\n",
+							"    StructField(\"Id\", IntegerType(), True),\r\n",
+							"    StructField(\"Address\", IntegerType(), True),\r\n",
+							"    StructField(\"Account\", IntegerType(), True),\r\n",
+							"    StructField(\"CreationDate\", StringType(), True),\r\n",
+							"    StructField(\"ModifiedDate\", StringType(), True),\r\n",
+							"    StructField(\"ArchiveDate\", StringType(), True)\r\n",
+							"])\r\n",
+							"\r\n",
+							"datos = [\r\n",
+							"    (1, 455193, 1324352, \"2021-11-07 21:53:40\", \"2021-11-07 21:53:40\", None),\r\n",
+							"    (2, 42810, 631004, \"2021-11-07 21:53:40\", \"2021-11-07 21:53:40\", None),\r\n",
+							"    (3, 635692, 1349711, \"2021-11-07 21:53:40\", \"2021-11-07 21:53:40\", None),\r\n",
+							"    (4, 1304644, 933162, \"2021-11-07 21:53:40\", \"2021-11-07 21:53:40\", None),\r\n",
+							"    (5, 2271740, 189057, \"2021-11-07 21:53:40\", \"2021-11-07 21:53:40\", None)\r\n",
+							"]\r\n",
+							"\r\n",
+							"df = spark.createDataFrame(datos, schema = esquema)\r\n",
+							"\r\n",
+							"dfHashed = df.withColumn(\"ModifiedHash\", sha1(concat_ws(\"\", df[\"Id\"].cast(StringType()), df[\"Address\"].cast(StringType()), df[\"Account\"].cast(StringType()))))\r\n",
+							"\r\n",
+							"display(dfHashed)"
+						],
+						"outputs": [],
+						"execution_count": 2
+					},
+					{
+						"cell_type": "code",
+						"metadata": {
+							"jupyter": {
+								"source_hidden": false,
+								"outputs_hidden": false
+							},
+							"nteract": {
+								"transient": {
+									"deleting": false
+								}
+							}
+						},
+						"source": [
+							"dfHashed.write.format(\"delta\").save(\"abfss://staging@stakyndryl.dfs.core.windows.net/AccountAddress/\")"
+						],
+						"outputs": [],
+						"execution_count": 8
+					},
+					{
+						"cell_type": "code",
+						"metadata": {
+							"jupyter": {
+								"source_hidden": false,
+								"outputs_hidden": false
+							},
+							"nteract": {
+								"transient": {
+									"deleting": false
+								}
+							}
+						},
+						"source": [
+							"#mssparkutils.fs.rm(\"abfss://staging@stakyndryl.dfs.core.windows.net/AccountAddress/\",True)"
+						],
+						"outputs": [],
+						"execution_count": 7
+					},
+					{
+						"cell_type": "code",
+						"metadata": {
+							"jupyter": {
+								"source_hidden": false,
+								"outputs_hidden": false
+							},
+							"nteract": {
+								"transient": {
+									"deleting": false
+								}
+							},
+							"microsoft": {
+								"language": "sparksql"
+							},
+							"collapsed": false
+						},
+						"source": [
+							"%%sql\r\n",
+							"\r\n",
+							"create table staging.AccountAddress(\r\n",
+							"    Id int,\r\n",
+							"    Address int,\r\n",
+							"    Account int,\r\n",
+							"    CreationDate string,\r\n",
+							"    ModifiedDate string,\r\n",
+							"    ArchiveDate string,\r\n",
+							"    ModifiedHash string\r\n",
+							")using delta\r\n",
+							"location \"abfss://staging@stakyndryl.dfs.core.windows.net/AccountAddress/\""
+						],
+						"outputs": [],
+						"execution_count": 9
+					},
+					{
+						"cell_type": "code",
+						"metadata": {
+							"jupyter": {
+								"source_hidden": false,
+								"outputs_hidden": false
+							},
+							"nteract": {
+								"transient": {
+									"deleting": false
+								}
+							},
+							"collapsed": false
+						},
+						"source": [
+							"# Dataframe AccountAddressOne\r\n",
+							"\r\n",
+							"esquema = StructType([\r\n",
+							"    StructField(\"Id\", IntegerType(), True),\r\n",
+							"    StructField(\"Address\", IntegerType(), True),\r\n",
+							"    StructField(\"Account\", IntegerType(), True),\r\n",
+							"    StructField(\"CreationDate\", StringType(), True),\r\n",
+							"    StructField(\"ModifiedDate\", StringType(), True),\r\n",
+							"    StructField(\"ArchiveDate\", StringType(), True)\r\n",
+							"])\r\n",
+							"\r\n",
+							"datos = [\r\n",
+							"    (1, 455193, 1324352, \"2021-11-07 21:53:40\", None, None),\r\n",
+							"    (2, 42810, 631004, \"2021-11-07 21:53:40\", \"2021-11-07 21:53:40\", None),\r\n",
+							"    (3, 635692, 1349711, \"2021-11-07 21:53:40\", \"2021-11-07 21:53:40\", None),\r\n",
+							"    (4, 1304644, 933162, \"2021-11-07 21:53:40\", \"2021-11-07 21:53:40\", None),\r\n",
+							"    (5, 2271740, 189057, \"2021-11-07 21:53:40\", \"2021-11-07 21:53:40\", None),\r\n",
+							"    (6, 23232, 11111, \"2021-11-07 21:53:40\", \"2021-11-07 21:53:40\", None)\r\n",
+							"]\r\n",
+							"\r\n",
+							"df2 = spark.createDataFrame(datos, schema = esquema)\r\n",
+							"\r\n",
+							"dfHashed2 = df2.withColumn(\"ModifiedHash\", sha1(concat_ws(\"\", df2[\"Id\"].cast(StringType()), df2[\"Address\"].cast(StringType()), df2[\"Account\"].cast(StringType()))))\r\n",
+							"\r\n",
+							"display(dfHashed2)"
+						],
+						"outputs": [],
+						"execution_count": 22
+					},
+					{
+						"cell_type": "code",
+						"metadata": {
+							"jupyter": {
+								"source_hidden": false,
+								"outputs_hidden": false
+							},
+							"nteract": {
+								"transient": {
+									"deleting": false
+								}
+							}
+						},
+						"source": [
+							"from delta.tables import *\r\n",
+							"\r\n",
+							"deltaTableAccountAddress = DeltaTable.forPath(spark, \"abfss://staging@stakyndryl.dfs.core.windows.net/AccountAddress/\")\r\n",
+							"#deltaTablePeopleUpdates = DeltaTable.forPath(spark, '/tmp/delta/people-10m-updates')\r\n",
+							"\r\n",
+							"dfUpdates = dfHashed2\r\n",
+							"\r\n",
+							"deltaTableAccountAddress.alias('source') \\\r\n",
+							"  .merge(\r\n",
+							"    dfUpdates.alias('updates'),\r\n",
+							"    'source.ModifiedHash = updates.ModifiedHash'\r\n",
+							"  ) \\\r\n",
+							".whenMatchedUpdateAll() \\\r\n",
+							".whenNotMatchedInsertAll() \\\r\n",
+							".execute()"
+						],
+						"outputs": [],
+						"execution_count": 23
+					},
+					{
+						"cell_type": "code",
+						"metadata": {
+							"jupyter": {
+								"source_hidden": false,
+								"outputs_hidden": false
+							},
+							"nteract": {
+								"transient": {
+									"deleting": false
+								}
+							},
+							"microsoft": {
+								"language": "sparksql"
+							},
+							"collapsed": false
+						},
+						"source": [
+							"%%sql\r\n",
+							"\r\n",
+							"select *From staging.AccountAddress\r\n",
+							"order by id"
+						],
+						"outputs": [],
+						"execution_count": 24
+					},
+					{
+						"cell_type": "code",
+						"metadata": {
+							"jupyter": {
+								"source_hidden": false,
+								"outputs_hidden": false
+							},
+							"nteract": {
+								"transient": {
+									"deleting": false
+								}
+							},
+							"microsoft": {
+								"language": "sparksql"
+							},
+							"collapsed": false
+						},
+						"source": [
+							"%%sql\r\n",
+							"\r\n",
+							"select *From staging.AccountAddress\r\n",
+							"order by id"
+						],
+						"outputs": [],
+						"execution_count": 21
 					}
 				]
 			},
